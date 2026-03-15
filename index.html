@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#00778B">
+<link rel="manifest" href="./manifest.json">
+<title>ELCA Daily Prayer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --elca-blue: #00778B;
+  --elca-blue-light: #009BB3;
+  --elca-blue-dark: #005A6A;
+  --elca-red: #CF1920;
+  --bg: #FAFAF8;
+  --bg-card: #FFFFFF;
+  --text: #1a1a1a;
+  --text-secondary: #555;
+  --border: #e0ddd8;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08);
+  --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --radius: 12px;
+  --max-width: 600px;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --bg-card: #1e293b;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --elca-blue-light: #38bdf8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  min-height: 100dvh;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Header */
+.header {
+  background: var(--elca-blue);
+  color: white;
+  padding: 16px 20px;
+  padding-top: max(16px, env(safe-area-inset-top));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header h1 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.header button {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.header button:hover { background: rgba(255,255,255,0.25); }
+
+.back-btn {
+  display: none;
+  background: none !important;
+  font-size: 1.3rem !important;
+}
+
+.back-btn.visible { display: flex; }
+
+/* Main content */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 16px;
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+
+/* Home grid */
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.nav-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  color: var(--text);
+}
+
+.nav-card:hover, .nav-card:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,119,139,0.15);
+  border-color: var(--elca-blue);
+}
+
+.nav-card .icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.nav-card .label {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.nav-card.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Section header */
+.section-label {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--elca-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+/* Content pages */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.page-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--elca-blue);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+[data-theme="dark"] .page-title {
+  color: var(--elca-blue-light);
+}
+
+.page-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.content-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.content-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--elca-blue);
+  margin-bottom: 12px;
+}
+
+[data-theme="dark"] .content-card h3 {
+  color: var(--elca-blue-light);
+}
+
+.content-card p, .content-card li {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.rubric {
+  font-style: italic;
+  color: var(--elca-red);
+  font-size: 0.88rem;
+  margin-bottom: 8px;
+}
+
+[data-theme="dark"] .rubric {
+  color: #f87171;
+}
+
+.prayer-text {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.response {
+  font-weight: 600;
+}
+
+.indent {
+  padding-left: 24px;
+}
+
+.verse-ref {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.commandment-num {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--elca-blue);
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+[data-theme="dark"] .commandment-num {
+  color: var(--elca-blue-light);
+}
+
+.explanation {
+  border-left: 3px solid var(--elca-blue);
+  padding-left: 16px;
+  margin: 8px 0 16px;
+  font-size: 0.93rem;
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .explanation {
+  border-color: var(--elca-blue-light);
+}
+
+/* Readings */
+.reading-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.reading-header {
+  background: var(--elca-blue);
+  color: white;
+  padding: 10px 16px;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reading-header:hover {
+  background: var(--elca-blue-dark);
+}
+
+.reading-body {
+  padding: 16px;
+  display: none;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.reading-body.open {
+  display: block;
+}
+
+.loading {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 20px;
+  font-style: italic;
+}
+
+/* Liturgical season banner */
+.season-banner {
+  background: linear-gradient(135deg, var(--elca-blue), var(--elca-blue-dark));
+  color: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.season-banner .date {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+.season-banner .season {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* Toggle switch for dark mode */
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 12px 0;
+}
+
+/* Daily prayer time selector */
+.time-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.time-tab {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.time-tab.active {
+  border-color: var(--elca-blue);
+  background: var(--elca-blue);
+  color: white;
+}
+
+/* Creed article labels */
+.article-label {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--elca-blue);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 16px;
+  margin-bottom: 4px;
+}
+
+[data-theme="dark"] .article-label {
+  color: var(--elca-blue-light);
+}
+
+/* Cross decoration */
+.cross {
+  color: var(--elca-red);
+  font-size: 1.2em;
+}
+
+[data-theme="dark"] .cross {
+  color: #f87171;
+}
+
+/* Footer */
+.app-footer {
+  text-align: center;
+  padding: 24px 16px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+  margin-top: 24px;
+}
+
+/* Smooth transitions for page navigation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page.active {
+  animation: fadeIn 0.25s ease-out;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <button class="back-btn" onclick="goHome()" aria-label="Back">&#8592;</button>
+    <h1 id="headerTitle">Daily Prayer</h1>
+  </div>
+  <div class="header-actions">
+    <button onclick="toggleDarkMode()" aria-label="Toggle dark mode" id="darkBtn">&#9789;</button>
+  </div>
+</div>
+
+<!-- HOME PAGE -->
+<div class="container">
+<div id="page-home" class="page active">
+
+  <div class="season-banner">
+    <div class="date" id="todayDate"></div>
+    <div class="season" id="todaySeason"></div>
+  </div>
+
+  <div class="section-label">Daily Prayer</div>
+  <div class="home-grid">
+    <div class="nav-card" onclick="showPage('morning')">
+      <span class="icon">&#9788;</span>
+      <span class="label">Morning Prayer</span>
+    </div>
+    <div class="nav-card" onclick="showPage('evening')">
+      <span class="icon">&#9790;</span>
+      <span class="label">Evening Prayer</span>
+    </div>
+    <div class="nav-card" onclick="showPage('meals')">
+      <span class="icon">&#127838;</span>
+      <span class="label">Table Blessings</span>
+    </div>
+    <div class="nav-card" onclick="showPage('readings')">
+      <span class="icon">&#128214;</span>
+      <span class="label">Daily Readings</span>
+    </div>
+  </div>
+
+  <div class="section-label">The Catechism</div>
+  <div class="home-grid">
+    <div class="nav-card" onclick="showPage('commandments')">
+      <span class="icon">&#9547;</span>
+      <span class="label">The Ten Commandments</span>
+    </div>
+    <div class="nav-card" onclick="showPage('creed')">
+      <span class="icon">&#9768;</span>
+      <span class="label">Apostles' Creed</span>
+    </div>
+    <div class="nav-card" onclick="showPage('lords-prayer')">
+      <span class="icon">&#128591;</span>
+      <span class="label">The Lord's Prayer</span>
+    </div>
+    <div class="nav-card" onclick="showPage('baptism')">
+      <span class="icon">&#128167;</span>
+      <span class="label">Holy Baptism</span>
+    </div>
+    <div class="nav-card" onclick="showPage('confession')">
+      <span class="icon">&#128156;</span>
+      <span class="label">Confession</span>
+    </div>
+    <div class="nav-card" onclick="showPage('altar')">
+      <span class="icon">&#127863;</span>
+      <span class="label">The Sacrament of the Altar</span>
+    </div>
+  </div>
+
+  <div class="section-label">Creeds &amp; Prayers</div>
+  <div class="home-grid">
+    <div class="nav-card" onclick="showPage('nicene')">
+      <span class="icon">&#9775;</span>
+      <span class="label">Nicene Creed</span>
+    </div>
+    <div class="nav-card" onclick="showPage('table-duties')">
+      <span class="icon">&#128220;</span>
+      <span class="label">Table of Duties</span>
+    </div>
+  </div>
+
+  <div class="app-footer">
+    Scripture from the King James Version (public domain).<br>
+    Catechism text from Luther's Small Catechism (1529).<br>
+    Lectionary readings from the Revised Common Lectionary.
+  </div>
+</div>
+
+<!-- MORNING PRAYER -->
+<div id="page-morning" class="page">
+  <h2 class="page-title">Morning Prayer</h2>
+  <p class="page-subtitle">Luther's Morning Blessing from the Small Catechism</p>
+
+  <div class="content-card">
+    <p class="rubric">In the morning, as soon as you get out of bed, you are to make the sign of the holy cross and say:</p>
+    <p class="prayer-text">"God the Father, Son, and Holy Spirit watch over me. Amen."</p>
+  </div>
+
+  <div class="content-card">
+    <p class="rubric">Then, kneeling or standing, say the Apostles' Creed and the Lord's Prayer. If you wish, you may in addition recite this little prayer as well:</p>
+    <p class="prayer-text">"I give thanks to you, heavenly Father, through Jesus Christ your dear Son, that you have protected me through the night from all harm and danger. I ask that you would also protect me today from sin and all evil, so that my life and actions may please you. Into your hands I commend myself: my body, my soul, and all that is mine. Let your holy angel be with me, so that the wicked foe may have no power over me. Amen."</p>
+  </div>
+
+  <div class="content-card">
+    <p class="rubric">After singing a hymn perhaps (for example, one on the Ten Commandments) or whatever else may serve your devotion, you are to go to your work joyfully.</p>
+  </div>
+
+  <div class="content-card">
+    <h3>The Apostles' Creed</h3>
+    <p class="prayer-text">I believe in God, the Father almighty, creator of heaven and earth.</p>
+    <p class="prayer-text">I believe in Jesus Christ, God's only Son, our Lord, who was conceived by the Holy Spirit, born of the virgin Mary, suffered under Pontius Pilate, was crucified, died, and was buried; he descended to the dead. On the third day he rose again; he ascended into heaven, he is seated at the right hand of the Father, and he will come to judge the living and the dead.</p>
+    <p class="prayer-text">I believe in the Holy Spirit, the holy catholic church, the communion of saints, the forgiveness of sins, the resurrection of the body, and the life everlasting. Amen.</p>
+  </div>
+
+  <div class="content-card">
+    <h3>The Lord's Prayer</h3>
+    <p class="prayer-text">Our Father, who art in heaven, hallowed be thy name, thy kingdom come, thy will be done, on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. For thine is the kingdom, and the power, and the glory, forever and ever. Amen.</p>
+  </div>
+</div>
+
+<!-- EVENING PRAYER -->
+<div id="page-evening" class="page">
+  <h2 class="page-title">Evening Prayer</h2>
+  <p class="page-subtitle">Luther's Evening Blessing from the Small Catechism</p>
+
+  <div class="content-card">
+    <p class="rubric">In the evening, when you go to bed, you are to make the sign of the holy cross and say:</p>
+    <p class="prayer-text">"God the Father, Son, and Holy Spirit watch over me. Amen."</p>
+  </div>
+
+  <div class="content-card">
+    <p class="rubric">Then, kneeling or standing, say the Apostles' Creed and the Lord's Prayer. If you wish, you may in addition recite this little prayer as well:</p>
+    <p class="prayer-text">"I give thanks to you, heavenly Father, through Jesus Christ your dear Son, that you have graciously protected me today. I ask you to forgive me all my sins, where I have done wrong, and graciously to protect me tonight. Into your hands I commend myself: my body, my soul, and all that is mine. Let your holy angel be with me, so that the wicked foe may have no power over me. Amen."</p>
+  </div>
+
+  <div class="content-card">
+    <p class="rubric">Then you are to go to sleep quickly and cheerfully.</p>
+  </div>
+
+  <div class="content-card">
+    <h3>The Apostles' Creed</h3>
+    <p class="prayer-text">I believe in God, the Father almighty, creator of heaven and earth.</p>
+    <p class="prayer-text">I believe in Jesus Christ, God's only Son, our Lord, who was conceived by the Holy Spirit, born of the virgin Mary, suffered under Pontius Pilate, was crucified, died, and was buried; he descended to the dead. On the third day he rose again; he ascended into heaven, he is seated at the right hand of the Father, and he will come to judge the living and the dead.</p>
+    <p class="prayer-text">I believe in the Holy Spirit, the holy catholic church, the communion of saints, the forgiveness of sins, the resurrection of the body, and the life everlasting. Amen.</p>
+  </div>
+
+  <div class="content-card">
+    <h3>The Lord's Prayer</h3>
+    <p class="prayer-text">Our Father, who art in heaven, hallowed be thy name, thy kingdom come, thy will be done, on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. For thine is the kingdom, and the power, and the glory, forever and ever. Amen.</p>
+  </div>
+</div>
+
+<!-- TABLE BLESSINGS -->
+<div id="page-meals" class="page">
+  <h2 class="page-title">Table Blessings</h2>
+  <p class="page-subtitle">The Small Catechism of Martin Luther</p>
+
+  <div class="content-card">
+    <h3>Before the Meal</h3>
+    <p class="rubric">The children and the members of the household are to come devoutly to the table, fold their hands, and recite:</p>
+    <p class="prayer-text">"The eyes of all wait upon you, O Lord, and you give them their food in due season. You open your hand and satisfy the desire of every living creature."</p>
+    <br>
+    <p class="rubric">Then they are to recite the Lord's Prayer and the following prayer:</p>
+    <p class="prayer-text">"Lord God, heavenly Father, bless us and these your gifts, which we receive from your bountiful goodness, through Jesus Christ our Lord. Amen."</p>
+  </div>
+
+  <div class="content-card">
+    <h3>After the Meal</h3>
+    <p class="rubric">Similarly, after eating they should in the same manner fold their hands and recite devoutly:</p>
+    <p class="prayer-text">"Give thanks to the Lord, for the Lord is good, for God's mercy endures forever. God provides food for the cattle and for the young ravens when they cry. God is not impressed by the might of a horse, and has no pleasure in the speed of a runner, but finds pleasure in those who fear the Lord, in those who await God's steadfast love."</p>
+    <br>
+    <p class="rubric">Then recite the Lord's Prayer and the following prayer:</p>
+    <p class="prayer-text">"We give thanks to you, Lord God our Father, through Jesus Christ our Lord for all your benefits, you who live and reign forever. Amen."</p>
+  </div>
+</div>
+
+<!-- DAILY READINGS -->
+<div id="page-readings" class="page">
+  <h2 class="page-title">Daily Readings</h2>
+  <p class="page-subtitle">Revised Common Lectionary</p>
+
+  <div id="readingsContent">
+    <div class="loading">Loading today's readings...</div>
+  </div>
+</div>
+
+<!-- TEN COMMANDMENTS -->
+<div id="page-commandments" class="page">
+  <h2 class="page-title">The Ten Commandments</h2>
+  <p class="page-subtitle">The Small Catechism of Martin Luther</p>
+
+  <div class="content-card" id="cmd1">
+    <span class="commandment-num">The First Commandment</span>
+    <p class="prayer-text">You shall have no other gods.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We are to fear, love, and trust God above all things.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Second Commandment</span>
+    <p class="prayer-text">You shall not make wrongful use of the name of the Lord your God.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We are to fear and love God, so that we do not curse, swear, practice magic, lie, or deceive using God's name, but instead use that very name in every time of need to call on, pray to, praise, and give thanks to God.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Third Commandment</span>
+    <p class="prayer-text">Remember the sabbath day, and keep it holy.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We are to fear and love God, so that we do not despise preaching or God's word, but instead keep that word holy and gladly hear and learn it.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Fourth Commandment</span>
+    <p class="prayer-text">Honor your father and your mother.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We are to fear and love God, so that we neither despise nor anger our parents and others in authority, but instead honor, serve, obey, love, and respect them.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Fifth Commandment</span>
+    <p class="prayer-text">You shall not murder.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We are to fear and love God, so that we neither endanger nor harm the lives of our neighbors, but instead help and support them in all of life's needs.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Sixth Commandment</span>
+    <p class="prayer-text">You shall not commit adultery.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We are to fear and love God, so that we lead pure and decent lives in word and deed, and each of us loves and honors his or her spouse.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Seventh Commandment</span>
+    <p class="prayer-text">You shall not steal.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We are to fear and love God, so that we neither take our neighbors' money or property nor acquire them by using shoddy merchandise or crooked deals, but instead help them to improve and protect their property and income.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Eighth Commandment</span>
+    <p class="prayer-text">You shall not bear false witness against your neighbor.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We are to fear and love God, so that we do not tell lies about our neighbors, betray or slander them, or destroy their reputations. Instead we are to come to their defense, speak well of them, and interpret everything they do in the best possible light.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Ninth Commandment</span>
+    <p class="prayer-text">You shall not covet your neighbor's house.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We are to fear and love God, so that we do not try to trick our neighbors out of their inheritance or property or try to get it for ourselves by claiming to have a legal right to it and the like, but instead be of help and service to them in keeping what is theirs.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Tenth Commandment</span>
+    <p class="prayer-text">You shall not covet your neighbor's wife, or male or female slave, or ox, or donkey, or anything that belongs to your neighbor.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We are to fear and love God, so that we do not entice, force, or steal away from our neighbors their spouses, household workers, or livestock, but instead urge them to stay and fulfill their responsibilities to our neighbors.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Close of the Commandments</span>
+    <p class="prayer-text">What then does God say about all these commandments?</p>
+    <div class="explanation">God says the following: "I, the Lord your God, am a jealous God, punishing children for the iniquity of parents, to the third and the fourth generation of those who reject me, but showing steadfast love to the thousandth generation of those who love me and keep my commandments."<br><br><strong>What is this? or What does this mean?</strong> God threatens to punish all who break these commandments. Therefore we are to fear his wrath and not disobey these commandments. However, God promises grace and every good thing to all those who keep these commandments. Therefore we also are to love and trust him and gladly act according to his commands.</div>
+  </div>
+</div>
+
+<!-- APOSTLES' CREED -->
+<div id="page-creed" class="page">
+  <h2 class="page-title">The Creed</h2>
+  <p class="page-subtitle">The Small Catechism of Martin Luther</p>
+
+  <div class="content-card">
+    <span class="article-label">The First Article: On Creation</span>
+    <p class="prayer-text">I believe in God, the Father almighty, creator of heaven and earth.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> I believe that God has created me together with all that exists. God has given me and still preserves my body and soul: eyes, ears, and all limbs and senses; reason and all mental faculties. In addition, God daily and abundantly provides shoes and clothing, food and drink, house and farm, spouse and children, fields, livestock, and all property&mdash;along with all the necessities and nourishment for this body and life. God protects me against all danger and shields and preserves me from all evil. And all this is done out of pure, fatherly, and divine goodness and mercy, without any merit or worthiness of mine at all! For all of this I owe it to God to thank and praise, serve and obey him. This is most certainly true.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="article-label">The Second Article: On Redemption</span>
+    <p class="prayer-text">I believe in Jesus Christ, God's only Son, our Lord, who was conceived by the Holy Spirit, born of the virgin Mary, suffered under Pontius Pilate, was crucified, died, and was buried; he descended to the dead.* On the third day he rose again; he ascended into heaven, he is seated at the right hand of the Father, and he will come to judge the living and the dead.</p>
+    <p class="verse-ref">*Or, "he descended into hell," another translation of this text in widespread use.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> I believe that Jesus Christ, true God, begotten of the Father in eternity, and also a true human being, born of the virgin Mary, is my Lord. He has redeemed me, a lost and condemned human being. He has purchased and freed me from all sins, from death, and from the power of the devil, not with gold or silver but with his holy, precious blood and with his innocent suffering and death. He has done all this in order that I may belong to him, live under him in his kingdom, and serve him in eternal righteousness, innocence, and blessedness, just as he is risen from the dead and lives and rules eternally. This is most certainly true.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="article-label">The Third Article: On Being Made Holy</span>
+    <p class="prayer-text">I believe in the Holy Spirit, the holy catholic church, the communion of saints, the forgiveness of sins, the resurrection of the body, and the life everlasting.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> I believe that by my own understanding or strength I cannot believe in Jesus Christ my Lord or come to him, but instead the Holy Spirit has called me through the gospel, enlightened me with his gifts, made me holy and kept me in the true faith, just as he calls, gathers, enlightens, and makes holy the whole Christian church on earth and keeps it with Jesus Christ in the one common, true faith. Daily in this Christian church the Holy Spirit abundantly forgives all sins&mdash;mine and those of all believers. On the last day the Holy Spirit will raise me and all the dead and will give to me and all believers in Christ eternal life. This is most certainly true.</div>
+  </div>
+</div>
+
+<!-- LORD'S PRAYER -->
+<div id="page-lords-prayer" class="page">
+  <h2 class="page-title">The Lord's Prayer</h2>
+  <p class="page-subtitle">The Small Catechism of Martin Luther</p>
+
+  <div class="content-card">
+    <span class="commandment-num">Introduction</span>
+    <p class="prayer-text" style="text-align:center">Our Father in heaven.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> With these words God wants to attract us, so that we come to believe he is truly our Father and we are truly his children, in order that we may ask him boldly and with complete confidence, just as loving children ask their loving father.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The First Petition</span>
+    <p class="prayer-text">Hallowed be your name.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> It is true that God's name is holy in itself, but we ask in this prayer that it may also become holy in and among us. <br><br><strong>How does this come about?</strong> Whenever the word of God is taught clearly and purely and we, as God's children, also live holy lives according to it. To this end help us, dear Father in heaven! However, whoever teaches and lives otherwise than the word of God teaches, dishonors the name of God among us. Preserve us from this, heavenly Father!</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Second Petition</span>
+    <p class="prayer-text">Your kingdom come.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> In fact, God's kingdom comes on its own without our prayer, but we ask in this prayer that it may also come to us. <br><br><strong>How does this come about?</strong> Whenever our heavenly Father gives us his Holy Spirit, so that through the Holy Spirit's grace we believe God's holy word and live godly lives here in time and hereafter in eternity.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Third Petition</span>
+    <p class="prayer-text">Your will be done, on earth as in heaven.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> In fact, God's good and gracious will comes about without our prayer, but we ask in this prayer that it may also come about in and among us. <br><br><strong>How does this come about?</strong> Whenever God breaks and hinders every evil scheme and will&mdash;as are present in the will of the devil, the world, and our flesh&mdash;that would not allow us to hallow God's name and would prevent the coming of his kingdom, and instead whenever God strengthens us and keeps us steadfast in his word and in faith until the end of our lives. This is God's gracious and good will.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Fourth Petition</span>
+    <p class="prayer-text">Give us today our daily bread.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> In fact, God gives daily bread without our prayer, even to all evil people, but we ask in this prayer that God cause us to recognize what our daily bread is and to receive it with thanksgiving. <br><br><strong>What then does "daily bread" mean?</strong> Everything included in the necessities and nourishment for our bodies, such as food, drink, clothing, shoes, house, farm, fields, livestock, money, property, an upright spouse, upright children, upright members of the household, upright and faithful rulers, good government, good weather, peace, health, decency, honor, good friends, faithful neighbors, and the like.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Fifth Petition</span>
+    <p class="prayer-text">Forgive us our sins, as we forgive those who sin against us.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We ask in this prayer that our heavenly Father would not regard our sins nor deny these petitions on their account, for we are worthy of nothing for which we ask, nor have we earned it. Instead we ask that God would give us all things by grace, for we daily sin much and indeed deserve only punishment. So, on the other hand, we, too, truly want to forgive heartily and to do good gladly to those who sin against us.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Sixth Petition</span>
+    <p class="prayer-text">Save us from the time of trial.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> It is true that God tempts no one, but we ask in this prayer that God would preserve and keep us, so that the devil, the world, and our flesh may not deceive us or mislead us into false belief, despair, and other great and shameful sins, and that, although we may be attacked by them, we may finally prevail and gain the victory.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">The Seventh Petition</span>
+    <p class="prayer-text">And deliver us from evil.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> We ask in this prayer, as in a summary, that our Father in heaven may deliver us from all kinds of evil&mdash;affecting body or soul, property or reputation&mdash;and at last, when our final hour comes, may grant us a blessed end and take us by grace from this valley of tears to himself in heaven.</div>
+  </div>
+
+  <div class="content-card">
+    <span class="commandment-num">Conclusion</span>
+    <p class="prayer-text">[For the kingdom, the power, and the glory are yours, now and forever.] Amen.</p>
+    <div class="explanation"><strong>What is this? or What does this mean?</strong> That I should be certain that such petitions are acceptable to and heard by our Father in heaven, for he himself commanded us to pray like this and has promised to hear us. "Amen, amen" means "Yes, yes, it is going to come about just like this."</div>
+  </div>
+</div>
+
+<!-- HOLY BAPTISM -->
+<div id="page-baptism" class="page">
+  <h2 class="page-title">The Sacrament of Holy Baptism</h2>
+  <p class="page-subtitle">The Small Catechism of Martin Luther</p>
+
+  <div class="content-card">
+    <h3>I. What is baptism?</h3>
+    <p class="prayer-text">Baptism is not simply plain water. Instead, it is water used according to God's command and connected with God's word.</p>
+    <div class="explanation"><strong>What then is this word of God?</strong> Where our Lord Christ says in Matthew 28, "Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit."</div>
+  </div>
+
+  <div class="content-card">
+    <h3>II. What gifts or benefits does baptism grant?</h3>
+    <p class="prayer-text">It brings about forgiveness of sins, redeems from death and the devil, and gives eternal salvation to all who believe it, as the words and promise of God declare.</p>
+    <div class="explanation"><strong>What are these words and promise of God?</strong> Where our Lord Christ says in Mark 16, "The one who believes and is baptized will be saved; but the one who does not believe will be condemned."</div>
+  </div>
+
+  <div class="content-card">
+    <h3>III. How can water do such great things?</h3>
+    <p class="prayer-text">Clearly the water does not do it, but the word of God, which is with and alongside the water, and faith, which trusts this word of God in the water. For without the word of God the water is plain water and not a baptism, but with the word of God it is a baptism, that is, a grace-filled water of life and a "bath of the new birth in the Holy Spirit."</p>
+    <div class="explanation"><strong>Where is this written?</strong> St. Paul says to Titus in chapter 3, "through the water of rebirth and renewal by the Holy Spirit. This Spirit he poured out on us richly through Jesus Christ our Savior, so that, having been justified by his grace, we might become heirs according to the hope of eternal life. The saying is sure."</div>
+  </div>
+
+  <div class="content-card">
+    <h3>IV. What then is the significance of such a baptism with water?</h3>
+    <p class="prayer-text">It signifies that the old person in us with all sins and evil desires is to be drowned and die through daily sorrow for sin and through repentance, and on the other hand that daily a new person is to come forth and rise up to live before God in righteousness and purity forever.</p>
+    <div class="explanation"><strong>Where is this written?</strong> St. Paul says in Romans 6, "We have been buried with Christ by baptism into death, so that, just as Christ was raised from the dead by the glory of the Father, so we too might walk in newness of life."</div>
+  </div>
+</div>
+
+<!-- CONFESSION -->
+<div id="page-confession" class="page">
+  <h2 class="page-title">Confession</h2>
+  <p class="page-subtitle">The Small Catechism of Martin Luther</p>
+
+  <div class="content-card">
+    <h3>What is confession?</h3>
+    <p class="prayer-text">Confession consists of two parts. One is that we confess our sins. The other is that we receive the absolution, that is, forgiveness, from the pastor as from God himself and by no means doubt but firmly believe that our sins are thereby forgiven before God in heaven.</p>
+  </div>
+
+  <div class="content-card">
+    <h3>Which sins is a person to confess?</h3>
+    <p class="prayer-text">Before God one is to acknowledge the guilt for all sins, even those of which we are not aware, as we do in the Lord's Prayer. However, before the pastor we are to confess only those sins of which we have knowledge and which trouble us.</p>
+    <div class="explanation"><strong>Which sins are these?</strong> Here reflect on your place in life in light of the Ten Commandments: whether you are father, mother, son, daughter, master, mistress, servant; whether you have been disobedient, unfaithful, lazy; whether you have harmed anyone by word or deed; whether you have stolen, neglected, wasted, or injured anything.</div>
+  </div>
+</div>
+
+<!-- SACRAMENT OF THE ALTAR -->
+<div id="page-altar" class="page">
+  <h2 class="page-title">The Sacrament of the Altar</h2>
+  <p class="page-subtitle">The Small Catechism of Martin Luther</p>
+
+  <div class="content-card">
+    <h3>What is the Sacrament of the Altar?</h3>
+    <p class="prayer-text">It is the true body and blood of our Lord Jesus Christ under the bread and wine, instituted by Christ himself for us Christians to eat and to drink.</p>
+    <div class="explanation"><strong>Where is this written?</strong> The holy evangelists Matthew, Mark, and Luke, and St. Paul write thus: "In the night in which he was betrayed, our Lord Jesus took bread, and gave thanks; broke it, and gave it to his disciples, saying: Take and eat; this is my body, given for you. Do this for the remembrance of me. Again, after supper, he took the cup, gave thanks, and gave it for all to drink, saying: This cup is the new covenant in my blood, shed for you and for all people for the forgiveness of sin. Do this for the remembrance of me."</div>
+  </div>
+
+  <div class="content-card">
+    <h3>What is the benefit of such eating and drinking?</h3>
+    <p class="prayer-text">The words "given for you" and "shed for you for the forgiveness of sin" show us that forgiveness of sin, life, and salvation are given to us in the sacrament through these words, because where there is forgiveness of sin, there is also life and salvation.</p>
+  </div>
+
+  <div class="content-card">
+    <h3>How can bodily eating and drinking do such a great thing?</h3>
+    <p class="prayer-text">Eating and drinking certainly do not do it, but rather the words that are recorded: "given for you" and "shed for you for the forgiveness of sin." These words, when accompanied by the physical eating and drinking, are the essential thing in the sacrament, and whoever believes these very words has what they declare and state, namely, "forgiveness of sin."</p>
+  </div>
+
+  <div class="content-card">
+    <h3>Who, then, receives this sacrament worthily?</h3>
+    <p class="prayer-text">Fasting and bodily preparation are in fact a fine external discipline, but a person who has faith in these words, "given for you" and "shed for you for the forgiveness of sin," is really worthy and well prepared. However, a person who does not believe these words or doubts them is unworthy and unprepared, because the words "for you" require truly believing hearts.</p>
+  </div>
+</div>
+
+<!-- NICENE CREED -->
+<div id="page-nicene" class="page">
+  <h2 class="page-title">The Nicene Creed</h2>
+  <p class="page-subtitle">The Niceno-Constantinopolitan Creed (A.D. 381)</p>
+
+  <div class="content-card">
+    <p class="prayer-text">We believe in one God,<br>
+    &nbsp;&nbsp;the Father, the Almighty,<br>
+    &nbsp;&nbsp;maker of heaven and earth,<br>
+    &nbsp;&nbsp;of all that is, seen and unseen.</p>
+
+    <p class="prayer-text" style="margin-top:16px">We believe in one Lord, Jesus Christ,<br>
+    &nbsp;&nbsp;the only Son of God,<br>
+    &nbsp;&nbsp;eternally begotten of the Father,<br>
+    &nbsp;&nbsp;God from God, Light from Light,<br>
+    &nbsp;&nbsp;true God from true God,<br>
+    &nbsp;&nbsp;begotten, not made,<br>
+    &nbsp;&nbsp;of one Being with the Father;<br>
+    &nbsp;&nbsp;through him all things were made.<br>
+    For us and for our salvation<br>
+    &nbsp;&nbsp;he came down from heaven,<br>
+    &nbsp;&nbsp;was incarnate of the Holy Spirit and the virgin Mary<br>
+    &nbsp;&nbsp;and became truly human.<br>
+    For our sake he was crucified under Pontius Pilate;<br>
+    &nbsp;&nbsp;he suffered death and was buried.<br>
+    On the third day he rose again<br>
+    &nbsp;&nbsp;in accordance with the scriptures;<br>
+    &nbsp;&nbsp;he ascended into heaven<br>
+    &nbsp;&nbsp;and is seated at the right hand of the Father.<br>
+    He will come again in glory to judge the living and the dead,<br>
+    &nbsp;&nbsp;and his kingdom will have no end.</p>
+
+    <p class="prayer-text" style="margin-top:16px">We believe in the Holy Spirit, the Lord, the giver of life,<br>
+    &nbsp;&nbsp;who proceeds from the Father and the Son,<br>
+    &nbsp;&nbsp;who with the Father and the Son is worshiped and glorified,<br>
+    &nbsp;&nbsp;who has spoken through the prophets.<br>
+    We believe in one holy catholic and apostolic church.<br>
+    We acknowledge one baptism for the forgiveness of sins.<br>
+    We look for the resurrection of the dead,<br>
+    &nbsp;&nbsp;and the life of the world to come. Amen.</p>
+  </div>
+
+  <div class="content-card">
+    <h3>Historical Note</h3>
+    <p>This creed was adopted at the First Council of Constantinople in A.D. 381, building upon the creed of the Council of Nicaea (A.D. 325). It is the only creed accepted by all major branches of Christianity&mdash;Eastern Orthodox, Roman Catholic, and Protestant. The <em>filioque</em> clause ("and the Son") was a later Western addition not present in the original Greek text. The ELCA uses the ecumenical English translation shown here.</p>
+  </div>
+</div>
+
+<!-- TABLE OF DUTIES -->
+<div id="page-table-duties" class="page">
+  <h2 class="page-title">Table of Duties</h2>
+  <p class="page-subtitle">Certain passages of Scripture for various holy orders and positions, admonishing them about their duties and responsibilities</p>
+
+  <div class="content-card">
+    <h3>For Bishops, Pastors, and Preachers</h3>
+    <p class="prayer-text">"A bishop must be blameless, the husband of one wife, vigilant, sober, of good behaviour, given to hospitality, apt to teach; not given to wine, no striker, not greedy of filthy lucre; but patient, not a brawler, not covetous."</p>
+    <p class="verse-ref">1 Timothy 3:2-3</p>
+    <br>
+    <p class="prayer-text">"He must hold firm to the trustworthy word as taught, so that he may be able to give instruction in sound doctrine and also to rebuke those who contradict it."</p>
+    <p class="verse-ref">Titus 1:9</p>
+  </div>
+
+  <div class="content-card">
+    <h3>What the Hearers Owe Their Pastors</h3>
+    <p class="prayer-text">"Even so hath the Lord ordained that they which preach the gospel should live of the gospel."</p>
+    <p class="verse-ref">1 Corinthians 9:14</p>
+    <br>
+    <p class="prayer-text">"Let him that is taught in the word communicate unto him that teacheth in all good things."</p>
+    <p class="verse-ref">Galatians 6:6</p>
+    <br>
+    <p class="prayer-text">"Obey them that have the rule over you, and submit yourselves: for they watch for your souls, as they that must give account, that they may do it with joy, and not with grief: for that is unprofitable for you."</p>
+    <p class="verse-ref">Hebrews 13:17</p>
+  </div>
+
+  <div class="content-card">
+    <h3>For Husbands</h3>
+    <p class="prayer-text">"Husbands, love your wives, even as Christ also loved the church, and gave himself for it."</p>
+    <p class="verse-ref">Ephesians 5:25</p>
+    <br>
+    <p class="prayer-text">"Likewise, ye husbands, dwell with them according to knowledge, giving honour unto the wife, as unto the weaker vessel, and as being heirs together of the grace of life; that your prayers be not hindered."</p>
+    <p class="verse-ref">1 Peter 3:7</p>
+  </div>
+
+  <div class="content-card">
+    <h3>For Wives</h3>
+    <p class="prayer-text">"Wives, submit yourselves unto your own husbands, as unto the Lord."</p>
+    <p class="verse-ref">Ephesians 5:22</p>
+    <br>
+    <p class="prayer-text">"Even as Sara obeyed Abraham, calling him lord: whose daughters ye are, as long as ye do well, and are not afraid with any amazement."</p>
+    <p class="verse-ref">1 Peter 3:6</p>
+  </div>
+
+  <div class="content-card">
+    <h3>For Parents</h3>
+    <p class="prayer-text">"And, ye fathers, provoke not your children to wrath: but bring them up in the nurture and admonition of the Lord."</p>
+    <p class="verse-ref">Ephesians 6:4</p>
+  </div>
+
+  <div class="content-card">
+    <h3>For Children</h3>
+    <p class="prayer-text">"Children, obey your parents in the Lord: for this is right. Honour thy father and mother; which is the first commandment with promise; that it may be well with thee, and thou mayest live long on the earth."</p>
+    <p class="verse-ref">Ephesians 6:1-3</p>
+  </div>
+
+  <div class="content-card">
+    <h3>For Workers of All Kinds</h3>
+    <p class="prayer-text">"Servants, be obedient to them that are your masters according to the flesh, with fear and trembling, in singleness of your heart, as unto Christ; not with eyeservice, as menpleasers; but as the servants of Christ, doing the will of God from the heart; with good will doing service, as to the Lord, and not to men."</p>
+    <p class="verse-ref">Ephesians 6:5-7</p>
+  </div>
+
+  <div class="content-card">
+    <h3>For Employers and Supervisors</h3>
+    <p class="prayer-text">"And, ye masters, do the same things unto them, forbearing threatening: knowing that your Master also is in heaven; neither is there respect of persons with him."</p>
+    <p class="verse-ref">Ephesians 6:9</p>
+  </div>
+
+  <div class="content-card">
+    <h3>For All in Common</h3>
+    <p class="prayer-text">"Thou shalt love thy neighbour as thyself. Herein are all the commandments briefly comprehended."</p>
+    <p class="verse-ref">Romans 13:9</p>
+    <br>
+    <p class="prayer-text">"I exhort therefore, that, first of all, supplications, prayers, intercessions, and giving of thanks, be made for all men."</p>
+    <p class="verse-ref">1 Timothy 2:1</p>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<script>
+// ==========================================
+// APP STATE AND NAVIGATION
+// ==========================================
+let currentPage = 'home';
+
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + pageId);
+  if (page) {
+    page.classList.add('active');
+    currentPage = pageId;
+    document.querySelector('.back-btn').classList.toggle('visible', pageId !== 'home');
+    document.getElementById('headerTitle').textContent =
+      pageId === 'home' ? 'Daily Prayer' : page.querySelector('.page-title')?.textContent || 'Daily Prayer';
+    window.scrollTo(0, 0);
+
+    if (pageId === 'readings') loadReadings();
+  }
+}
+
+function goHome() {
+  showPage('home');
+}
+
+// ==========================================
+// DARK MODE
+// ==========================================
+function toggleDarkMode() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('darkBtn').textContent = isDark ? '\u263D' : '\u2600';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+
+// Load saved theme
+(function() {
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('darkBtn').textContent = '\u2600';
+  }
+})();
+
+// ==========================================
+// LITURGICAL CALENDAR
+// ==========================================
+function getEasterDate(year) {
+  // Anonymous Gregorian algorithm
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(year, month - 1, day);
+}
+
+function getAdventStart(year) {
+  // Advent starts 4 Sundays before Christmas
+  const christmas = new Date(year, 11, 25);
+  const dayOfWeek = christmas.getDay();
+  const daysToSunday = dayOfWeek === 0 ? 7 : dayOfWeek;
+  const advent4 = new Date(year, 11, 25 - daysToSunday);
+  return new Date(advent4.getFullYear(), advent4.getMonth(), advent4.getDate() - 21);
+}
+
+function getLiturgicalInfo(date) {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  const easter = getEasterDate(year);
+  const daysSinceEaster = Math.floor((date - easter) / 86400000);
+  const adventStart = getAdventStart(year);
+  const prevAdventStart = getAdventStart(year - 1);
+
+  // Determine liturgical year (A, B, C based on the year Advent starts)
+  const adventYear = date >= adventStart ? year : year - 1;
+  const yearLetter = ['A', 'B', 'C'][adventYear % 3];
+
+  // Determine season
+  let season = '';
+  let color = '';
+
+  if (date >= adventStart || date < new Date(year, 0, 6)) {
+    if (month === 11 && day >= 25) {
+      season = 'Christmas';
+      color = 'white';
+    } else if (month === 0 && day < 6) {
+      season = 'Christmas';
+      color = 'white';
+    } else {
+      season = 'Advent';
+      color = 'blue';
+    }
+  } else if (month === 0 && day === 6) {
+    season = 'Epiphany of Our Lord';
+    color = 'white';
+  } else if (daysSinceEaster >= -46 && daysSinceEaster < 0) {
+    if (daysSinceEaster >= -7) {
+      season = 'Holy Week';
+    } else {
+      season = 'Lent';
+    }
+    color = 'purple';
+  } else if (daysSinceEaster === 0) {
+    season = 'Easter Sunday';
+    color = 'white';
+  } else if (daysSinceEaster > 0 && daysSinceEaster <= 49) {
+    season = 'Easter';
+    color = 'white';
+  } else if (daysSinceEaster === 49) {
+    season = 'Pentecost';
+    color = 'red';
+  } else if (date >= new Date(year, 0, 7) && daysSinceEaster < -46) {
+    season = 'Time after Epiphany';
+    color = 'green';
+  } else {
+    season = 'Time after Pentecost';
+    color = 'green';
+  }
+
+  // Special days
+  if (daysSinceEaster === -46) season = 'Ash Wednesday';
+  if (daysSinceEaster === -7) season = 'Palm Sunday';
+  if (daysSinceEaster === -3) season = 'Maundy Thursday';
+  if (daysSinceEaster === -2) season = 'Good Friday';
+  if (daysSinceEaster === -1) season = 'Holy Saturday';
+  if (daysSinceEaster === 39) season = 'Ascension of Our Lord';
+  if (daysSinceEaster === 49) season = 'Day of Pentecost';
+  if (daysSinceEaster === 56) season = 'Holy Trinity';
+
+  return { season, color, yearLetter };
+}
+
+// ==========================================
+// ELW DAILY LECTIONARY DATA (OCR'd from ELW pp. 1121-1153)
+// ==========================================
+const DAILY_LECTIONARY = {"A":{"advent_4":{"Th":["Psalm 122","Daniel 9:15-19","James 4:1-10","Psalm 80:1-7,17-19","2 Samuel 7:1-17","Galatians 3:23-29"],"F":["Psalm 122","Genesis 6:1-10","Hebrews 11:1-7","Psalm 80:1-7, 17-19","2 Samuel 7:18-22","Galatians 4:1-7"],"Sa":["Psalm 122","Genesis 6:11-22","Matthew 24:1-22","Psalm 80:1-7,17-19","2 Samuel 7:23-29","John 3:31-36"],"M":["Psalm 124","Genesis 8:1-19","Romans 6:1-11","1 Samuel 2:1-10","Genesis 17:15-22","Galatians 4:8-20"],"Tu":["Psalm 124","Genesis 9:1-17","Hebrews 11:32-40","Isaiah 54:1-10","Matthew 24:23-35","1 Samuel 2:1-10","Genesis 21:1-21","Galatians 4:21-5:1"],"W":["1 Samuel 2:1-10","Genesis 37:2-11","Matthew 1:1-17"]},"advent_2":{"Th":["Psalm 72:1-7, 18-19","Isaiah 4:2-6","Acts 1:12-17,21-26"],"F":["Psalm 72:1-7,18-19","Isaiah 30:19-26","Acts 13:16-25"],"Sa":["Psalm 72:1-7, 18-19","Isaiah 40:1-11","John 1:19-28"],"M":["Psalm 21","Isaiah 24:1-16a","1 Thessalonians 4:1-12"],"Tu":["Psalm 21","Isaiah 41:14-20","Romans 15:14-21"],"W":["Psalm 21","Genesis 15:1-18","Matthew 12:33-37"]},"advent_3":{"Th":["Psalm 146:5-10","Ruth 1:6-18","2 Peter 3:1-10"],"F":["Psalm 146:5-10","Ruth 4:13-17","2 Peter 3:11-18"],"Sa":["Psalm 146:5-10","1 Samuel 2:1-8","Luke 3:1-18"],"M":["Psalm 42","Isaiah 29:17-24","Acts 5:12-16"],"Tu":["Psalm 42","Ezekiel 47:1-12","Jude 17-25","Zechariah 8:1-17","Matthew 8:14-17, 28-34"]},"epiphany_4":{"Th":["Psalm 29","1 Samuel 3:1-9","Acts 9:1-9"],"F":["Psalm 29","1 Samuel 3:10-4:1a","Acts 9:10-19a"],"Sa":["Psalm29","1 Samuel 7:3-17","Acts 9:19b-31"],"Tu":["Psalm 89:5-37","Jeremiah 1:4-10","Acts 8:4-13"],"W":["Psalm 89:5-37","Isaiah 51:1-16","Matthew 12:15-21","Psalm 37:1-17","Ruth 3:1-13; 4:13-22","Luke 6:17-26"],"M":["Psalm 37:1-17","Ruth 1:1-18","Philemon 1-25","Ruth 2:1-16","James 5:1-6"]},"epiphany_2":{"Th":["Psalm 40:1-11","Isaiah 22:15-25","Galatians 1:6-12"],"F":["Psalm 40:1-11","Genesis 27:30-38","Acts 1:1-5"],"Sa":["Psalm 40:1-11","1 Kings 19:19-21","Luke 5:1-11"],"Tu":["Psalm 40:6-17","Isaiah 53:1-12","Hebrews 10:1-4"],"W":["Psalm 40:6-17","Isaiah 48:12-21","Matthew 9:14-17"]},"epiphany_3":{"Th":["Psalm 27:1-6","1 Samuel 1:1-20","Galatians 1:11-24"],"F":["Psalm 27:1-6","1 Samuel 9:27-10:8","Galatians 2:1-10"],"Sa":["Psalm 27:1-6","1 Samuel 15:34-16:13","Luke 5:27-32"],"Tu":["Psalm 27:7-14","Judges 7:12-22","Philippians 2:12-18","Genesis 49:1-2, 8-13, 21-26","Luke 1:67-79"]},"epiphany_5":{"M":["Psalm 119:105-112","2 Kings 22:3-20","Romans 11:2-10","2 Kings 23:1-8, 21-25","2 Corinthians 4:1-12"],"W":["Psalm 119:105-112","Proverbs 6:6-23","John 8:12-30"]},"epiphany_6":{"M":["Psalm 119:9-16","Exodus 20:1-21","James 1:2-8"],"Tu":["Psalm 119:9-16","Deuteronomy 23:21-24:4","James 2:1-13","Proverbs 2:1-15","Matthew 19:1-12"]},"epiphany_7":{"Th":["Psalm 119:33-40","Exodus 22:21-27","1 Corinthians 10:23-11:1"],"F":["Psalm 119:33-40","Leviticus 6:1-7","Galatians 5:2-6"],"Sa":["Psalm 119:33-40","Leviticus 24:10-23","Matthew 7:1-12"],"M":["Psalm 119:57-64","Proverbs 25:11-22","Romans 12:9-21"],"Tu":["Psalm 119:57-64","Genesis 31:1-3, 17-50","Hebrews 12:14-16","Proverbs 3:27-35","Luke 18:18-30"]},"epiphany_8":{"Th":["Psalm 131","Proverbs 12:22-28","Philippians 2:19-24","Psalm","Exodus 6:2-9","Hebrews 8:1-7","Exodus 19:9b-25","Hebrews 11:23-28"],"F":["Psalm 131","Isaiah 26:1-6","Philippians 2:25-30"],"Sa":["Psalm 131","Isaiah 31:1-9","Luke 11:14-23","Psalm2","1 Kings 21:20-29","Mark 9:9-13"],"M":["Psalm 104","Deuteronomy 32:1-14","Hebrews 10:32-39","Psalm 78:17-20, 52-55","Exodus 33:7-23"],"Tu":["Psalm 104","1 Kings 17:1-16","1 Corinthians 4:6-21","Isaiah 66:7-13","Luke 12:22-31","Psalm 78:17-20, 52-55","1 Kings 19:9-18","Romans 11:1-6"]},"lent_4":{"Th":["Psalm 51","Jonah 3:1-10","Romans 1:1-7","Psalm 23","1 Samuel 15:10-21","Ephesians 4:25-32"],"F":["Psalm 51","Jonah 4:1-11","Romans 1:8-17","Psalm 23","1 Samuel 15:22-31","Ephesians 5:1-9"],"Sa":["Psalm 51","Isaiah 58:1-12","Matthew 18:1-7","Psalm 23","1 Samuel 15:32-34","John 1:1-9"],"M":["Psalm 32","1 Kings 19:1-8","Hebrews 2:10-18","Psalm 146","Isaiah 59:9-19","Acts 9:1-20"],"Tu":["Psalm 32","Genesis 4:1-16","Hebrews 4:14-5:10","Psalm 146","Isaiah 42:14-21","Colossians 1:9-14"],"W":["Psalm 32","Exodus 34:1-9, 27-28","Matthew 18:10-14","Psalm 146","Isaiah 60:17-22","Matthew 9:27-34"]},"lent_2":{"Th":["Psalm 121","Isaiah 51:1-3"],"F":["Psalm 121","Micah 7:18-20","Romans 3:21-31"],"Sa":["Psalm 121","Isaiah 51:4-8","Luke 7:1-10"],"M":["Psalm 128","Numbers 21:4-9","Hebrews 3:1-6"],"Tu":["Psalm 128","Isaiah 65:17-25","Romans 4:6-13"],"W":["Psalm 128","Ezekiel 36:22-32","John 7:53-8:11"]},"lent_3":{"Th":["Psalm 95","Exodus 16:1-8","Colossians 1:15-23"],"F":["Psalm95","Exodus 16:9-21","Ephesians 2:11-22"],"Sa":["Psalm95","Exodus 16:27-35","John 4:1-6"],"M":["Psalm 81","Genesis 24:1-27","2 John 1-13"],"Tu":["Psalm 81","Genesis 29:1-14","1 Corinthians 10:1-4"],"W":["Psalm 81","Jeremiah 2:4-13","John 7:14-31, 37-39"]},"lent_5":{"Th":["Psalm 130","Ezekiel 1:1-3; 2:3-3:3","Revelation 10:1-11"],"F":["Psalm 130","Ezekiel 33:10-16","Revelation 11:15-19"],"Sa":["Psalm 130","Ezekiel 36:8-15","Luke 24:44-53"],"M":["Psalm 143","1 Kings 17:17-24","Acts 20:7-12"],"Tu":["Psalm 143","2 Kings 4:18-37","Ephesians 2:1-10","Jeremiah 32:1-9, 36-41","Matthew 22:23-33"]},"lent_6":{"Th":["Psalm 31:9-16","1 Samuel 16:11-13","Philippians 1:1-11"],"F":["Psalm 31:9-16","Job 13:13-19","Philippians 1:21-30"],"Sa":["Psalm 31:9-16","Lamentations 3:55-66","Mark 10:32-34"]},"three_days":{"M":["Psalm 118:1-2, 14-24","Exodus 14:10-31; 15:20-21","Colossians 3:5-11"],"Tu":["Psalm 118:1-2, 14-24","Exodus 15:1-18","Colossians 3:12-17","Joshua 3:1-17","Matthew 28:1-10"]},"easter_2":{"Th":["Psalm 16","Song of Solomon 2:8-15.","Colossians 4:2-5"],"F":["Psalm 16","Song of Solomon 5:9-6:3","1 Corinthians 15:1-11"],"Sa":["Psalm 16","Song of Solomon 8:6-7","John 20:11-20"],"M":["Psalm 114 \u2122","Judges 6:36-40","1 Corinthians 15:12-20"],"Tu":["Psalm 114","Jonah 1:1-17","1 Corinthians 15:19-28"],"W":["Psalm 114","Jonah 2:1-10","Matthew 12:38-42"]},"easter_3":{"Th":["Psalm 116:1-4, 12-19","Isaiah 25:1-5","1 Peter 1:8b-12"],"F":["Psalm 116:1-4, 12-19","Isaiah 26:1-4","1 Peter 1:13-16"],"Sa":["Psalm 116:1-4, 12-19","Isaiah 25:6-9","Luke 14:12-14"],"M":["Psalm 134","Genesis 18:1-14","1 Peter 1:23-25"],"Tu":["Psalm 134","Proverbs 8:32-9:6","1 Peter 2:1-3"],"W":["Psalm 134","Exodus 24:1-11","John 21:1-14"]},"easter_4":{"Th":["Psalm 23","Exodus 2:15b-25","1 Peter 2:9-12 tu"],"F":["Psalm 23","Exodus 3:16-22; 4:18-20","1 Peter 2:13-17"],"Sa":["Psalm 23","Ezekiel 34:1-16","Luke 15:1-7"],"M":["Psalm 100","Ezekiel 34:17-23","1 Peter 5:1-5"],"Tu":["Psalm 100","Ezekiel 34:23-31","Hebrews 13:20-21"],"W":["Psalm 100","Jeremiah 23:1-8","Matthew 20:17-28"]},"easter_5":{"M":["Psalm 102:1-17","Exodus 13:17-22","Acts 7:17-40","Proverbs 3:5-12","Acts 7:44-56"],"W":["Psalm 102:1-17","Proverbs 3:13-18","John 8:31-38"]},"easter_6":{"M":["Psalm 93","Genesis 9:8-17","Acts 27:39-44","Deuteronomy 5:22-33","1 Peter 3:8-12"],"W":["Psalm 93","Deuteronomy 31:1-13","John 16:16-24"]},"easter_7":{"M":["Psalm 99","Leviticus 9:1-11,22-24","1 Peter 4:1-6"],"Tu":["Psalm 99","Numbers 16:41-50","1 Peter 4:7-11","1 Kings 8:54-65","John 3:31-36"]},"pentecost":{"Th":["Psalm 33:12-22","Exodus 19:1-9a","Acts 2:1-11"],"F":["Psalm 33:12-22","Exodus 19:16-25","Romans 8:14-17"],"Sa":["Psalm 33:12-22","Exodus 20:1-21","Matthew 5:1-12"],"M":["Psalm 104:24-34, 35b","Joel 2:18-29","Romans 8:18-24"],"Tu":["Psalm 104:24-34, 35b","Ezekiel 39:7-8, 21-29","Romans 8:26-27"]},"may_29":{"Th":["Psalm 31:1-5, 19-24","Exodus 24:1-8","Romans 2:17-29","Psalm 46","Genesis 1:1-2:4a"],"F":["Psalm 31:1-5, 19-24","Deuteronomy 30:1-5","Romans 9:6-13","Psalm 46","Genesis 2:4b-25"],"Sa":["Psalm 31:1-5, 19-24","Amos 2:6-11","Matthew 7:1-6","Psalm 46","Genesis 3:1-24"],"M":["Psalm 52","Joshua 8:30-35","Romans 2:1-11","Psalm 69:1-3, 13-16, 30-36","Genesis 4:1-16"],"Tu":["Psalm 52","Joshua 24:1-2, 11-28","Romans 3:9-22a","Job 28:12-28","Matthew 7:13-20","Psalm 69:1-3, 13-16, 30-36","Genesis 4:17-5:5","Genesis 11:1-9"]},"jun_5":{"Th":["Psalm 50:7-15","Lamentations 1:7-11","2 Peter 2:17-22","Psalm 33:1-12","Genesis 13:1-18"],"F":["Psalm 50:7-15","Lamentations 3:40-58","Acts 28:1-10","Numbers 11:24-30","John 7:37-39","Psalm 33:1-12","Genesis 14:17-24"],"Sa":["Psalm 33:1-12","Genesis 15:1-20","Matthew 9:27-34"],"M":["Psalm 119:41-48","Genesis 16:1-15","2 Corinthians 6:14-7:2"],"Tu":["Psalm 119:41-48","Genesis 17:1-27","Hebrews 13:1-16","Genesis 18:16-33","Matthew 12:1-8"]},"holy_trinity":{"Th":["Psalm","Job 38:1-11","2 Timothy 1:8-12a"],"F":["Psalm8","Job 38:12-21","2 Timothy 1:12b-14"],"Sa":["Psalm8","Job 38:22-38","John 14:15-17"],"M":["Psalm 29","Job 38:39-39:12","1 Corinthians 12:1-3","Psalm 40:1-8","Leviticus 15:25-31; 22:1-9"],"Tu":["Psalm 29","Job 39:13-25","1 Corinthians 12:4-13","Psalm 40:1-8","Hosea 8:11-14; 10:1-2","Hebrews 13:1-16","Hosea 14:1-9","Matthew 12:1-8"],"W":["Psalm 29","Job 39:26-40:5","John 14:25-26","Exodus 34:1-9","Matthew 9:27-34"]},"jun_12":{"Th":["Psalm 100","Exodus 4:18-23","Hebrews 3:1-6","Psalm 116:1-2, 12-19","Genesis 21:1-7","Psalm 86:1-10","Exodus 12:43-49"],"F":["Psalm 100","Exodus 4:27-31","Acts 7:35-43","Psalm 116:1-2, 12-19","Genesis 24:1-9","Psalm 86:1-10","Genesis 35:1-4","Acts 5:17-26"],"Sa":["Psalm 100","Exodus 6:28-7:13","Mark 7:1-13","Psalm 116:1-2, 12-19","Genesis 24:10-52","Psalm 86:1-10","Ezekiel 29:3-7","Luke 11:53-12:3"],"M":["Psalm 105:1-11,37-45","Joshua 1:1-11","1 Thessalonians 3:1-5","Psalm 126","Genesis 23:1-19"],"Tu":["Psalm 126","Genesis 25:7-11","2 Thessalonians 2:13-3:5","Psalm 86:11-17","Genesis 25:12-18","Revelation 2:8-11"],"W":["Psalm 126","Nehemiah 9:1-8","Luke 6:12-19","Psalm 86:11-17","Jeremiah 42:18-22","Matthew 10:5-23"]},"may_24":{"Th":["Psalm 131","Proverbs 12:22-28","Philippians 2:19-24"],"F":["Psalm 131","Isaiah 26:1-6","Philippians 2:25-30"],"Sa":["Psalm 131","Isaiah 31:1-9","Luke 11:14-23"],"M":["Psalm 104","Deuteronomy 32:1-14","Hebrews 10:32-39"],"Tu":["Psalm 104","1 Kings 17:1-16","1 Corinthians 4:6-21","Psalm 105:1-11,37-45","1 Samuel 3:1-9","2 Thessalonians 2:13-3:5"],"W":["Psalm 104","Isaiah 66:7-13","Luke 12:22-31","Psalm 105:1-11,37-45","Proverbs 4:10-27","Luke 6:12-19"]},"jun_19":{"Th":["Psalm 69:7-10[11-15] 16-18","Jeremiah 18:12-17","Hebrews 2:5-9"],"F":["Psalm 69:7-10[11-15] 16-18","Jeremiah 18:18-23","Acts 5:17-26"],"Sa":["Psalm 69:7-10[11-15] 16-18","Jeremiah 20:1-6","Luke 11:53-12:3"],"M":["Psalm","Micah 7:1-7","Revelation 2:1-7"],"Tu":["Psalm6\u00e9","Jeremiah 26:1-12","Revelation 2:8-11"],"W":["Psalm6","Jeremiah 38:1-13","Matthew 10:5-23"]},"jun_26":{"Th":["Psalm 89:1-4, 15-18","Jeremiah 25:1-7","Galatians 5:2-6","Psalm 13","Micah 7:18-20","Galatians 5:2-6"],"F":["Psalm 89:1-4, 15-18","Jeremiah 25:8-14","Galatians 5:7-12","Psalm 13","2 Chronicles 20:5-12","Galatians 5:7-12","Genesis 26:23-25","Luke 17:1-4"],"Sa":["Psalm 89:1-4, 15-18","Jeremiah 28:1-4","Luke 17:1-4"],"M":["Psalm 119:161-168","1 Kings 21:1-16","1 Thessalonians 4:9-12","Psalm 47","Genesis 22:15-18","1 Thessalonians 4:9-12"],"Tu":["Psalm 119:161-168","1 Kings 21:17-29","1 John 4:1-6","Jeremiah 18:1-11","Matthew 11:20-24","Psalm 47","1 Kings 18:36-39"],"W":["Psalm 47","Isaiah 51:1-3","Matthew 11:20-24"]},"jul_3":{"Th":["Psalm 145:8-14","Zechariah 1:1-6","Romans 7:1-6","Psalm 45:10-17","Genesis 25:19-27"],"F":["Psalm 145:8-14","Zechariah 2:6-13","Romans 7:7-20","Zechariah 4:1-7","Luke 10:21-24","Psalm 45:10-17","Genesis 27:1-17"],"M":["Psalm 131","Jeremiah 27:1-11,16-22","Romans 1:18-25","Genesis 27:30-46"],"Tu":["Psalm 131","Jeremiah 28:10-17","Romans 3:1-8","Jeremiah 13:1-11","John 13:1-17","Song of Solomon 2:8-13","Genesis 29:1-14"],"Sa":["Psalm 45:10-17","Genesis 27:18-29","Luke 10:21-24"],"W":["Song of Solomon 2:8-13","Genesis 29:31-35","John 13:1-17"]},"jul_10":{"Th":["Psalm 65:(1-8] 9-13","Isaiah 48:1-5","Romans 2:12-16","Psalm 119:105-112","Exodus 3:1-6"],"F":["Psalm 65:[1-8] 9-13","Isaiah 48:6-11","Romans 15:14-21","Psalm 119:105-112","Deuteronomy 32:1-10"],"Sa":["Psalm 65:[1-8] 9-13","Isaiah 52:1-6","John 12:44-50","Psalm 119:105-112","Isaiah 2:1-4"],"M":["Psalm 92 \u2122","Leviticus 26:3-20","1 Thessalonians 4:1-8"],"Tu":["Psalm 92","Deuteronomy 28:1-14","Ephesians 4:17-5:2","Psalm 142","Jeremiah 49:7-11","Obadiah 15-21","Matthew 13:10-17"],"W":["Psalm 92","Proverbs 11:23-30","Matthew 13:10-17"]},"jul_17":{"Th":["Psalm 86:11-17","Isaiah 41:21-29","Hebrews 2:1-9","Psalm 139:1-12, 23-24","Isaiah 44:1-5"],"F":["Psalm 86:11-17 tu","Isaiah 44:9-17","Hebrews 6:13-20","Psalm 139:1-12, 23-24","Ezekiel 39:21-29"],"Sa":["Psalm 86:11-17","Isaiah 44:18-20","Matthew 7:15-20","Psalm 139:1-12, 23-24","Exodus 14:9-25"],"M":["Psalm 75 Sun","Nahum 1:1-13 \u2122","Revelation 14:12-20","Psalm 139:13-18","Genesis 32:3-21"],"Tu":["Psalm 75","Zephaniah 3:1-13","Galatians 4:21-5:1","Psalm 139:13-18","Genesis 33:1-17","Genesis 35:16-29","Matthew 12:15-21"],"W":["Psalm 75","Daniel 12:1-13","Matthew 12:15-21"]},"jul_24":{"Th":["Psalm 119:129-136","1 Kings 1:28-37","1 Corinthians 4:14-20","Psalm 105:1-11,45b","Genesis 29:1-8"],"F":["Psalm 119:129-136 tu","1 Kings 1:38-48","Acts 7:44-53","Psalm 105:1-11,45b","Genesis 29:9-14"],"Sa":["Psalm 119:129-136","1 Kings 2:1-4","Matthew 12:38-42","Psalm 105:1-11,45b","Genesis 29:31-30:24"],"M":["Psalm 119:121-128 Sun","1 Kings 3:16-28 \u2122","James 3:13-18","Psalm 78:1-8, 17-29","Deuteronomy 8:1-10","Romans 1:8-15","Deuteronomy 26:1-15","Acts 2:37-47","Psalm 18:1-19","Genesis 7:11-8:5","2 Peter 2:4-10","Genesis 19:1-29","Romans 9:14-29","Job 36:24-33; 37:14-24","Matthew 8:23-27","Isaiah 45:20-25","Revelation 15:1-4","Psalm 67","Isaiah 63:15-19","Acts 14:19-28","Isaiah 56:1-5","Matthew 14:34-36","Psalm 87","2 Kings 5:1-14","Acts 15:1-21","Psalm 65:8-13","Genesis 30:25-36"],"Tu":["Psalm 119:121-128","1 Kings 4:29-34","Ephesians 6:10-18","Psalm 87","Isaiah 43:8-13","Romans 11:13-29","Isaiah 66:18-23","Matthew 8:1-13","Psalm 65:8-13","Genesis 30:37-43","Genesis 46:2-47:12","Mark 4:30-34"],"W":["Psalm 119:121-128","Proverbs 1:1-7,20-33","Mark 4:30-34","Proverbs 10:1-5","Philippians 4:10-15","Psalm 145:8-9, 14-21","Isaiah 51:17-23","Romans 9:6-13","Isaiah 44:1-5","Matthew 7:7-11","Psalm 78:1-8, 17-29","Exodus 16:2-15, 31-35","Matthew 15:32-39","1 Kings 18:1-16","Acts 17:10-15","Psalm 85:8-13","1 Kings 18:17-19,30-40","Acts 18:24-28","1 Kings 18:41-46","Matthew 16:1-4"]},"aug_21":{"Th":["Psalm 138","Ezekiel 28:11-19","1 Corinthians 6:1-11","Psalm 124","Genesis 49:1-33"],"F":["Psalm 138","Ezekiel 31:15-18","2 Corinthians 10:12-18","Psalm 124","Genesis 49:29-50:14"],"Sa":["Psalm 138","Ezekiel 36:33-38","Matthew 16:5-12","Psalm 124","Genesis 50:15-26"],"M":["Psalm 18:1-3, 20-32","1 Samuel 7:3-13","Romans 2:1-11","Psalm","Exodus 1:1-7","Exodus 2:11-15a","Romans 11:33-36","Psalm 83:1-4, 13-18","Exodus 4:10-31","Revelation 3:1-6","Exodus 5:1-6:13","Revelation 3:7-13","Psalm 121","Exodus 12:14-28","1 Peter 2:11-17","Exodus 12:29-42","Romans 13:1-7"],"Tu":["Psalm 18:1-3, 20-32","Deuteronomy 32:18-20","Romans 11:33-36","Isaiah 28:14-22","Matthew 26:6-13"],"W":["Psalm","Exodus 2:15b-22","Matthew 26:6-13","Exodus 2:23-24","Ephesians 5:1-6","Psalm 105:1-6, 23-26, 45b","Exodus 3:16-25","2 Thessalonians 2:7-12","Exodus 4:1-9","Matthew 8:14-17","Psalm 83:1-4, 13-18","Exodus 7:14-25","Matthew 12:22-32","Exodus 9:1-7","2 Corinthians 12:11-21","Psalm 149","Exodus 10:21-29","Romans 10:15b-21","Exodus 11:1-10","Matthew 23:29-36","Psalm 121","Exodus 13:1-10","Matthew 21:18-22"]},"aug_28":{"Th":["Psalm 26:1-8","Jeremiah 14:13-18","Ephesians 5:1-6"],"F":["Psalm 26:1-8","Jeremiah 15:1-9","2 Thessalonians 2:7-12"],"Sa":["Psalm 26:1-8","Jeremiah 15:10-14","Matthew 8:14-17"],"M":["Psalm 17","2 Samuel 11:2-26","Revelation 3:1-6"],"Tu":["Psalm 17","2 Samuel 11:27b-12:15","Revelation 3:7-13","Jeremiah 17:5-18","Matthew 12:22-32"]},"sep_4":{"Th":["Psalm 119:33-40","Ezekiel 24:1-14","Psalm 103:{1-7] 8-13","Genesis 37:12-36","1 John 3:11-16"],"F":["Psalm 119:33-40","Ezekiel 24:15-27","Romans 10:15b-21","Psalm 103,1-7]8-13","Genesis 41:53-42:17","Acts 7:9-16"],"Sa":["Psalm 119:33-40","Ezekiel 33:1-6","Matthew 23:29-36","Psalm 103,1-7]8-13","Genesis 45:1-20","Matthew 6:7-15"],"M":["Psalm 119:65-72","Leviticus 4:27-31;5:14-16","1 Peter 2:11-17"],"Tu":["Psalm 119:65-72","Deuteronomy 17:2-13","Romans 13:1-7","Psalm 133","Genesis 49:29-50:14","Romans 14:13-15:2"],"W":["Psalm 119:65-72","Leviticus 16:1-5, 20-28","Matthew 21:18-22","Psalm 133","Genesis 50:22-26","Mark 11:20-25"]},"sep_18":{"Th":["Psalm 145:1-8","Nahum 1:1, 14-2:2","Psalm 105:1-6, 37-45","Exodus 15:22-27","2 Corinthians 13:1-4"],"F":["Psalm 145:1-8","Nahum 2:3-13","2 Corinthians 13:5-10","Psalm 105:1-6, 37-45","Exodus 16:1-21"],"Sa":["Psalm 145:1-8","Zephaniah 2:13-15","Matthew 19:23-30","Psalm 105:1-6, 37-45","Exodus 16:22-30"],"M":["Psalm 106:1-12","Genesis 27:1-29","Romans 16:1-16","Psalm 119:97-104","Exodus 16:31-35"],"Tu":["Psalm 106:1-12","Genesis 28:10-17","Romans 16:17-20","Psalm 119:97-104","Numbers 11:1-9","Numbers 11:18-23, 31-32","Matthew 18:1-5"],"W":["Psalm 106:1-12","Isaiah 41:1-13","Matthew 18:1-5"]},"sep_25":{"Th":["Psalm 25:1-9","Ezekiel 12:17-28","James 4:11-16","Psalm 78:1-4, 12-16","Isaiah 48:17-21"],"F":["Psalm 25:1-9","Ezekiel 18:5-18","Acts 13:32-41","Psalm 78:1-4, 12-16","Numbers 20:1-13"],"Sa":["Psalm 25:1-9","Ezekiel 18:19-24","Mark 11:27-33","Psalm 78:1-4, 12-16","Numbers 27:12-14"],"M":["Psalm 28","Judges 14:1-20","Philippians 1:3-14","Psalm 42","Exodus 18:1-12"],"Tu":["Psalm 28","Judges 16:1-22","Philippians 1:15-21","Psalm 42","Exodus 18:13-27"],"W":["Psalm 28","Judges 16:23-31","Matthew 9:2-8","Psalm 42","Exodus 19:9b-25"]},"oct_2":{"Th":["Psalm 80:7-15","Jeremiah 2:14-22","Colossians 2:16-23","Psalm 19","Exodus 23:1-9","Colossians 2:16-23"],"F":["Psalm 80:7-15","Jeremiah 2:23-37","Philippians 2:14-18; 3:1-4a","Psalm 19","Exodus 23:14-19","Philippians 2:14-18;3:14a","Exodus 23:10-13","John 7:40-52"],"Sa":["Psalm 80:7-15","Jeremiah 6:1-10","John 7:40-52"],"M":["Psalm 144","Ezekiel 19:10-14","1 Peter 2:4-10","Psalm 119:49-56","Deuteronomy 5:1-21"],"Tu":["Psalm 144","Isaiah 27:1-6","2 Corinthians 5:17-21","Psalm 119:49-56","Deuteronomy 5:22-6:3","Deuteronomy 6:10-25","John 11:45-57"],"W":["Psalm 144","Song of Solomon 8:5-14","John 11:45-57"]},"oct_9":{"Th":["Psalm 23","Isaiah 22:1-8a","1 Peter 5:1-5, 12-14","Psalm 106:1-6, 19-23","Exodus 24:1-8"],"F":["Psalm 23","Isaiah 22:8b-14","James 4:4-10","Psalm 106:1-6, 19-23","Exodus 24:9-11"],"Sa":["Psalm23","Isaiah 24:17-23","Mark 2:18-22","Psalm 106:1-6, 19-23"],"M":["Psalm 34","Exodus 19:7-20","Jude 17-25","Psalm 97","Exodus 32:15-35"],"Tu":["Psalm 34","Amos 9:5-15","Philippians 3:13-4:1","Song of Solomon 7:10-8:4","John 6:25-35","Psalm 97","Exodus 33:1-6"],"W":["Psalm 97","2 Kings 17:7-20","John 6:25-35"]},"oct_16":{"Th":["Psalm 96:1-9 [10-13]","Judges 17:1-6","3 John 9-12","Psalm 99","Exodus 33:7-11"],"F":["Psalm 96:1-9 [10-13]","Deuteronomy 17:14-20","1 Peter 5:1-5","Psalm 99","Exodus 31:1-11","1 Peter 5:1-5."],"Sa":["Psalm 96:1-9 [10-13]","Isaiah 14:3-11","Matthew 14:1-12","Psalm99","Exodus 39:32-43"],"M":["Psalm98","Daniel 3:1-18","Revelation 18:1-10, 19-20","Psalm 63:1-8","Exodus 40:34-38"],"Tu":["Psalm 98","Daniel 3:19-30","Revelation 18:21-24","Psalm 63:1-8","Numbers 12:1-9","Numbers 13:1-2, 17-14:9","Matthew 17:22-27"],"W":["Psalm98","Daniel 6:1-28","Matthew 17:22-27"]},"oct_23":{"Th":["Psalm","Numbers 5:5-10","Titus 1:5-16","Psalm 90:1-6, 13-17","Deuteronomy 31:14-22"],"F":["Psalm","Deuteronomy 9:25-10:5","Titus 2:7-8, 11-15","Psalm 90:1-6, 13-17","Deuteronomy 32:1-14, 18"],"Sa":["Psalm1","Proverbs 24:23-34","John 5:39-47","Psalm 90:1-6, 13-17","Deuteronomy 32:44-47"],"M":["Psalm 119:41-48","Deuteronomy 6:1-9, 20-25","James 2:8-13 Sun","Psalm 119:41-48","Numbers 33:38-39","James 2:8-13"],"Tu":["Psalm 119:41-48","Deuteronomy 10:10-22","Proverbs 16:1-20","Matthew 19:16-22","Exodus 34:29-35","James 2:14-26"],"W":["Psalm 119:41-48","Deuteronomy 26:16-27:7","Matthew 19:16-22"]},"oct_30":{"Th":["Psalm 43","1 Samuel 2:27-36","Romans 2:17-29","Psalm 107:1-7,33-37","Joshua 1:1-11"],"F":["Psalm 43","Ezekiel 13:1-16","2 Peter 2:1-3","Psalm 107:1-7,33-37","Joshua 2:1-14"],"Sa":["Psalm 43","Malachi 1:6-2:9","Matthew 23:13-28","Psalm 107:1-7,33-37","Joshua 2:15-24"],"M":["Psalm 5.","Jeremiah 5:18-31","1 Thessalonians 2:13-20 Che","Psalm 128","Joshua 4:1-24","1 Thessalonians 2:13-20"],"Tu":["Psalm","Lamentations 2:13-17","Acts 13:1-12","Proverbs 16:21-33","Matthew 15:1-9","Psalm 128","Joshua 6:1-16,20","Joshua 10:12-14"]},"nov_6":{"Th":["Psalm 70","Amos 1:1-2:5","Revelation 8:6-9:12","Psalm 78:1-7","Joshua 5:10-12"],"F":["Psalm 70","Amos 3:1-12","Revelation 9:13-21","Psalm 78:1-7","Joshua 8:30-35"],"Sa":["Psalm 70","Amos 4:6-13","Matthew 24:1-14","Psalm 78:1-7","Joshua 20:1-9"],"M":["Psalm 63","Amos 8:7-14","1 Corinthians 14:20-25","Joel 1:1-14","1 Thessalonians 3:6-13","Psalm 9:1-14","Zechariah 1:7-17","Romans 2:1-11","Zechariah 2:1-5; 5:1-4","1 Thessalonians 5:12-18","Psalm","Esther 2:1-18","2 Timothy 2:8-13","Esther 8:3-17","Revelation 19:1-9","Psalm78","Joshua 24:25-33"],"W":["Psalm 63","Joel 3:9-21","Matthew 24:29-35","Ezekiel 6:1-14","Revelation 16:1-7","Psalm 90:1-8 [9-11] 12","Ezekiel 7:1-9","Revelation 16:8-21","Ezekiel 7:10-27","Matthew 12:43-45","Psalm 9:1-14","Job 16:1-21","Matthew 24:45-51","1 Kings 22:13-23","Revelation 14:1-11","Psalm 95:1-7a","1 Chronicles 17:1-15","Revelation 22:1-9","Isaiah 44:21-28","Matthew 12:46-50","Psalm","Ezekiel 33:7-20","John 5:19-40"]},"jul_31":{"Th":["Psalm 17:1-7,15","Isaiah 14:1-2","Philippians 4:10-15"],"F":["Psalm 17:1-7,15","Isaiah 41:8-10","Romans 9:6-13"],"Sa":["Psalm 17:1-7,15","Genesis 31:1-21","Matthew 7:7-11"],"M":["Psalm 17:1-7,15","Genesis 31:22-42","Romans 1:8-15"],"Tu":["Psalm 17:1-7,15","Genesis 32:3-21","Acts 2:37-47","Isaiah 43:1-7","Matthew 15:32-39"]},"aug_7":{"Th":["Psalm 105:1-6, 16-22, 45b","Genesis 35:22b-29","Acts 17:10-15"],"F":["Psalm 105:1-6, 16-22, 45b","Genesis 36:1-8","Acts 18:24-28"],"Sa":["Psalm 105:1-6, 16-22, 45b","Genesis 37:5-11","Matthew 16:1-4"],"M":["Psalm 28 \u2122","Genesis 37:29-36","2 Peter 2:4-10"],"Tu":["Psalm 28","Genesis 39:1-23","Romans 9:14-29","Genesis 40:1-23","Matthew 8:23-27"]},"aug_14":{"Th":["Psalm 133","Genesis 41:14-36","Revelation 15:1-4"],"F":["Psalm 133","Genesis 41:37-57","Acts 14:19-28"],"Sa":["Psalm 133","Genesis 42:1-28","Matthew 14:34-36"],"M":["Psalm 130 \u2122","Genesis 43:1-34","Acts 15:1-21"],"Tu":["Psalm 130","Genesis 44:1-34","Romans 11:13-29","Genesis 45:16-28","Matthew 8:1-13"]},"sep_11":{"Th":["Psalm 114","Exodus 13:17-22","1 John 3:11-16"],"F":["Psalm 114","Exodus 14:1-18","Acts 7:9-16"],"Sa":["Psalm 114","Exodus 15:19-21","Matthew 6:7-15"],"M":["Psalm 77","Joshua 3:1-17","Hebrews 11:23-29"],"Tu":["Psalm 77","Nehemiah 9:9-15","Romans 14:13-15:2","2 Kings 2:1-18","Mark 11:20-25"]},"advent_1":{"Th":["Psalm 122","Daniel 9:15-19","James 4:1-10"],"F":["Psalm 122","Genesis 6:1-10","Hebrews 11:1-7"],"Sa":["Psalm 122","Genesis 6:11-22","Matthew 24:1-22"],"M":["Psalm 124","Genesis 8:1-19","Romans 6:1-11"],"Tu":["Psalm 124","Genesis 9:1-17","Hebrews 11:32-40"],"W":["Psalm 124","Isaiah 54:1-10","Matthew 24:23-35"]},"lent_1":{"Th":["Psalm 32","Genesis 2:4b-9, 15-17","Romans 5:12-21"],"F":["Psalm 32","Genesis 3:1-7","Romans 3:21-31"],"Sa":["Psalm 32","Genesis 3:8-24","Matthew 4:1-11"],"M":["Psalm 32","Exodus 5:10-23","Acts 7:30-34"],"Tu":["Psalm 32","Exodus 6:1-13","2 Timothy 1:3-7"],"W":["Psalm 32","Exodus 6:28-7:13","Luke 11:14-23"]},"epiphany_1":{"Th":["Psalm 29","1 Samuel 2:1-10","Acts 8:4-13"],"F":["Psalm 29","1 Samuel 3:1-21","Acts 9:10-19a"],"Sa":["Psalm 29","1 Samuel 7:3-17","Acts 9:19b-31"],"M":["Psalm 89:5-37","Genesis 35:1-15","Acts 10:44-48"],"Tu":["Psalm 89:5-37","Jeremiah 1:4-10","Acts 8:4-13"],"W":["Psalm 89:5-37","Isaiah 51:1-16","Matthew 12:15-21"]}},"B":{"advent_1":{"Th":["Psalm 80:1-7, 17-19","Zechariah 13:1-9","Revelation 14:6-13"],"F":["Psalm 80:1-7, 17-19","Zechariah 14:1-9","1 Thessalonians 4:1-18"],"Sa":["Psalm 80:1-7,17-19","Micah 2:1-13","Matthew 24:15-31"],"M":["Psalm79","Micah 4:1-5","Revelation 15:1-8"],"Tu":["Psalm 79","Micah 4:6-13","Revelation 18:1-10","Micah 5:1-5a","Luke 21:34-38"]},"advent_2":{"Th":["Psalm 85:1-2, 8-13","Hosea 6:1-6","1 Thessalonians 1:2-10"],"Tu":["Psalm 78","Nehemiah 8:1-12","1 Thessalonians 3:6-13","Jeremiah 31:31-34 Chri","Matthew 24:29-35 \u2122"]},"nov_13":{"Th":["Psalm 123","Judges 2:6-15","Revelation 16:1-7","Psalm 16","Daniel 4:4-18","1 Timothy 6:11-21"],"F":["Psalm 123 sa","Judges 2:16-23","Revelation 16:8-21","Psalm 85:1-2, 8-13 sa","Jeremiah 1:4-10","Acts 11:19-26","Psalm 16","Daniel 4:19-27","Colossians 2:6-15"],"Sa":["Psalm 123","Judges 5:1-12","Matthew 12:43-45","Psalm 85:1-2,8-13","Ezekiel 36:24-28","Mark 11:27-33","Psalm 16","Daniel 4:28-37","Mark 12:1-12"],"M":["Psalm 83:1-4, 9-10, 17-18","Judges 4:8-24","Romans 2:1-11","Psalm 27","Isaiah 26:7-15","Acts 2:37-42","Psalm 13","Daniel 8:1-14","Hebrews 10:26-31"],"Tu":["Psalm 83:1-4, 9-10, 17-18","Exodus 2:1-10","1 Thessalonians 5:12-18","Psalm 27","Isaiah 4:2-6","Acts 11:1-18","Malachi 2:10-3:1 Adv","Luke 1:5-17 Dat","Psalm 13","Daniel 8:15-27","Hebrews 10:32-39","Zechariah 12:1-13:1","Mark 13:9-23"]},"advent_3":{"Th":["Psalm 126","Habakkuk 2:1-5","Philippians 3:7-11"],"F":["Psalm 126","Habakkuk 3:2-6","Philippians 3:12-16"],"M":["Psalm 83:1-4, 9-10, 17-18","Esther 7:1-10","Matthew 24:45-51","Genesis 48:15-22","Revelation 14:1-11","Psalm 100","Isaiah 40:1-11","Revelation 22:1-9","Ezekiel 34:25-31","Matthew 12:46-50","Psalm 28","Numbers 27:15-23","2 Timothy 2:8-13","Zechariah 11:4-17","Revelation 19:1-9","Psalm 125","1 Kings 18:1-18","Ephesians 6:10-17","2 Kings 2:9-22","Acts 3:17-4:4","Luke 1:46b-55","1 Samuel 1:1-18","Hebrews 9:1-14"],"W":["Psalm 28","Jeremiah 31:10-14","John 5:19-40","Habakkuk 3:13-19","Matthew 21:28-32","Psalm 125","Malachi 3:16-4:6","Mark 9:9-13","2 Samuel 6:1-11","Hebrews 1:1-4","Psalm 89:1-4, 19-26","2 Samuel 6:12-19","Hebrews 1:5-14","Judges 13:2-24","John 7:40-52"],"Tu":["Luke 1:46b-55","1 Samuel 1:19-28","Hebrews 8:1-13","1 Samuel 2:1-10","Mark 11:1-11"]},"epiphany_1":{"Th":["Psalm 29","1 Samuel 3:1-21","Acts 9:10-19a"],"F":["Psalm 29","1 Samuel 16:1-13","1 Timothy 4:11-16"],"Sa":["Psalm 29","1 Kings 2:1-4, 10-12","Luke 5:1-11"],"M":["Psalm 69:1-5, 30-36","Genesis 17:1-13","Romans 4:1-12"],"Tu":["Psalm 69:1-5, 30-36","Exodus 30:22-38","Acts 22:2-16"],"W":["Psalm 69:1-5, 30-36","Isaiah 41:14-20","John 1:29-34"]},"epiphany_2":{"Th":["Psalm 139:1-6, 13-18","Judges 2:6-15","2 Corinthians 10:1-11"],"F":["Psalm 139:1-6, 13-18","Judges 2:16-23","Acts 13:16-25"],"Sa":["Psalm 139:1-6, 13-18","1 Samuel 2:21-25","Matthew 25:1-13"],"M":["Psalm 86","1 Samuel 9:27-10:8","2 Corinthians 6:14-7:1"],"Tu":["Psalm 86 \u2018","1 Samuel 15:10-31","Acts 5:1-11","Genesis 16:1-14","Luke 18:15-17"]},"epiphany_3":{"Th":["Psalm 62:5-12","Jeremiah 19:1-15","Revelation 18:11-20"],"F":["Psalm 62:5-12","Jeremiah 20:7-13","2 Peter 3:1-7"],"Sa":["Psalm 62:5-12","Jeremiah 20:14-18","Luke 10:13-16"],"M":["Psalm 46","Genesis 12:1-9","1 Corinthians 7:17-24"],"Tu":["Psalm 46","Genesis 45:25-46:7","Acts 5:33-42","Proverbs 8:1-21","Mark 3:13-19a"]},"epiphany_4":{"Th":["Psalm 111","Deuteronomy 3:23-29","Romans 9:6-18"],"F":["Psalm 111","Deuteronomy 12:28-32","Revelation 2:12-17"],"Sa":["Psalm 111","Deuteronomy 13:1-5","Matthew 8:28-9:1"],"M":["Psalm 35:1-10","Numbers 22:1-21","Acts 21:17-26"],"Tu":["Psalm 35:1-10","Numbers 22:22-28","1 Corinthians 7:32-40","Jeremiah 29:1-14","Mark 5:1-20"]},"epiphany_5":{"Th":["Psalm 147:1-11,20c","Proverbs 12:10-21","Galatians 5:2-15"],"F":["Psalm 147:1-11,20c","Job 36:1-23","1 Corinthians 9:1-16"],"Sa":["Psalm 147:1-11,20c","Isaiah 46:1-13","Matthew 12:9-14"],"M":["Psalm 102:12-28","2 Kings 4:8-17,32-37","Acts 14:1-7"],"Tu":["Psalm 102:12-28","2 Kings 8:1-6","Acts 15:36-41","Job 6:1-13","Mark 3:7-12"]},"epiphany_6":{"Th":["Psalm 30","Leviticus 13:1-17","Hebrews 12:7-13"],"F":["Psalm 30","Leviticus 14:1-20","Acts 19:11-20"],"Sa":["Psalm30","Leviticus 14:21-32","Matthew 26:6-13"],"M":["Psalm6\u00e9","2 Chronicles 26:1-21","Acts 3:1-10"],"Tu":["Psalm6","2 Kings 7:3-10","1 Corinthians 10:14-11:1"],"W":["Psalm","Job 30:16-31","John 4:46-54"]},"epiphany_7":{"Th":["Psalm 41","3 John 2-8"],"F":["Psalm 41","Isaiah 38:1-8","Hebrews 12:7-13"],"Sa":["Psalm41","Isaiah 39:1-8","Luke 4:38-41"],"M":["Psalm38","Isaiah 30:18-26","Acts 14:8-18"],"Tu":["Psalm 38","Micah 4:1-7","2 Corinthians 1:1-11"],"W":["Psalm38","Lamentations 5:1-22","John 5:19-29"]},"epiphany_8":{"Th":["Psalm 103:1-13,22","Ezekiel 16:1-14","Romans 3:1-8"],"F":["Psalm 103:1-13,22","Ezekiel 16:44-52","2 Peter 1:1-11"],"Sa":["Psalm 103:1-13,22","Ezekiel 16:53-63","John 7:53-8:11"],"M":["Psalm 45:6-17","Hosea 3:1-5"],"Tu":["Psalm 45:6-17","Hosea 14:1-9"],"W":["Psalm 45:6-17","Isaiah 62:1-5","John 3:22-36"]},"transfiguration":{"Th":["Psalm 50:1-6","1 Kings 11:26-40","2 Corinthians 2:12-17"],"F":["Psalm 50:1-6","1 Kings 14:1-18","1 Timothy 1:12-20 Lent"],"Sa":["Psalm 50:1-6","1 Kings 16:1-7","Luke 19:41-44"],"M":["Psalm 110:1-4","Exodus 19:7-25","Hebrews 2:1-4 sa"],"Tu":["Psalm 110:1-4","Job 19:23-27","1 Timothy 3:14-16"]},"lent_1":{"Th":["Psalm 25:1-10 tu","Daniel 9:1-14","1 John 1:3-10"],"F":["Psalm 25:1-10","Daniel 9:15-25a","2 Timothy 4:1-5"],"Sa":["Psalm 25:1-10","Psalm 32 Lent","Matthew 9:2-13"],"Tu":["Psalm77","Job 5:8-27","1 Peter 3:8-18a","Proverbs 30:1-9","Matthew 4:1-11"]},"lent_2":{"Th":["Psalm 22:23-31 tu","Genesis 15:1-6, 12-18","Romans 3:21-31","Psalm 22:23-31","Genesis 16:1-6","Romans 4:1-12","Genesis 16:7-15","Mark 8:27-30"],"M":["Psalm 105:1-11,37-45","Genesis 21:1-7","Hebrews 1:8-12","Genesis 22:1-19","Hebrews 11:1-3, 13-19","Psalm 84","1 Kings 6:1-4, 21-22","1 Corinthians 3:10-23","2 Chronicles 29:1-11,16-19","Hebrews 9:23-28","Psalm 107:1-16","Exodus 15:22-27","Hebrews 3:1-6","Numbers 20:1-13","1 Corinthians 10:6-13","Isaiah 60:15-22","John 8:12-20"],"W":["Psalm 105:1-11,37-45","Jeremiah 30:12-22","John 12:36-43","Exodus 19:1-9a","1 Peter 2:4-10","Psalm 19","Exodus 19:9b-15","Acts 7:30-40","Exodus 19:16-25","Mark 9:2-8","Psalm 84","Ezra 6:1-16","Mark 11:15-19","Genesis 9:8-17","Ephesians 1:3-6","Psalm 107:1-3, 17-22","Daniel 12:5-13","Ephesians 1:7-14","Numbers 20:22-29","John 3:1-13"]},"lent_5":{"Th":["Psalm 51:1-12","Isaiah 30:15-18","Hebrews 4:1-13"],"F":["Psalm 51:1-12","Exodus 30:1-10","Hebrews 4:14-5:4"],"Sa":["Psalm 51:1-12","Habakkuk 3:2-13","John 12:1-11"],"Tu":["Psalm 119:9-16","Isaiah 44:1-8","Acts 2:14-24","Haggai 2:1-9, 20-23","John 12:34-50"]},"lent_6":{"Th":["Psalm 118:1-2, 19-29","Deuteronomy 16:1-8","Philippians 2:1-11"],"F":["Psalm 118:1-2, 19-29","Jeremiah 33:1-9","Philippians 2:12-18"],"Sa":["Psalm 118:1-2, 19-29","Jeremiah 33:10-16","Mark 10:32-34, 46-52"]},"three_days":{"M":["Psalm 118:1-2, 14-24","Genesis 1:1-19","1 Corinthians 15:35-49"],"Tu":["Psalm 118:1-2, 14-24","Genesis 1:20-2:4a","1 Corinthians 15:50-58"],"W":["Psalm 118:1-2, 14-24","Song of Solomon 3:1-11","Mark 16:1-8"]},"easter_2":{"Th":["Psalm 133","Daniel 1:1-21","Acts 2:42-47 |,"],"F":["Psalm 133","Daniel 2:1-23","Acts 4:23-31"],"Sa":["Psalm 133","Daniel 2:24-49","John 12:44-50"],"M":["Psalm 135","Daniel 3:1-30","1 John 2:3-11"],"Tu":["Psalm 135","Daniel 6:1-28","1 John 2:12-17","Isaiah 26:1-15","Mark 12:18-27"]},"easter_3":{"Th":["Psalm4","Daniel 9:1-19","1 John 2:18-25 |,"],"F":["Psalm","Daniel 10:2-19","1 John 2:26-28"],"Sa":["Psalm4","Acts 3:1-10","Luke 22:24-30"],"M":["Psalm 150","Jeremiah 30:1-11a","1 John 3:10-16"],"Tu":["Psalm 150","Hosea 5:15-6:6","2 John 1-6","Proverbs 9:1-6","Mark 16:9-18"]},"easter_4":{"Th":["Psalm 23","Genesis 30:25-43"],"F":["Psalm 23","Genesis 46:28-47:6","Acts 4:1-4"],"Sa":["Psalm 23","Genesis 48:8-19","Mark 6:30-34"],"M":["Psalm 95","1 Samuel 16:1-13","1 Peter 5:1-5"],"Tu":["Psalm 95","1 Chronicles 11:1-9","Revelation 7:13-17","Micah 7:8-20","Mark 14:26-31"]},"easter_5":{"Th":["Psalm 22:25-31","Amos 8:1-7","Acts 8:1b-8"],"F":["Psalm 22:25-31","Amos 8:11-13","Acts 8:9-25"],"Sa":["Psalm 22:25-31","Amos 9:7-15","Mark 4:30-32"],"M":["Psalm 80","Isaiah 5:1-7","Galatians 5:16-26"],"Tu":["Psalm 80","Isaiah 32:9-20","James 3:17-18","Isaiah 65:17-25","John 14:18-31"]},"easter_6":{"Th":["Psalm 98","Isaiah 49:5-6","Acts 10:1-34"],"F":["Psalm 98","Isaiah 42:5-9","Acts 10:34-43"],"Sa":["Psalm 98","Deuteronomy 32:44-47","Mark 10:42-45"],"M":["Deuteronomy 7:1-11","1 Timothy 6:11-12"],"Tu":["Psalm 93","Deuteronomy 11:1-17","1 Timothy 6:13-16","Deuteronomy 11:18-21","Mark 16:19-20"]},"easter_7":{"F":["Psalm 47","Exodus 24:15-18","Revelation 1:9-18"],"Sa":["Psalm47","Deuteronomy 34:1-7","John 16:4-11"],"M":["Psalm 115","Exodus 28:29-38","Philippians 1:3-11"],"Tu":["Psalm 115","Numbers 8:5-22","Titus 1:1-9","Ezra 9:5-15","John 16:16-24"]},"pentecost":{"Th":["Psalm 33:12-22","Genesis 2:4b-7","1 Corinthians 15:42b-49"],"F":["Psalm 33:12-22","Job 37:1-13","1 Corinthians 15:50-57"],"Sa":["Psalm 33:12-22","Exodus 15:6-11","John 7:37-39"]},"may_29":{"Th":["Psalm 81:1-10","Exodus 31:12-18","Acts 25:1-12","Psalm 139:1-6, 13-18","1 Samuel 1:1-18"],"F":["Psalm 81:1-10","Leviticus 23:1-8","Romans 8:31-39","Psalm 139:1-6, 13-18","1 Samuel 1:19-27","2 Kings 6:8-23","Acts 9:32-35"],"Sa":["Psalm 81:1-10","Leviticus 24:5-9","John 7:19-24"],"M":["Psalm 78:1-4, 52-72","Exodus 16:13-26","Romans 9:19-29"],"Tu":["Psalm 78:1-4, 52-72","Exodus 16:27-36","Acts 15:1-5, 22-35","1 Samuel 21:1-6","John 5:1-18"],"W":["Psalm 119:17-24","Jeremiah 33:1-11","Matthew 20:29-34"]},"jun_5":{"Th":["Psalm 130","Isaiah 28:9-13","1 Peter 4:7-19","Psalm 29","Isaiah 1:1-4, 16-20","Romans 8:1-8 sa","Psalm 138","1 Samuel 4:1-22"],"M":["Psalm 104:24-34, 35b","Joel 2:18-29","1 Corinthians 12:4-11","Psalm 20","Numbers 9:15-23","Revelation 4:1-8","Psalm 74","1 Samuel 16:14-23","Revelation 20:1-6","1 Kings 18:17-40 Sun","Revelation 20:7-15 \u2122","Psalm 108","1 Samuel 7:3-15"],"Tu":["Psalm 104:24-34, 35b","Genesis 11:1-9","1 Corinthians 12:12-27","Psalm 108","1 Samuel 8:1-22","Revelation 20:7-15","1 Samuel 9:1-14","Luke 11:14-28"],"W":["Psalm 104:24-34, 35b","Ezekiel 37:1-14","John 20:19-23","Psalm 74","Isaiah 26:16-27:1","Luke 11:14-28"],"F":["Psalm 29","Isaiah 2:1-5","Romans 8:9-11","Psalm 130","Deuteronomy 1:34-40","Psalm 138","1 Samuel 5:1-12","2 Corinthians 5:1-5"],"Sa":["Psalm29","Isaiah 5:15-24","John 15:18-20, 26-27","Psalm 130","Genesis 2:4b-14","Luke 8:4-15","Psalm 138","1 Samuel 6:1-18"]},"jun_12":{"Th":["Psalm 92:1-4, 12-15 sa","Genesis 3:14-24","Hebrews 2:5-9","Psalm 20","1 Samuel 9:15-27"],"F":["Psalm 92:1-4, 12-15","1 Kings 10:26-11:8","Hebrews 11:4-7","Psalm 20","1 Samuel 10:1-8"],"Sa":["Psalm 92:1-4, 12-15","2 Kings 14:1-14","Mark 4:1-20","Exodus 25:1-22","1 Corinthians 2:1-10","Psalm20","1 Samuel 13:1-15a"],"W":["Psalm 20","Numbers 6:22-27","Mark 4:21-25","Ezekiel 16:1-14","Romans 3:1-8","Psalm 103:1-13,22","Ezekiel 16:44-52","Ezekiel 16:53-63","John 7:53-8:11","Psalm 45:6-17","Isaiah 62:1-5","John 3:22-36","Psalm 52","Jeremiah 22:1-9","Luke 6:43-45","Job 29:1-20","Acts 20:1-16","Psalm 107:1-3, 23-32","Job 29:21-30:15","Acts 21:1-16","Job 37:1-13","Luke 21:25-28","Psalm 53","1 Samuel 15:24-31"],"M":["Psalm 45:6-17","Hosea 3:1-5","2 Corinthians 1:23-2:11","Hosea 14:1-9","2 Corinthians 11:1-15","Psalm 52","Ezekiel 31:1-12","Galatians 6:11-18","Jeremiah 21:11-14","Revelation 21:22-22:5","Psalm 65","Exodus 7:14-24","Acts 27:13-38","Psalm 53","1 Samuel 13:23-14:23"],"Tu":["Psalm 65","Exodus 9:13-35","Acts 27:39-44","Joshua 10:1-14","Mark 6:45-52","Psalm 53","1 Samuel 15:10-23","Revelation 21:22-22:5"]},"jun_26":{"Th":["Psalm 30","Lamentations 1:16-22","2 Corinthians 7:2-16","Psalm 130","1 Samuel 19:18-24","Psalm 48","2 Samuel 2:1-11","1 Corinthians 4:8-13"],"F":["Psalm 30","Lamentations 2:1-12","2 Corinthians 8:1-7","Psalm 130","1 Samuel 20:1-25","Psalm 48","2 Samuel 3:1-12","2 Corinthians 10:7-11"],"Sa":["Psalm 30","Lamentations 2:18-22","Luke 4:31-37","Psalm 130 Sun","1 Samuel 20:27-42","Psalm48","2 Samuel 3:31-38","Matthew 8:18-22"],"M":["Psalm 88","Leviticus 21:1-15","2 Corinthians 8:16-24"],"Tu":["Psalm 88","Leviticus 15:19-31","2 Corinthians 9:1-5","2 Kings 20:1-11","Mark 9:14-29","Psalm 18:1-6, 43-50","1 Samuel 31:1-13","1 Chronicles 10:1-14","Psalm 21","2 Samuel 5:11-16","James 5:7-12","2 Samuel 5:17-25","John 7:1-9"]},"jul_3":{"Th":["Psalm 123","Jeremiah 7:1-15","1 Corinthians 4:8-13"],"F":["Psalm 123","Jeremiah 7:16-26","2 Corinthians 10:7-11"],"Sa":["Psalm 123","Jeremiah 7:27-34","Matthew 8:18-22"],"M":["Psalm 119:81-88","Ezekiel 2:8-3:11","2 Corinthians 11:16-33"],"Tu":["Psalm 119:81-88","Jeremiah 16:1-13","James 5:7-12","Jeremiah 16:14-21","John 7:1-9"]},"jul_10":{"Th":["Psalm 85:8-13","Amos 2:6-16","Colossians 2:1-5","Psalm 24","Exodus 25:10-22"],"F":["Psalm 85:8-13","Amos 3:1-12","Colossians 4:2-18","Psalm 24","Exodus 37:1-16","Numbers 10:11-36","Luke 1:57-80"],"Sa":["Psalm 85:8-13","Amos 4:6-13","Luke 1:57-80"],"M":["Psalm 142","Amos 5:1-9","Acts 21:27-39","Psalm 68:24-35","2 Samuel 6:6-12a","2 Samuel 3:12-16","Acts 23:12-35","Psalm 61","2 Samuel 7:18-29","Hebrews 13:17-25","2 Samuel 8:1-18","Acts 20:17-38","Psalm 37:12-22","2 Samuel 11:14-21","Philippians 4:10-20","2 Samuel 11:22-27","Romans 15:22-33","2 Chronicles 9:29-31","Mark 6:35-44"],"Tu":["Psalm 142","Acts 23:12-35"],"W":["Psalm 142","Amos 9:11-15","Luke 731-35","Psalm 68:24-35","2 Samuel 6:16-23","Luke 7:31-35","1 Chronicles 11:15-19","Colossians 1:15-23","Psalm 89:20-37","1 Chronicles 14:1-2","Acts 17:16-31","1 Chronicles 15:1-2, 16:4-13","Luke 18:35-43","Psalm 61","2 Samuel 9:1-13","Luke 15:1-7","2 Samuel 10:1-5","Colossians 1:9-14","Psalm 14","2 Samuel 10:6-12","Colossians 3:12-17","2 Samuel 10:13-19","John 4:31-38"]},"jul_17":{"Th":["Psalm 23","Jeremiah 10:1-16","Colossians 1:15-23"],"F":["Psalm 23","Jeremiah 10:17-25","Acts 17:16-31"],"Sa":["Psalm 23","Jeremiah 12:1-13","Luke 18:35-43"],"M":["Psalm 100","Jeremiah 50:1-7","Hebrews 13:17-25"],"Tu":["Psalm 100","Zechariah 9:14-10:2","Acts 20:17-38","Luke 15:1-7"]},"jul_24":{"Th":["Psalm 145:10-18","1 Kings 19:19-21","Colossians 1:9-14"],"F":["Psalm 145:10-18","Colossians 3:12-17","2 Kings 4:38-41","John 4:31-38"],"M":["Psalm 111","Genesis 18:1-15","Philippians 4:10-20"],"Tu":["Psalm 111","Exodus 24:1-11","Romans 15:22-33"],"W":["Psalm 111","Isaiah 25:6-10a","Mark 6:35-44"]},"aug_7":{"Th":["Psalm 34:1-8","1 Samuel 28:20-25","Romans 15:1-6","Psalm 130","2 Samuel 13:37-14:24"],"F":["Psalm 34:1-8","2 Samuel 17:15-29","Galatians 6:1-10","Psalm 130","2 Samuel 14:25-33"],"Sa":["Psalm 34:1-8","1 Kings 2:19","Matthew 7:7-11","Psalm 130","2 Samuel 15:1-13"],"M":["Psalm 81","1 Kings 17:1-16","Ephesians 5:1-14","Psalm 57","2 Samuel 15:13-31"],"Tu":["Psalm 81","Ruth 2:1-23","2 Peter 3:14-18","Psalm 57","2 Samuel 18:19-33","2 Samuel 19:1-18","John 6:35-40"],"W":["Psalm 81","Jeremiah 31:1-6","John 6:35-40"]},"aug_14":{"Th":["Psalm 34:9-14","Job 11:1-20","Acts 6:8-15","Psalm 111","1 Kings 1:1-30","Acts 6:8-15"],"F":["Psalm 34:9-14","Job 12:1-25","Romans 16:17-20","Psalm 111","1 Kings 1:28-48"],"Sa":["Psalm 34:9-14","Job 13:1-19","John 4:7-26","Psalm 111","1 Kings 2:1-11"],"M":["Psalm 36","Genesis 43:1-15","Acts 6:1-7","Psalm 101","1 Kings 3:16-28"],"Tu":["Psalm 36","Genesis 45:1-15","Acts 7:9-16","Psalm 101","1 Kings 7:1-12","1 Kings 8:1-21","Mark 8:14-21"],"W":["Psalm 36","Genesis 47:13-26","Mark 8:14-21"]},"aug_21":{"Th":["Psalm 34:15-22","Joshua 22:1-9","1 Thessalonians 5:1-11","Psalm 84","1 Kings 4:20-28"],"F":["Psalm 34:15-22","Joshua 22:10-20","Romans 13:11-14","Psalm 84","1 Kings 4:29-34 \\"],"Sa":["Psalm 34:15-22","Joshua 22:21-34","Luke 11:5-13","Psalm 84","1 Kings 5:1-12","Luke 11:5-13"],"M":["Psalm 119:97-104","Nehemiah 9:1-15","Ephesians 5:21-6:9","Psalm 11 |!","1 Kings 5:13-18"],"Tu":["Psalm 119:97-104","Nehemiah 9:16-31","Ephesians 6:21-24","Isaiah 33:10-16","John 15:16-25","Psalm 11","1 Kings 6:1-14"],"W":["Psalm 11","1 Kings 6:15-38","John 15:16-25"]},"aug_28":{"Th":["Psalm 15","Exodus 32:1-14","James 1:1-8","Psalm 45:1-2, 6-9","Song of Solomon 1:1-17"],"F":["Psalm 15","Exodus 32:15-35","James 1:9-16","Psalm 45:1-2, 6-9","Song of Solomon 2:1-7 \\"],"Sa":["Psalm15","Exodus 34:8-28","John 18:28-32","Psalm 45:1-2,6-9","Hosea 3:1-5","John 18:28-32"],"M":["Psalm 106:1-6, 13-23, 47-48","Deuteronomy 4:9-14","1 Timothy 4:6-16","Psalm 144:9-15","Song of Solomon 3:6-11"],"Tu":["Psalm 106:1-6, 13-23, 47-48","Deuteronomy 4:15-20","1 Peter 2:19-25","Deuteronomy 4:21-40","Mark 7:9-23","Psalm 144:9-15","Song of Solomon 5:2-6:3"],"W":["Psalm 144:9-15","Song of Solomon 8:5-7","Mark 7:9-23"]},"sep_4":{"Th":["Psalm 146","Isaiah 30:27-33","Romans 2:1-11","Psalm 125","Proverbs 1:1-19"],"F":["Psalm 146","Isaiah 32:1-8","Romans 2:12-16","Psalm 125","Proverbs 4:10-27"],"Sa":["Psalm 146","Isaiah 33:1-9","Matthew 15:21-31","Psalm 125","Proverbs 8:1-31"],"M":["Isaiah 38:10-20","Joshua 6:1-21","Hebrews 11:29-12:2","Psalm 73:1-20","Proverbs 8:32-9:6"],"Tu":["Isaiah 38:10-20","Joshua 8:1-23","Hebrews 12:3-13","Psalm 73:1-20","Proverbs 11:1-31","Proverbs 14:1-9","Matthew 17:14-21"],"W":["Isaiah 38:10-20","Judges 15:9-20","Matthew 17:14-21"]},"sep_11":{"Th":["Psalm 116:1-9","Hebrews 11:17-22","Psalm 19","Proverbs 15:1-17"],"F":["Psalm 116:1-9","Joshua 2:15-24","James 2:17-26","Psalm 19","Proverbs 19:24-29"],"Sa":["Psalm 116:1-9","Joshua 6:22-27","Matthew 21:23-32","Psalm 19","Proverbs 21:1-17"],"M":["Psalm 119:169-176","Romans 3:9-20","Psalm 73:21-28","Proverbs 22:1-21"],"Tu":["Psalm 119:169-176","1 Kings 13:11-25","Colossians 3:1-11","Isaiah 10:12-20","John 7:25-36","Psalm 73:21-28","Proverbs 25:1-28"],"W":["Psalm 73:21-28","Proverbs 29:1-27","John 7:25-36"]},"sep_18":{"Th":["Psalm 54","Judges 6:1-10","1 Corinthians 2:1-5","Psalm","Proverbs 30:1-10"],"F":["Psalm 54","1 Kings 22:24-40","Romans 11:25-32","Psalm","Proverbs 30:18-33"],"Sa":["Psalm 54","2 Kings 17:5-18","Matthew 23:29-39","Psalm","Ecclesiastes 1:1-18"],"M":["Psalm 139:1-18","2 Kings 5:1-14","James 4:8-17","Psalm","Zechariah 6:9-15","1 Peter 1:3-9","Zechariah 8:18-23","1 John 2:18-25","Psalm 112","Deuteronomy 22:13-30","1 Corinthians 7:1-9","Deuteronomy 24:1-5","1 Corinthians 7:10-16","Psalm 26","Obadiah 1-9","Revelation 7:9-17","Psalm 128","Proverbs 27:1-27"],"Tu":["Psalm 139:1-18","2 Kings 11:21-12:16","James 5:1-6","Psalm 26","Obadiah 10-16","Revelation 8:1-5","Obadiah 17-21","Luke 16:19-31","Psalm 128","Ecclesiastes 4:9-16","Ecclesiastes 5:1-20","John 8:21-38"],"W":["Psalm 139:1-18","Jeremiah 1:4-10","John 8:21-38","Exodus 18:13-27","Acts 4:13-31","Psalm 19:7-14","Deuteronomy 1:1-18","Acts 12:20-25","Deuteronomy 27:1-10","Matthew 5:13-20","Psalm","Zechariah 10:1-12","Matthew 18:6-9","Genesis 20:1-18","Galatians 3:23-29","Psalm","Genesis 21:22-34","Romans 8:1-11","Genesis 23:1-20","Luke 16:14-18","Psalm 112","Jeremiah 3:6-14","Matthew 5:27-36","Deuteronomy 5:1-21","Hebrews 3:7-19","Psalm 90:12-17","Deuteronomy 5:22-33","Hebrews 4:1-11","Amos 3:13-4:5","Matthew 15:1-9"]},"oct_16":{"Th":["Psalm 91:9-16","Genesis 14:17-24","Romans 15:7-13","Psalm 104:1-9, 24, 35b","Job 36:1-16","Psalm 34:1-8 [19-22]","2 Kings 20:12-19","Hebrews 7:1-10"],"F":["Psalm 91:9-16","Isaiah 47:1-9","Revelation 17:1-18","Psalm 104:1-9, 24, 35b","Job 37:1-24","Psalm 34:1-8 [19-22]","Nehemiah 1:1-11","Hebrews 7:11-22"],"Sa":["Psalm 91:9-16","Isaiah 47:10-15","Luke 22:24-30","Psalm 104:1-9, 24, 35b","Job 39:1-30","Psalm 34:1-8 [19-22]","Job 42:7-9","Mark 8:22-26","1 Samuel 2:1-10","1 Samuel 3:1-18","Mark 12:1-12"],"Tu":["Psalm 37:23-40","1 Samuel 10:17-25","Hebrews 6:13-20","1 Samuel 12:1-25","John 13:1-17","Psalm 75","Job 41:1-11","Job 41:12-34","Psalm 28","Ezekiel 18:1-32","Acts 9:32-35","Psalm3","Deuteronomy 26:5-10","Hebrews 10:32-39"],"M":["Psalm 28","Isaiah 59:9-19","1 Peter 2:1-10","Psalm 18:20-30","Ruth 2:15-23","Romans 12:17-21; 13:8-10","Ruth 3:1-7","Acts 7:17-29","Psalm 113","Genesis 24:1-10","1 Timothy 5:1-8","Genesis 24:11-27","1 Timothy 5:9-16","Genesis 24:28-42","Luke 4:16-30","1 Samuel 1:21-28","1 Timothy 6:11-21","1 Samuel 2:1-10","1 Samuel 2:18-21","Colossians 2:6-15","Psalm","1 Samuel 3:19-4:2","Hebrews 10:26-31"],"W":["Psalm 28","Ezekiel 14:12-23","Matthew 20:29-34","Ruth 1:18-22","Hebrews 9:1-12","Psalm 146","Ruth 2:1-9","Romans 3:21-31","Ruth 2:10-14","Luke 10:25-37","Psalm 18:20-30","Ruth 3:8-18","John 13:31-35","Ruth 4:1-10","Romans 5:6-11","Psalm 127","Ruth 4:11-17","Hebrews 9:15-24","Ruth 4:18-22","Mark 11:12-14,20-24"]},"oct_23":{"Th":["Psalm 126","Jeremiah 23:9-15","Hebrews 7:1-10"],"F":["Psalm 126","Jeremiah 26:12-24","Hebrews 7:11-22"],"Sa":["Psalm 126","Jeremiah 29:24-32","Mark 8:22-26"],"M":["Psalm 119:17-24","Exodus 4:1-17","1 Peter 2:1-10"]},"oct_30":{"Th":["Psalm 119:1-8","Exodus 22:1-15","Hebrews 9:1-12"],"F":["Psalm 119:1-8","Leviticus 19:32-37","Romans 3:21-31"],"Sa":["Psalm 119:1-8","Numbers 9:9-14","Luke 10:25-37"],"M":["Psalm 51","Deuteronomy 6:10-25","Romans 12:17-21; 13:8-10"],"Tu":["Psalm 51 \\","Deuteronomy 28:58-29:1","Acts 7:17-29"],"W":["Psalm 51","Micah 6:1-8 |!","John 13:31-35"]},"nov_6":{"Th":["Psalm 146","Numbers 36:1-13","Romans 5:6-11"],"F":["Psalm 146 \u2018","Deuteronomy 15:1-11","Hebrews 9:15-24"],"Sa":["Psalm 146","Deuteronomy 24:17-22","Mark 11:12-14,20-24","Psalm 139:1-6, 13-18","1 Samuel 2:1-10","John 7:19-24"],"M":["Psalm 94","Ruth 1:1-22","1 Timothy 5:1-8","Psalm 99","1 Samuel 2:11-17","Romans 9:19-29"],"Tu":["Psalm 94","Ruth 3:14-4:6","1 Timothy 5:9-16"],"W":["Psalm 94","Ruth 4:7-22","Luke 4:16-30"]},"christ_king":{"Th":["Psalm 93","Ezekiel 28:1-10","Acts 7:54-8:la"],"F":["Psalm 93","Ezekiel 28:20-26","1 Corinthians 15:20-28"],"Sa":["Psalm 93","Daniel 7:1-8, 15-18","John 3:31-36"],"M":["Psalm 76","Daniel 7:19-27","Revelation 11:1-14"],"Tu":["Psalm 76","Ezekiel 29:1-12","Revelation 11:15-19","Psalm 99","1 Samuel 2:18-21","Acts 15:1-5, 22-35","1 Samuel 2:22-36","John 5:1-18"],"W":["Psalm 76","Ezekiel 30:20-26","John 16:25-33"]},"jun_19":{"Th":["Psalm 9:9-20","1 Samuel 16:14-23","Acts 20:1-16"],"F":["Psalm 9:9-20","1 Samuel 17:55-18:5","Acts 21:1-16"],"Sa":["Psalm 9:9-20","1 Samuel 18:1-4","Luke 21:25-28"],"M":["Psalm 119:113-128","1 Samuel 18:6-30","Acts 27:13-38"],"Tu":["Psalm 119:113-128","1 Samuel 19:1-7","Acts 27:39-44","1 Samuel 19:8-17 \u2122","Mark 6:45-52"]},"sep_25":{"Th":["Psalm 124","Esther 1:1-21","Acts 4:13-31"],"F":["Psalm 124","Esther 2:1-23","Acts 12:20-25"],"Sa":["Psalm 124","Esther 3:1-15","Matthew 5:13-20"],"M":["Psalm 140","Esther 4:1-17","1 Peter 1:3-9"],"Tu":["Psalm 140","Esther 5:1-14","1 John 2:18-25","Esther 8:1-17","Matthew 18:6-9"]},"oct_2":{"Th":["Psalm 26","Job 2:11-3:26","Galatians 3:23-29"],"F":["Psalm 26","Job 4:1-21","Romans 8:1-11"],"Sa":["Psalm 26","Job 7:1-21","Luke 16:14-18"],"M":["Psalm 55:1-15","Job 8:1-22","1 Corinthians 7:1-9"],"Tu":["Psalm 55:1-15","Job 11:1-20","1 Corinthians 7:10-16","Job 15:1-35","Matthew 5:27-36"]},"oct_9":{"Th":["Psalm 22:1-15","Job 17:1-16","Hebrews 3:7-19"],"F":["Psalm 22:1-15","Job 18:1-21","Hebrews 4:1-11"],"Sa":["Psalm 22:1-15","Job 20:1-29","Matthew 15:1-9"],"Tu":["Psalm 39","Job 28:12-29:10","Revelation 8:1-5","Job 32:1-22","Luke 16:19-31"]},"jul_31":{"Th":["Psalm 78:23-29","Exodus 12:33-42","1 Corinthians 11:17-22","Psalm 51:1-12","Exodus 32:19-26a"],"F":["Psalm 78:23-29","Exodus 12:43-13:2","1 Corinthians 11:27-34","Psalm 51:1-12","Joshua 23:1-16"],"Sa":["Psalm 78:23-29","Exodus 13:3-10","Matthew 16:5-12","Psalm 51:1-12","Judges 6:1-10"],"M":["Psalm 107:1-3, 33-43","Numbers 11:16-23, 31-32","Ephesians 4:17-24","Psalm 50:16-23","2 Samuel 12:15-25"],"Tu":["Psalm 107:1-3, 33-43","Deuteronomy 8:1-20","1 Corinthians 12:27-31","Isaiah 55:1-9","Mark 8:1-10","Psalm 50:16-23","2 Samuel 13:1-19","2 Samuel 13:20-36"]}},"C":{"advent_4":{"Th":["Psalm 25:1-10","Nehemiah 9:6-15","1 Thessalonians 5:1-11","Psalm 80:1-7","Jeremiah 31:31-34","Hebrews 10:10-18"],"F":["Psalm 25:1-10","Nehemiah 9:16-25","1 Thessalonians 5:12-22","Psalm 80:1-7","Isaiah 42:10-18","Hebrews 10:32-39"],"Sa":["Psalm 25:1-10","Nehemiah 9:26-31","Luke 21:20-24","Psalm 80:1-7","Isaiah 66:7-11","Luke 13:31-35"],"M":["Psalm 90","Numbers 17:1-11","2 Peter 3:1-18","Psalm 63","2 Kings 23:15-25","Revelation 11:1-14","Psalm 113","Genesis 25:19-28","Colossians 1:15-20"],"Tu":["Psalm 90","2 Samuel 7:18-29","Revelation 22:12-16","Isaiah 1:24-31","Luke 11:29-32","Psalm 63","1 Samuel 17:55-18:5","Revelation 11:15-19","2 Samuel 2:1-7","John 16:25-33","Psalm 113","Genesis 30:1-24","Romans 8:18-30","Isaiah 42:14-21","Luke 1:5-25"]},"advent_2":{"Th":["Luke 1:68-79","Malachi 3:5-12","Philippians 1:12-18a"],"F":["Luke 1:68-79","Malachi 3:13-18","Philippians 1:18b-26"],"Sa":["Luke 1:68-79","Malachi 4:1-6","Luke 9:1-6"],"M":["Psalm 126","Isaiah 40:1-11","Romans 8:22-25"],"Tu":["Psalm 126","Isaiah 19:18-25","2 Peter 1:2-15"],"W":["Psalm","1 Kings 8:22-30","Mark 13:9-23"]},"christ_king":{"Th":["Psalm 132:1-12 [13-18]","2 Kings 22:1-10","Acts 7:54-8:1a","Luke 1:68-79","Jeremiah 21:1-14","Hebrews 9:23-28"],"F":["Psalm 132:1-12 [13-18]","2 Kings 22:11-20 \\","1 Corinthians 15:20-28","Luke 1:68-79","Jeremiah 22:1-17","1 Peter 1:3-9"],"Sa":["Psalm 132:1-12 [13-18]","2 Kings 23:1-14","John 3:31-36","Isaiah 35:3-7","Luke 7:18-30","Luke 1:68-79","Jeremiah 22:18-30","Luke 18:15-17"],"Tu":["Psalm 117","Jeremiah 30:18-24","Revelation 22:8-21","Jeremiah 31:1-6","Luke 1:1-4"]},"advent_3":{"Th":["Isaiah 12:2-6","Amos 6:1-8"],"F":["Isaiah 12:2-6","Amos 8:4-12"],"Sa":["Isaiah 12:2-6","Amos 9:8-15","Luke 1:57-66"],"M":["Isaiah 11:1-9","Numbers 16:1-19","Hebrews 13:7-17"],"Tu":["Isaiah 11:1-9","Numbers 16:20-35 =.","Acts 28:23-31","Micah 4:8-13 =.","Luke 7:31-35"]},"epiphany_1":{"Th":["Psalm 29","Ecclesiastes 1:1-11","1 Corinthians 1:18-31"],"F":["Psalm 29","Ecclesiastes 2:1-11","1 Corinthians 2:1-10"],"Sa":["Psalm 29","Ecclesiastes 3:1-15","1 Corinthians 2:11-16"],"M":["Psalm 106:1-12","Judges 4:1-16","Ephesians 6:10-17"],"Tu":["Psalm 106:1-12","Judges 5:12-21","1 John 5:13-21","Numbers 27:1-11","Luke 11:33-36"]},"epiphany_2":{"Th":["Psalm 36:5-10","Jeremiah 3:1-5","Acts 8:18-24"],"F":["Psalm 36:5-10","Jeremiah 3:19-25","1 Corinthians 7:1-7"],"Sa":["Psalm 36:5-10","Jeremiah 4:1-4","Luke 11:14-23"],"M":["Psalm 145","Isaiah 54:1-8","Romans 12:9-21"],"Tu":["Psalm 145","Song of Solomon 4:1-8","1 Corinthians 1:3-17","Song of Solomon 4:9-5:1","Luke 5:33-39"]},"epiphany_3":{"Th":["Psalm 19","Isaiah 61:1-7","Romans 7:1-6"],"F":["Psalm 19","Nehemiah 2:1-10","Romans 12:1-8"],"Sa":["Psalm 19","Nehemiah 5:1-13","Luke 2:39-52"],"M":["Psalm 119:89-96","Jeremiah 36:1-10","1 Corinthians 14:1-12"],"Tu":["Psalm 119:89-96","Jeremiah 36:11-26","2 Corinthians 7:2-12","Jeremiah 36:27-32","Luke 4:38-44"]},"epiphany_4":{"Th":["Psalm 71:1-6","2 Chronicles 34:1-7","Acts 10:44-48"],"F":["Psalm 71:1-6","2 Chronicles 35:20-27","Acts 19:1-10"],"Sa":["Psalm 71:1-6","2 Chronicles 36:11-21","John 1:43-51"],"M":["Psalm 56","1 Kings 17:8-16","1 Corinthians 2:6-16"],"Tu":["Psalm 56","2 Kings 5:1-14","1 Corinthians 14:13-25","Jeremiah 1:11-19","Luke 19:41-44"]},"epiphany_5":{"Th":["Psalm 138","Numbers 20:22-29","Numbers 27:12-23","Acts 9:26-31","Judges 3:7-11","Luke 4:42-44"],"M":["Psalm 115","Judges 5:1-11","1 Corinthians 14:26-40","1 Samuel 9:15-10:1b","1 Timothy 3:1-9"],"W":["Psalm 115","Isaiah 8:1-15","Luke 5:27-32"]},"epiphany_6":{"M":["Psalm 120","2 Kings 24:18-25:21","1 Corinthians 15:20-34","Ezra 1:1-11","2 Corinthians 1:12-19"],"W":["Psalm 120","Jeremiah 22:11-17","Luke 11:37-52"]},"epiphany_7":{"M":["Psalm 38","Genesis 33:1-17","1 Corinthians 11:2-16","1 Samuel 24:1-22","1 Corinthians 11:17-22","Leviticus 5:1-13","Luke 17:1-4"]},"epiphany_8":{"Th":["Psalm 92:1-4, 12-15","Proverbs 13:1-12","Romans 5:12-6:2"],"F":["Psalm 92:1-4, 12-15","Proverbs 15:1-9","1 Thessalonians 4:13-18"],"Sa":["Psalm 92:1-4, 12-15","Isaiah 30:8-17","John 16:1-4a"],"M":["Psalm","Jeremiah 24:1-10","1 Corinthians 16:1-12"],"Tu":["Psalm1","Jeremiah 29:10-19","1 Corinthians 16:13-24"],"W":["Psalm","Proverbs 5:1-23","Luke 14:34-35"]},"transfiguration":{"Th":["Psalm 99","Deuteronomy 9:1-5","Acts 3:11-16"],"F":["Psalm 99","Deuteronomy 9:6-14","Acts 10:1-8"],"Sa":["Psalm 99","Deuteronomy 9:15-24","Luke 10:21-24"],"M":["Psalm 35:11-28","Exodus 35:1-29","Acts 10:9-23a"],"Tu":["Psalm 35:11-28","Ezekiel 1:1-2:1","Acts 10:23b-33"]},"lent_4":{"Th":["Psalm 91:1-2,9-16","Exodus 5:10-23","Acts 7:30-34","Psalm 32","Joshua 4:1-13","2 Corinthians 4:16-5:5"],"F":["Psalm 91:1-2,9-16","Exodus 6:1-13","Acts 7:35-42","Psalm 32","Joshua 4:14-24","2 Corinthians 5:6-15"],"Sa":["Psalm 91:1-2,9-16","Ecclesiastes 3:1-8","John 12:27-36","Psalm 32","Exodus 32:7-14","Luke 15:1-10"],"M":["Psalm 17","1 Chronicles 21:1-17","1 John 2:1-6","Psalm 53","Leviticus 23:26-41","Revelation 19:1-8"],"Tu":["Psalm 17 \u2018","Zechariah 3:1-10","2 Peter 2:4-21","Job 1:1-22","Luke 21:34-22:6","Psalm 53","Leviticus 25:1-19","Revelation 19:9-10","2 Kings 4:1-7","Luke 9:10-17"]},"lent_2":{"Th":["Psalm 27","Genesis 13:1-7, 14-18","Philippians 3:2-12","Genesis 14:17-24","Philippians 3:17-20"],"Sa":["Psalm 27","Psalm 118:26-29","Matthew 23:37-39"],"M":["Psalm 105:1-15 [16-41] 42","Exodus 33:1-6","Romans 4:1-12"],"Tu":["Psalm 105:1-15 [16-41] 42","Numbers 14:10b-24","1 Corinthians 10:1-13","2 Chronicles 20:1-22","Luke 13:22-31"]},"lent_3":{"Th":["Psalm 63:1-8","Daniel 3:19-30","Revelation 2:8-11","Daniel 12:1-4","Revelation 3:1-6"],"Sa":["Psalm 63:1-8","Isaiah 5:1-7","Luke 6:43-45"],"M":["Psalm 39","Jeremiah 11:1-17","Romans 2:1-11"],"Tu":["Psalm 39 \u2018","Ezekiel 17:1-10","Romans 2:12-16","Numbers 13:17-27","Luke 13:18-21"]},"lent_5":{"Th":["Psalm 126","Isaiah 43:1-7","Philippians 2:19-24"],"F":["Psalm 126","Isaiah 43:8-15","Philippians 2:25-3:1"],"Sa":["Psalm 126","Exodus 12:21-27","John 11:45-57"],"M":["Psalm 20","Exodus 40:1-15","Hebrews 10:19-25"],"Tu":["Psalm 20","Judges 9:7-15","1 John 2:18-28","Habakkuk 3:2-15","Luke 18:31-34"]},"lent_6":{"Th":["Psalm 31:9-16","Isaiah 53:10-12","Hebrews 2:1-9"],"F":["Psalm 31:9-16","Isaiah 54:9-10","Hebrews 2:10-18"],"Sa":["Psalm 31:9-16","Leviticus 23:1-8","Luke 22:1-13"]},"three_days":{"M":["Psalm 118:1-2, 14-24","Joshua 10:16-27","1 Corinthians 5:6b-8"],"Tu":["Psalm 118:1-2, 14-24","Judges 4:17-23; 5:24-31a","Revelation 12:1-12","2 Samuel 6:1-15","Luke 24:1-12"]},"easter_2":{"Th":["Psalm 150","1 Samuel 17:1-23","Acts 5:12-16"],"F":["Psalm 150","1 Samuel 17:19-32","Acts 5:17-26"],"Sa":["Psalm 150","1 Samuel 17:32-51","Luke 24:36-40"],"Tu":["Psalm 122","Esther 8:1-17","Revelation 2:8-11"],"W":["Psalm 122","Esther 9:1-5, 18-23","Luke 12:4-12"]},"easter_3":{"Th":["Psalm 30","Isaiah 5:11-17","Revelation 3:14-22"],"F":["Psalm 30","Isaiah 6:1-4","Revelation 4:1-11"],"Sa":["Psalm30","Genesis 18:1-8","Luke 14:12-14"],"M":["Psalm 121","Ezekiel 1:1-25","Acts 9:19b-31"],"Tu":["Psalm 121","Ezekiel 1:26-2:1","Acts 26:1-18"],"W":["Psalm 121","Isaiah 6:1-8","Luke 5:1-11"]},"easter_4":{"Th":["Psalm 23","Ezekiel 11:1-25","Revelation 5:1-10"],"F":["Psalm 23","Ezekiel 20:39-44","Revelation 6:1-7:4"],"Sa":["Psalm 23 East","Ezekiel 28:25-26","Luke 12:29-32"],"M":["Psalm 100","Ezekiel 37:15-28","Revelation 15:1-4"],"Tu":["Psalm 100","Ezekiel 45:1-9","Acts 9:32-35","Jeremiah 50:17-20","John 10:31-42"]},"easter_5":{"Th":["Psalm 148","Ezekiel 2:8-3:11","Revelation 10:1-11"],"F":["Psalm 148","Daniel 7:13-14 Pen","Revelation 11:15"],"Sa":["Psalm 148","Daniel 7:27","Revelation 11:16-19"],"M":["Psalm 133","1 Samuel 20:1-23, 35-42","Acts 11:19-26"],"Tu":["Psalm 133","2 Samuel 1:4-27","Acts 11:27-30","Leviticus 19:9-18","Luke 10:25-28"]},"easter_6":{"Th":["Psalm 67","Proverbs 2:1-5","Acts 15:36-41"],"F":["Psalm 67","Proverbs 2:6-8 Holy","Acts 16:1-8"],"Sa":["Psalm 67","Proverbs 2:9-15","Luke 19:1-10"],"M":["Psalm 93","1 Chronicles 12:16-22","Revelation 21:5-14","2 Chronicles 15:1-15","Revelation 21:15-22"],"W":["Psalm 93","2 Chronicles 34:20-33","Luke 2:25-38"]},"easter_7":{"M":["Psalm 29","Exodus 40:16-38","Acts 16:35-40","2 Chronicles 5:2-14","Acts 26:19-29","Psalm 48","Joel 2:18-29","1 Corinthians 2:1-11","Ezekiel 11:14-25","1 Corinthians 2:12-16","Psalm 124","Proverbs 7:1-4","Ephesians 4:7-16"],"W":["Psalm 29","Ezekiel 3:12-21","Luke 9:18-27","Isaiah 32:11-17","Galatians 5:16-25","Psalm 104:24-34, 35b","Isaiah 44:1-4","Galatians 6:7-10","2 Kings 2:1-15a","Luke 1:5-17","Psalm 48","Numbers 24:1-14","Luke 1:26-38","Proverbs 3:13-18","Ephesians 1:17-19","Psalm","Proverbs 3:19-26","Ephesians 4:1-6","Proverbs 4:1-9","Luke 2:41-52"],"Tu":["Psalm 124","Proverbs 8:4-21","Ephesians 5:15-20","Daniel 1:1-21","Luke 1:46b-55"]},"may_29":{"Th":["Psalm 96:1-9","1 Kings 6:23-38","2 Corinthians 5:11-17","Psalm96","1 Kings 12:20-33"],"F":["Psalm 96:1-9","1 Kings 8:14-21","2 Corinthians 11:1-6","Psalm 96","1 Kings 16:29-34"],"Sa":["Psalm 96:1-9","1 Kings 8:31-40","Luke 4:31-37","Psalm96","1 Kings 18:1-19"],"M":["Psalm","Jonah 4:1-11","Acts 8:26-40","Psalm 135","Ezekiel 8:1-18"],"Tu":["Psalm","Nehemiah 1:1-11","Acts 3:1-10","Isaiah 56:1-8","Mark 7:24-30","Psalm 135","Ezekiel 14:1-11"],"W":["Psalm 135","Ezekiel 14:12-23","Mark 7:24-30"]},"jun_5":{"Th":["Psalm 30","2 Samuel 14:1-11","Acts 22:6-21","Psalm 146","Exodus 29:1-9"],"F":["Psalm 30","2 Samuel 14:12-24","Acts 26:1-11","Psalm 146","Numbers 15:17-26"],"Sa":["Psalm 30","2 Samuel 14:25-33","Matthew 9:2-8","Psalm 146","Joshua 9:1-27"],"M":["Psalm 68:1-10, 19-20","Genesis 22:1-14","Galatians 2:1-10","Job 22:1-20","Psalm 141","Ezekiel 11:14-25","Ephesians 4:25-5:2","Ezekiel 39:21-40:4","1 Corinthians 10:23-11:1","Psalm 24","Jeremiah 46:18-28","Revelation 21:5-27","Isaiah 33:17-22","Revelation 22:8-21","Psalm 83","Genesis 31:17-35","Galatians 3:1-9","2 Samuel 19:31-43","Galatians 3:10-14"],"Tu":["Psalm 68:1-10, 19-20","Judges 11:29-40","Galatians 2:11-14","Jeremiah 8:14-22","Luke 8:40-56","Job 24:9-25","Job 31:16-23"],"W":["Psalm 141","Ezekiel 43:1-12","Matthew 23:37-24:14","2 Chronicles 18:12-22","Hebrews 9:23-28","Psalm 46","Zechariah 11:1-17","1 Peter 1:3-9","Jeremiah 22:18-30","Luke 18:15-17","Psalm 24","Isaiah 60:8-16","Luke 1:1-4","1 Kings 20:1-22","James 4:1-7","Psalm 5:1-8","1 Kings 20:23-34","Romans 11:1-10","1 Kings 20:35-43","Luke 5:17-26","Psalm 83","Malachi 3:5-12","Mark 2:1-12"]},"may_24":{"Th":["Psalm 92:1-4, 12-15","Proverbs 13:1-12","Romans 5:12-6:2"],"F":["Psalm 92:1-4, 12-15","Proverbs 15:1-9","1 Thessalonians 4:13-18"],"Sa":["Psalm 92:1-4, 12-15","Isaiah 30:8-17","John 16:1-4a"]},"jun_12":{"Th":["Psalm 32","2 Samuel 13:23-39","James 4:1-7"],"F":["Psalm 32 |!","2 Samuel 15:1-12","Romans 11:1-10"],"Sa":["Psalm 32","2 Samuel 18:28-19:8","Luke 5:17-26"],"M":["Psalm 130","2 Chronicles 29:1-19","Galatians 3:1-9"],"Tu":["Psalm 130","2 Chronicles 30:1-12","Galatians 3:10-14"],"W":["Psalm 130","Mark 2:1-12"]},"jun_19":{"Th":["Psalm 22:19-28","Isaiah 56:9-12","Romans 2:17-29","Psalms 42 and 43","Genesis 24:1-21"],"F":["Psalm 22:19-28","Isaiah 57:1-13","Galatians 3:15-22","Psalms 42 and 43","Job 6:14-30"],"Sa":["Psalm 22:19-28","Isaiah 59:1-8","Matthew 9:27-34","Psalms 42 and 43","Proverbs 11:3-13"],"M":["Psalm 64","Job 18:1-21","1 Corinthians 1:18-31","Psalm","Jeremiah 24:1-10","1 Corinthians 16:1-12","Psalm 59","2 Kings 9:1-13"],"Tu":["Psalm 64","Job 19:1-22","Ephesians 2:11-22","Psalm","Jeremiah 29:10-19","1 Corinthians 16:13-24","Psalm 59","2 Kings 9:14-26","2 Kings 9:30-37","Luke 9:37-43a"],"W":["Psalm 64","Ezekiel 32:1-10","Luke 9:37-43a","Psalm","Proverbs 5:1-23","Luke 14:34-35"]},"jun_26":{"Th":["Psalm 16","Leviticus 9:22-10:11","2 Corinthians 13:5-10","Psalm 77:1-2, 11-20","1 Kings 22:29-40, 51-53"],"F":["Psalm 16","2 Kings 1:1-16","Galatians 4:8-20","Psalm 77:1-2, 11-20","2 Kings 1:1-12"],"Sa":["Psalm 16","Deuteronomy 32:15-27","Luke 9:21-27","Psalm 77:1-2, 11-20","2 Kings 1:13-18;2:3-5"],"M":["Psalm 140","Genesis 24:34-41, 50-67","1 John 2:7-11","Psalm 75","2 Kings 2:15-22"],"Tu":["Psalm 140","Jeremiah 3:15-18","Ephesians 5:6-20","Psalm 75","2 Kings 3:4-20"],"W":["Psalm 140","Jeremiah 23:16-22","Matthew 10:16-25","Psalm 75","2 Kings 4:1-7"]},"jul_3":{"Th":["Psalm 66:1-9","2 Kings 21:1-15","Romans 7:14-25","Psalm 30","2 Kings 4:8-17"],"F":["Psalm 66:1-9","Jeremiah 51:47-58","2 Corinthians 8:1-7","Psalm 30","2 Kings 4:18-31"],"Sa":["Psalm 66:1-9","Zechariah 14:10-21","Luke 9:1-6","Psalm 30","2 Kings 4:32-37"],"M":["Psalm 119:73-80","Jeremiah 6:10-19","Acts 19:21-27","Psalm","2 Kings 5:15-19a"],"Tu":["Psalm 119:73-80","Jeremiah 8:4-13","Acts 19:28-41","Psalm","2 Kings 5:19b-27"],"W":["Psalm 119:73-80","Joshua 23:1-16","Luke 10:13-16","Psalm","2 Kings 6:1-7"]},"jul_10":{"Th":["Psalm 25:1-10","Genesis 41:14-36","James 2:14-26","Psalm 82","Amos 1:1-2:3"],"F":["Psalm 25:1-10","Genesis 41:37-49","Acts 7:9-16","Psalm 82","Amos 2:4-11"],"Sa":["Psalm 25:1-10","Leviticus 19:1-4, 32-37","John 3:16-21","Psalm 82","Amos 2:12-3:8"],"M":["Psalm 25:11-20","Job 24:1-8","James 2:1-7","Psalm","Amos 3:9-4:5"],"Tu":["Psalm 25:11-20","Proverbs 19:1-17","1 John 3:11-17","Ecclesiastes 9:13-18","Matthew 25:31-46","Psalm","Amos 4:6-13"],"W":["Psalm","Amos 5:1-9","Matthew 25:31-46"]},"jul_17":{"Th":["Psalm 15","Genesis 12:10-20","Hebrews 5:1-6","Psalm 52","Amos 5:10-17"],"F":["Psalm 15","Genesis 13:1-18","Ephesians 3:14-21","Psalm 52","Amos 5:18-27"],"Sa":["Psalm15","Genesis 14:1-16","Luke 8:4-10","Psalm 52","Amos 6:1-14","Luke 8:4-10"],"M":["Psalm 119:97-104","Exodus 18:1-12","Colossians 1:27-2:7"],"Tu":["Psalm 119:97-104","Proverbs 9:1-18","1 John 2:1-6","Psalm 119:17-32","Amos 8:13-9:4"],"W":["Psalm 119:97-104","Deuteronomy 12:1-12","John 6:41-51","Psalm 119:17-32","Amos 9:5-15"]},"jul_24":{"Th":["Psalm 138","Esther 2:19-3:6","Acts 1:15-20","Psalm 85","Hosea 4:1-19"],"F":["Psalm 138","Esther 3:7-15","Acts 2:22-36","Psalm 85","Hosea 5:1-15"],"Sa":["Psalm 138","Esther 4:1-17","Luke 8:22-25","Psalm 85","Hosea 1:11-2:15"],"M":["Psalm 55:16-23","Esther 5:1-14","Colossians 2:16-3:1","Psalm 44","Hosea 2:14-3:5"],"Tu":["Psalm 55:16-23 sa","Esther 6:1-7:6","Romans 9:30-10:4","Psalm 44","Hosea 6:1-10"],"W":["Psalm 55:16-23","Esther 7:7-8:17","Matthew 5:43-48","Psalm 44","Hosea 6:11-7:16"]},"jul_31":{"Th":["Psalm 107:1-9, 43","Hosea 8:1-14","Romans 11:33-36"],"F":["Psalm 107:1-9, 43","Hosea 9:1-17","Ephesians 4:17-24"],"Sa":["Psalm 107:1-9, 43","Hosea 10:1-15","Mark 10:17-22"],"M":["Psalm 60","Hosea 11:12-12:14","Colossians 3:18-4:1"],"Tu":["Psalm 60","Hosea 13:1-16","Colossians 4:2-6"],"W":["Psalm 60","Hosea 14:1-9","Luke 12:22-31"]},"aug_7":{"Th":["Psalm 33:12-22","Job 21:1-16","Romans 9:1-9","Psalm 50:1-8, 22-23","Isaiah 9:8-17"],"F":["Psalm 33:12-22","Ecclesiastes 6:1-6","Acts 7:1-8","Psalm 50:1-8, 22-23","Isaiah 9:18-10:4"],"Sa":["Psalm 33:12-22","Genesis 11:27-32 sun","Matthew 6:19-24","Psalm 50:1-8, 22-23","Isaiah 1:2-9, 21-23","Matthew 6:19-24"],"M":["Psalm 89:1-18","Hebrews 11:1-7","Psalm 11","Isaiah 2:1-4"],"Tu":["Psalm 89:1-18","Hebrews 11:17-28","Psalm 11","Isaiah 24:1-13"],"W":["Psalm 89:1-18","Jeremiah 33:14-26","Luke 12:41-48","Psalm 11","Isaiah 24:14-23"]},"aug_14":{"Th":["Psalm 82","Joshua 7:1, 10-26","Hebrews 10:26-31","Psalm 80:1-2, 8-19","Isaiah 2:5-11"],"F":["Psalm 82","1 Samuel 5:1-12","Hebrews 10:32-39","1 Samuel 6:1-16","Matthew 24:15-27","Psalm 80:1-2, 8-19","Isaiah 3:1-17"],"M":["Psalm 32","Jeremiah 23:30-40","1 John 4:1-6","Jeremiah 25:15-29","Acts 7:44-53","Psalm 109:21-31","Ezekiel 20:1-17","Hebrews 3:7-4:11","Ezekiel 20:18-32","Revelation 3:7-13","Ezekiel 20:33-44","Luke 6:6-11","Proverbs 15:13-17","1 Peter 3:8-12","Psalm 112","Proverbs 18:6-12","1 Peter 4:7-11","Proverbs 21:1-4, 24-26","Matthew 20:20-28","Psalm 119:65-72","2 Chronicles 12:1-12","Hebrews 13:7-21","Isaiah 2:12-17","Titus 1:1-9","Isaiah 57:14-21","Luke 14:15-24","Psalm 74","Isaiah 5:8-23"],"W":["Psalm 32","Jeremiah 25:30-38","Luke 19:45-48","Numbers 15:32-41","Hebrews 12:3-17","Psalm 103:1-8","2 Chronicles 8:12-15","Acts 17:1-9","Nehemiah 13:15-22","Luke 6:1-5"],"Sa":["Psalm 80:1-2, 8-19","Isaiah 3:18-4:6","Matthew 24:15-27"],"Tu":["Psalm 74","Isaiah 5:24-30","Acts 7:44-53","Isaiah 27:1-13","Luke 19:45-48"]},"sep_4":{"Th":["Psalm","Genesis 39:1-23","Philippians 2:25-30","Psalm 139:1-6, 13-18","Jeremiah 15:10-21","Philippians 2:25-30 \u2122","Psalm 14","Jeremiah 13:20-27","1 Timothy 1:1-11"],"F":["Psalm","Deuteronomy 7:12-26","Colossians 4:7-17","Psalm 139:1-6, 13-18","Jeremiah 16:14-17:4","Psalm 14","Jeremiah 4:1-10","2 Peter 2:1-10a"],"Sa":["Psalm1","Deuteronomy 29:2-20","Matthew 10:34-42","Psalm 139:1-6, 13-18","Jeremiah 17:14-27","Psalm 14","Jeremiah 4:13-21, 29-31","John 10:11-21"],"M":["Psalm 101","2 Kings 17:24-41","1 Timothy 3:14-4:5","Psalm 2 Suni","Jeremiah 18:12-23 oct","1 Timothy 3:14-4:5","Psalm 94","Jeremiah 5:1-17 sun","1 Timothy 1:18-20","Psalm 106:40-48","Jeremiah 9:12-26","Acts 4:1-12","Jeremiah 10:1-16","1 Corinthians 9:19-23","Psalm 119:49-56","Jeremiah 32:16-35","Revelation 3:14-22","Jeremiah 32:36-44","James 5:1-6"],"Tu":["Psalm 101","2 Kings 18:9-18","1 Timothy 4:6-16","2 Kings 18:19-25; 19:1-7","Luke 18:18-30","Psalm","Jeremiah 19:1-15","Jeremiah 20:1-18","Luke 18:18-30 sa","Psalm 94","Jeremiah 5:18-31","2 Peter 3:8-13","Psalm 137","Lamentations 2:13-22","1 John 5:1-5, 13-21","Lamentations 5:1-22","Mark 11:12-14,20-24"],"W":["Psalm 94","Jeremiah 14:1-10, 17-22","Luke 22:31-33, 54-62 sa","Jeremiah 12:14-13:11","Romans 3:1-8","Psalm 79:1-9","Jeremiah 8:1-13","Romans 8:31-39","Jeremiah 8:14-17;9:2-11","Mark 12:41-44","Psalm 106:40-48","Jeremiah 10:17-25","Luke 20:45-21:4","Jeremiah 23:9-22","Psalm 91:1-6, 14-16","Jeremiah 23:23-32","Ephesians 2:1-10","Jeremiah 24:1-10","Luke 9:43b-48","Psalm 119:49-56","Jeremiah 33:1-13","Matthew 19:16-22","Jeremiah 52:1-11","Revelation 2:8-11","Lamentations 3:19-26","Jeremiah 52:12-30","Revelation 2:12-29","Lamentations 1:7-15","Matthew 20:29-34"]},"sep_11":{"Th":["Psalm 51:1-10","Genesis 6:1-6","1 Timothy 1:1-11"],"F":["Psalm 51:1-10","Genesis 7:6-10; 8:1-5","2 Peter 2:1-10a"],"Sa":["Psalm 51:1-10","Genesis 8:20-9:7","John 10:11-21"],"M":["Psalm 73","Amos 7:1-6","1 Timothy 1:18-20"],"Tu":["Psalm 73","Jonah 3:1-10","2 Peter 3:8-13","Job 40:6-14; 42:1-6","Luke 22:31-33, 54-62"]},"sep_18":{"Th":["Psalm 113","Exodus 23:1-9","Romans 3:1-8"],"F":["Psalm 113","Ezekiel 22:17-31","Romans 8:31-39"],"Sa":["Psalm 113","Isaiah 5:8-23","Mark 12:41-44"],"M":["Psalm 12","Proverbs 14:12-31","Acts 4:1-12"],"Tu":["Psalm 12","Proverbs 17:1-5","1 Corinthians 9:19-23"],"W":["Psalm 12","Proverbs 21:10-16","Luke 20:45-21:4"]},"sep_25":{"Th":["Psalm 146","Proverbs 22:2-16"],"F":["Psalm 146","Proverbs 28:3-10","Ephesians 2:1-10"],"Sa":["Psalm 146","Proverbs 28:11-28","Luke 9:43b-48"],"M":["Psalm 62","Amos 6:8-14","Revelation 3:14-22"],"Tu":["Psalm 62","Hosea 10:9-15","James 5:1-6"],"W":["Psalm 62","Hosea 12:2-14","Matthew 19:16-22"]},"oct_2":{"Th":["Psalm 37:1-9","2 Kings 18:1-8, 28-36","Revelation 2:8-11"],"F":["Psalm 37:1-9","2 Kings 19:8-20, 35-37","Revelation 2:12-29"],"Sa":["Psalm 37:1-9","Isaiah 7:1-9","Matthew 20:29-34"],"Tu":["Psalm","Habakkuk 2:5-11","1 John 5:1-5, 13-21"],"W":["Psalm","Habakkuk 2:12-20","Mark 11:12-14,20-24"]},"oct_9":{"Th":["Psalm 111","Leviticus 14:33-53","2 Timothy 1:13-18","Psalm 66:1-12","Jeremiah 25:1-14"],"F":["Psalm 111","Numbers 4:34-5:4","2 Timothy 2:1-7","Psalm 66:1-12","Jeremiah 27:1-22"],"Sa":["Psalm 111","Numbers 12:1-15","Luke 5:12-16","Psalm 66:1-12","Jeremiah 28:1-17"],"M":["Psalm 61","2 Kings 5:15-19a","Acts 26:24-29","Psalm 102:1-17","Jeremiah 29:8-23"],"Tu":["Psalm 61","2 Kings 5:19b-27","Ephesians 6:10-20","Psalm 102:1-17","Jeremiah 29:24-32"],"W":["Psalm 61","2 Kings 15:1-7","Matthew 10:5-15.","Psalm 102:1-17","Jeremiah 25:15-32","Matthew 10:5-15"]},"oct_16":{"Th":["Psalm 121","Isaiah 54:11-17","Acts 17:22-34","Psalm 119:97-104","Jeremiah 26:1-15","Psalm 65","Joel 1:1-20","2 Timothy 3:1-9"],"F":["Psalm 121","Genesis 31:43-32:2","2 Timothy 2:14-26","Psalm 119:97-104","Jeremiah 26:16-24","Psalm 65","Joel 2:1-11","2 Timothy 3:10-15"],"Sa":["Psalm 121","Genesis 32:3-21","Mark 10:46-52","Psalm 119:97-104","Jeremiah 31:15-26","Psalm 65","Joel 2:12-22 |,","Luke 1:46-55"],"M":["Psalm 57","1 Samuel 25:2-22","1 Corinthians 6:1-11","Psalm 129","Jeremiah 38:14-28"],"Tu":["Psalm 57","1 Samuel 25:23-35","James 5:7-12","Psalm 129","Jeremiah 39:1-18","Jeremiah 50:1-7, 17-20","Luke 22:39-46","Psalm 87","Joel 3:9-16","1 Peter 5:1-11"],"W":["Psalm 57","1 Samuel 25:36-42","Luke 22:39-46","Psalm 87","Joel 3:17-20 \u2018","Matthew 21:28-32"]},"oct_23":{"Th":["Psalm 84:1-7","Jeremiah 9:1-16","2 Timothy 3:1-9"],"F":["Psalm 84:1-7","Jeremiah 9:17-26","2 Timothy 3:10-15"],"Sa":["Psalm 84:1-7","Jeremiah 14:1-6","Luke 1:46-55"],"M":["Psalm 84:8-12","1 Samuel 2:1-10","1 Peter 4:12-19"],"Tu":["Psalm 84:8-12","Daniel 5:1-12","1 Peter 5:1-11","Daniel 5:13-31","Matthew 21:28-32"]},"oct_30":{"Th":["Psalm 32:1-7","Proverbs 15:8-11,24-33","2 Corinthians 1:1-11","Psalm 119:137-144","Jeremiah 33:14-26"],"F":["Psalm 32:1-7","Job 22:21-23:17","2 Peter 1:1-11","Psalm 119:137-144","Habakkuk 1:5-17"],"Sa":["Psalm 32:1-7","Isaiah 1:1-9","John 8:39-47","Psalm 119:137-144","Habakkuk 2:5-11 |,"],"M":["Psalm 50","Nehemiah 13:1-3, 23-31","1 Corinthians 5:9-13","Psalm 142 \u2018","Habakkuk 2:12-20"],"Tu":["Psalm 50","Zechariah 7:1-14","Jude 5-21","Amos 5:12-24","Luke 19:11-27","Psalm 142","Habakkuk 3:1-16","Habakkuk 3:17-19 \u2018"]},"nov_6":{"Th":["Psalm 17:1-9","Deuteronomy 25:5-10","Acts 22:22-23:11","Psalm 98","1 Samuel 28:3-19 mw","Romans 1:18-25","Psalm 145:1-5, 17-21","Zechariah 1:1-17"],"F":["Psalm 17:1-9","Genesis 38:1-26","Acts 24:10-23","Psalm 98","2 Samuel 21:1-14","2 Thessalonians 1:3-12","Psalm 145:1-5, 17-21","Zechariah 6:9-15"],"Sa":["Psalm 17:1-9","Exodus 3:13-20","Luke 20:1-8","Job 20:1-11","2 Peter 1:16-21","Psalm 98","Ezekiel 10:1-19","Luke 17:20-37","Psalm 145:1-5, 17-21","Haggai 1:1-15a"],"Tu":["Psalm 123","Job 21:1, 17-34","2 John 1-13","Job 25:1-26:14","John 5:19-29","Psalm 98","Haggai 2:20-23"],"W":["Psalm 98","Zechariah 8:1-17","John 5:19-29"]},"aug_21":{"Th":["Psalm 71:1-6","Jeremiah 6:1-19","Hebrews 12:3-17"],"F":["Psalm 71:1-6","Jeremiah 6:20-30","Acts 17:1-9"],"Sa":["Psalm 71:1-6","Jeremiah 1:1-3, 11-19","Luke 6:1-5"],"M":["Psalm 10","Jeremiah 7:1-15","Hebrews 3:7-4:11"],"Tu":["Psalm 10","Jeremiah 7:16-26","Revelation 3:7-13","Jeremiah 7:27-34","Luke 6:6-11"]},"aug_28":{"Th":["Psalm 81:1, 10-16","Jeremiah 11:1-17","1 Peter 3:8-12"],"F":["Psalm 81:1, 10-16","Jeremiah 12:1-13","1 Peter 4:7-11"],"Sa":["Psalm 81:1, 10-16","Jeremiah 2:1-3, 14-22","Matthew 20:20-28"],"M":["Psalm 58 sun","Jeremiah 2:23-37","Hebrews 13:7-21"],"Tu":["Psalm 58","Jeremiah 3:1-14","Titus 1:1-9"],"W":["Psalm 58","Jeremiah 3:15-25 sa","Luke 14:15-24"]},"nov_13":{"Th":["Isaiah 12","Isaiah 57:14-21","Romans 1:18-25"],"F":["Isaiah 12","Isaiah 59:1-15a","2 Thessalonians 1:3-12"],"Sa":["Isaiah 12","Isaiah 59:15b-21","Luke 17:20-37"],"Tu":["Psalm 76","Isaiah 66:1-13","1 Corinthians 10:23-11:1","Isaiah 66:14-24","Matthew 23:37-24:14"]},"advent_1":{"Th":["Psalm 25:1-10","Nehemiah 9:6-15","1 Thessalonians 4:1-18"],"F":["Psalm 25:1-10","Nehemiah 9:16-25","2 Corinthians 5:1-5"],"Sa":["Psalm 25:1-10","Nehemiah 9:26-31","Luke 21:20-28"],"M":["Psalm 90","Numbers 17:1-11","2 Peter 3:1-18"],"Tu":["Psalm 90","2 Samuel 7:18-29","Revelation 22:12-16"],"W":["Psalm 90","Isaiah 1:24-31","Luke 11:29-32"]}}};
+
+// ==========================================
+// LECTIONARY WEEK LOOKUP
+// ==========================================
+function getDailyLectionaryKey(date) {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+  const easter = getEasterDate(year);
+  const daysSinceEaster = Math.floor((date - easter) / 86400000);
+  const adventStart = getAdventStart(year);
+  const prevAdventStart = getAdventStart(year - 1);
+
+  // Find the most recent Sunday
+  const dow = date.getDay(); // 0=Sun
+  const lastSunday = new Date(date);
+  lastSunday.setDate(day - dow);
+  const nextSunday = new Date(date);
+  nextSunday.setDate(day + (7 - dow) % 7);
+
+  // Advent season: count Sundays from Advent start
+  if (date >= adventStart) {
+    const weeksSinceAdvent = Math.floor((date - adventStart) / (7 * 86400000));
+    if (weeksSinceAdvent < 4) return 'advent_' + (weeksSinceAdvent + 1);
+    return 'christmas_days';
+  }
+  if (month === 0 && day <= 5) return 'christmas_days';
+  if (month === 0 && day >= 6 && day <= 13) return 'epiphany_days';
+
+  // Epiphany season: count Sundays after Epiphany (Jan 6)
+  const epiphany = new Date(year, 0, 6);
+  if (date > epiphany && daysSinceEaster < -46) {
+    const epiphanySunday = new Date(epiphany);
+    const epiphanyDow = epiphany.getDay();
+    if (epiphanyDow !== 0) epiphanySunday.setDate(6 + (7 - epiphanyDow));
+    const weeksSinceEpiphany = Math.floor((date - epiphanySunday) / (7 * 86400000)) + 1;
+    // Check if this is Transfiguration Sunday (last Sunday before Ash Wednesday)
+    const ashWed = new Date(easter);
+    ashWed.setDate(easter.getDate() - 46);
+    const transfigSunday = new Date(ashWed);
+    transfigSunday.setDate(ashWed.getDate() - (ashWed.getDay() + 4) % 7 - 3);
+    // If we're in the last week before Lent
+    const daysToAshWed = Math.floor((ashWed - date) / 86400000);
+    if (daysToAshWed <= 3 && daysToAshWed >= 0) return 'transfiguration';
+    if (weeksSinceEpiphany >= 1 && weeksSinceEpiphany <= 9) return 'epiphany_' + weeksSinceEpiphany;
+    return 'epiphany_' + Math.min(weeksSinceEpiphany, 9);
+  }
+
+  // Ash Wednesday
+  if (daysSinceEaster === -46) return 'ash_wednesday';
+
+  // Lent: count Sundays  
+  if (daysSinceEaster >= -46 && daysSinceEaster < -7) {
+    const lentWeek = Math.floor((daysSinceEaster + 46) / 7) + 1;
+    return 'lent_' + Math.min(lentWeek, 6);
+  }
+
+  // Holy Week
+  if (daysSinceEaster >= -7 && daysSinceEaster < -3) return 'lent_6';
+  if (daysSinceEaster >= -3 && daysSinceEaster <= 0) return 'three_days';
+
+  // Easter season
+  if (daysSinceEaster > 0 && daysSinceEaster <= 49) {
+    const easterWeek = Math.floor(daysSinceEaster / 7) + 2;
+    return 'easter_' + Math.min(easterWeek, 7);
+  }
+
+  // Pentecost
+  if (daysSinceEaster >= 49 && daysSinceEaster <= 55) return 'pentecost';
+
+  // Holy Trinity
+  if (daysSinceEaster >= 56 && daysSinceEaster <= 62) return 'holy_trinity';
+
+  // Time after Pentecost - match by date range
+  const m = date.getMonth(); // 0-based
+  const d = date.getDate();
+  
+  // Date range keys for Time after Pentecost
+  const dateRanges = [
+    { start: [4,24], end: [4,28], key: 'may_24' },
+    { start: [4,29], end: [5,4], key: 'may_29' },
+    { start: [5,5], end: [5,11], key: 'jun_5' },
+    { start: [5,12], end: [5,18], key: 'jun_12' },
+    { start: [5,19], end: [5,25], key: 'jun_19' },
+    { start: [5,26], end: [6,2], key: 'jun_26' },
+    { start: [6,3], end: [6,9], key: 'jul_3' },
+    { start: [6,10], end: [6,16], key: 'jul_10' },
+    { start: [6,17], end: [6,23], key: 'jul_17' },
+    { start: [6,24], end: [6,30], key: 'jul_24' },
+    { start: [6,31], end: [7,6], key: 'jul_31' },
+    { start: [7,7], end: [7,13], key: 'aug_7' },
+    { start: [7,14], end: [7,20], key: 'aug_14' },
+    { start: [7,21], end: [7,27], key: 'aug_21' },
+    { start: [7,28], end: [8,3], key: 'aug_28' },
+    { start: [8,4], end: [8,10], key: 'sep_4' },
+    { start: [8,11], end: [8,17], key: 'sep_11' },
+    { start: [8,18], end: [8,24], key: 'sep_18' },
+    { start: [8,25], end: [9,1], key: 'sep_25' },
+    { start: [9,2], end: [9,8], key: 'oct_2' },
+    { start: [9,9], end: [9,15], key: 'oct_9' },
+    { start: [9,16], end: [9,22], key: 'oct_16' },
+    { start: [9,23], end: [9,29], key: 'oct_23' },
+    { start: [9,30], end: [10,5], key: 'oct_30' },
+    { start: [10,6], end: [10,12], key: 'nov_6' },
+    { start: [10,13], end: [10,19], key: 'nov_13' },
+  ];
+  
+  for (const range of dateRanges) {
+    const startDate = new Date(year, range.start[0], range.start[1]);
+    const endDate = new Date(year, range.end[0], range.end[1]);
+    if (date >= startDate && date <= endDate) return range.key;
+  }
+  
+  // Christ the King (last Sunday before Advent)
+  const christKingSunday = new Date(adventStart);
+  christKingSunday.setDate(adventStart.getDate() - 7);
+  if (date >= new Date(christKingSunday.getFullYear(), christKingSunday.getMonth(), christKingSunday.getDate() - 3) &&
+      date < adventStart) {
+    return 'christ_king';
+  }
+
+  // Fallback: find closest matching date range
+  return null;
+}
+
+function getDayAbbrev(date) {
+  const days = ['Su','M','Tu','W','Th','F','Sa'];
+  return days[date.getDay()];
+}
+
+
+// ==========================================
+// REVISED COMMON LECTIONARY - SUNDAY READINGS (All 3 Years)
+// ==========================================
+const RCL = {
+  "Advent 1": {
+    A: { first: "Isaiah 2:1-5", psalm: "Psalm 122", second: "Romans 13:11-14", gospel: "Matthew 24:36-44" },
+    B: { first: "Isaiah 64:1-9", psalm: "Psalm 80:1-7, 17-19", second: "1 Corinthians 1:3-9", gospel: "Mark 13:24-37" },
+    C: { first: "Jeremiah 33:14-16", psalm: "Psalm 25:1-10", second: "1 Thessalonians 3:9-13", gospel: "Luke 21:25-36" }
+  },
+  "Advent 2": {
+    A: { first: "Isaiah 11:1-10", psalm: "Psalm 72:1-7, 18-19", second: "Romans 15:4-13", gospel: "Matthew 3:1-12" },
+    B: { first: "Isaiah 40:1-11", psalm: "Psalm 85:1-2, 8-13", second: "2 Peter 3:8-15a", gospel: "Mark 1:1-8" },
+    C: { first: "Malachi 3:1-4", psalm: "Luke 1:68-79", second: "Philippians 1:3-11", gospel: "Luke 3:1-6" }
+  },
+  "Advent 3": {
+    A: { first: "Isaiah 35:1-10", psalm: "Psalm 146:5-10", second: "James 5:7-10", gospel: "Matthew 11:2-11" },
+    B: { first: "Isaiah 61:1-4, 8-11", psalm: "Psalm 126", second: "1 Thessalonians 5:16-24", gospel: "John 1:6-8, 19-28" },
+    C: { first: "Zephaniah 3:14-20", psalm: "Isaiah 12:2-6", second: "Philippians 4:4-7", gospel: "Luke 3:7-18" }
+  },
+  "Advent 4": {
+    A: { first: "Isaiah 7:10-16", psalm: "Psalm 80:1-7, 17-19", second: "Romans 1:1-7", gospel: "Matthew 1:18-25" },
+    B: { first: "2 Samuel 7:1-11, 16", psalm: "Luke 1:46b-55", second: "Romans 16:25-27", gospel: "Luke 1:26-38" },
+    C: { first: "Micah 5:2-5a", psalm: "Luke 1:46b-55", second: "Hebrews 10:5-10", gospel: "Luke 1:39-45" }
+  },
+  "Advent": {
+    A: { first: "Isaiah 7:10-16", psalm: "Psalm 80:1-7, 17-19", second: "Romans 1:1-7", gospel: "Matthew 1:18-25" },
+    B: { first: "2 Samuel 7:1-11, 16", psalm: "Luke 1:46b-55", second: "Romans 16:25-27", gospel: "Luke 1:26-38" },
+    C: { first: "Micah 5:2-5a", psalm: "Luke 1:46b-55", second: "Hebrews 10:5-10", gospel: "Luke 1:39-45" }
+  },
+  "Christmas": {
+    A: { first: "Isaiah 9:2-7", psalm: "Psalm 96", second: "Titus 2:11-14", gospel: "Luke 2:1-14" },
+    B: { first: "Isaiah 9:2-7", psalm: "Psalm 96", second: "Titus 2:11-14", gospel: "Luke 2:1-14" },
+    C: { first: "Isaiah 9:2-7", psalm: "Psalm 96", second: "Titus 2:11-14", gospel: "Luke 2:1-14" }
+  },
+  "Epiphany of Our Lord": {
+    A: { first: "Isaiah 60:1-6", psalm: "Psalm 72:1-7, 10-14", second: "Ephesians 3:1-12", gospel: "Matthew 2:1-12" },
+    B: { first: "Isaiah 60:1-6", psalm: "Psalm 72:1-7, 10-14", second: "Ephesians 3:1-12", gospel: "Matthew 2:1-12" },
+    C: { first: "Isaiah 60:1-6", psalm: "Psalm 72:1-7, 10-14", second: "Ephesians 3:1-12", gospel: "Matthew 2:1-12" }
+  },
+  "Ash Wednesday": {
+    A: { first: "Joel 2:1-2, 12-17", psalm: "Psalm 51:1-17", second: "2 Corinthians 5:20b-6:10", gospel: "Matthew 6:1-6, 16-21" },
+    B: { first: "Joel 2:1-2, 12-17", psalm: "Psalm 51:1-17", second: "2 Corinthians 5:20b-6:10", gospel: "Matthew 6:1-6, 16-21" },
+    C: { first: "Joel 2:1-2, 12-17", psalm: "Psalm 51:1-17", second: "2 Corinthians 5:20b-6:10", gospel: "Matthew 6:1-6, 16-21" }
+  },
+  "Lent": {
+    A: { first: "1 Samuel 16:1-13", psalm: "Psalm 23", second: "Ephesians 5:8-14", gospel: "John 9:1-41" },
+    B: { first: "Numbers 21:4-9", psalm: "Psalm 107:1-3, 17-22", second: "Ephesians 2:1-10", gospel: "John 3:14-21" },
+    C: { first: "Joshua 5:9-12", psalm: "Psalm 32", second: "2 Corinthians 5:16-21", gospel: "Luke 15:1-3, 11b-32" }
+  },
+  "Palm Sunday": {
+    A: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Matthew 26:14-27:66" },
+    B: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Mark 14:1-15:47" },
+    C: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Luke 22:14-23:56" }
+  },
+  "Holy Week": {
+    A: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Matthew 26:14-27:66" },
+    B: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Mark 14:1-15:47" },
+    C: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Luke 22:14-23:56" }
+  },
+  "Maundy Thursday": {
+    A: { first: "Exodus 12:1-14", psalm: "Psalm 116:1-2, 12-19", second: "1 Corinthians 11:23-26", gospel: "John 13:1-17, 31b-35" },
+    B: { first: "Exodus 12:1-14", psalm: "Psalm 116:1-2, 12-19", second: "1 Corinthians 11:23-26", gospel: "John 13:1-17, 31b-35" },
+    C: { first: "Exodus 12:1-14", psalm: "Psalm 116:1-2, 12-19", second: "1 Corinthians 11:23-26", gospel: "John 13:1-17, 31b-35" }
+  },
+  "Good Friday": {
+    A: { first: "Isaiah 52:13-53:12", psalm: "Psalm 22", second: "Hebrews 10:16-25", gospel: "John 18:1-19:42" },
+    B: { first: "Isaiah 52:13-53:12", psalm: "Psalm 22", second: "Hebrews 10:16-25", gospel: "John 18:1-19:42" },
+    C: { first: "Isaiah 52:13-53:12", psalm: "Psalm 22", second: "Hebrews 10:16-25", gospel: "John 18:1-19:42" }
+  },
+  "Holy Saturday": {
+    A: { first: "Job 14:1-14", psalm: "Psalm 31:1-4, 15-16", second: "1 Peter 4:1-8", gospel: "Matthew 27:57-66" },
+    B: { first: "Job 14:1-14", psalm: "Psalm 31:1-4, 15-16", second: "1 Peter 4:1-8", gospel: "Matthew 27:57-66" },
+    C: { first: "Job 14:1-14", psalm: "Psalm 31:1-4, 15-16", second: "1 Peter 4:1-8", gospel: "Matthew 27:57-66" }
+  },
+  "Easter Sunday": {
+    A: { first: "Acts 10:34-43", psalm: "Psalm 118:1-2, 14-24", second: "Colossians 3:1-4", gospel: "John 20:1-18" },
+    B: { first: "Acts 10:34-43", psalm: "Psalm 118:1-2, 14-24", second: "1 Corinthians 15:1-11", gospel: "Mark 16:1-8" },
+    C: { first: "Acts 10:34-43", psalm: "Psalm 118:1-2, 14-24", second: "1 Corinthians 15:19-26", gospel: "Luke 24:1-12" }
+  },
+  "Easter": {
+    A: { first: "Acts 2:14a, 22-32", psalm: "Psalm 16", second: "1 Peter 1:3-9", gospel: "John 20:19-31" },
+    B: { first: "Acts 4:32-35", psalm: "Psalm 133", second: "1 John 1:1-2:2", gospel: "John 20:19-31" },
+    C: { first: "Acts 5:27-32", psalm: "Psalm 150", second: "Revelation 1:4-8", gospel: "John 20:19-31" }
+  },
+  "Ascension of Our Lord": {
+    A: { first: "Acts 1:1-11", psalm: "Psalm 47", second: "Ephesians 1:15-23", gospel: "Luke 24:44-53" },
+    B: { first: "Acts 1:1-11", psalm: "Psalm 47", second: "Ephesians 1:15-23", gospel: "Luke 24:44-53" },
+    C: { first: "Acts 1:1-11", psalm: "Psalm 47", second: "Ephesians 1:15-23", gospel: "Luke 24:44-53" }
+  },
+  "Day of Pentecost": {
+    A: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35b", second: "1 Corinthians 12:3b-13", gospel: "John 20:19-23" },
+    B: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35b", second: "Romans 8:22-27", gospel: "John 15:26-27; 16:4b-15" },
+    C: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35b", second: "Romans 8:14-17", gospel: "John 14:8-17" }
+  },
+  "Holy Trinity": {
+    A: { first: "Genesis 1:1-2:4a", psalm: "Psalm 8", second: "2 Corinthians 13:11-13", gospel: "Matthew 28:16-20" },
+    B: { first: "Isaiah 6:1-8", psalm: "Psalm 29", second: "Romans 8:12-17", gospel: "John 3:1-17" },
+    C: { first: "Proverbs 8:1-4, 22-31", psalm: "Psalm 8", second: "Romans 5:1-5", gospel: "John 16:12-15" }
+  }
+};
+
+// ==========================================
+// DAILY READINGS DISPLAY
+// ==========================================
+function loadReadings() {
+  const today = new Date();
+  const info = getLiturgicalInfo(today);
+  const dayAbbrev = getDayAbbrev(today);
+  const weekKey = getDailyLectionaryKey(today);
+
+  const container = document.getElementById('readingsContent');
+  const dateStr = today.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+  let html = '<div class="season-banner">' +
+    '<div class="date">' + dateStr + '</div>' +
+    '<div class="season">' + info.season + ' &mdash; Year ' + info.yearLetter + '</div>' +
+    '</div>';
+
+  // Try to get daily readings from the ELW daily lectionary
+  let dailyReadings = null;
+  if (weekKey && DAILY_LECTIONARY[info.yearLetter] && DAILY_LECTIONARY[info.yearLetter][weekKey]) {
+    const weekData = DAILY_LECTIONARY[info.yearLetter][weekKey];
+    if (weekData[dayAbbrev]) {
+      dailyReadings = weekData[dayAbbrev];
+    }
+  }
+
+  if (dailyReadings && dailyReadings.length > 0) {
+    html += '<div class="content-card" style="margin-bottom:8px;padding:12px 16px;background:var(--elca-blue);color:white;border-radius:var(--radius);">' +
+      '<strong>ELW Daily Lectionary</strong> &mdash; Week: ' + weekKey.replace(/_/g, ' ') +
+      '</div>';
+
+    var psalms = dailyReadings.filter(function(r) { return r.toLowerCase().startsWith('psalm'); });
+    var others = dailyReadings.filter(function(r) { return !r.toLowerCase().startsWith('psalm'); });
+
+    var displayReadings = [];
+    if (psalms.length > 0) displayReadings.push({ label: 'Psalm', ref: psalms[0] });
+    if (others.length > 0) displayReadings.push({ label: 'Reading 1', ref: others[0] });
+    if (others.length > 1) displayReadings.push({ label: 'Reading 2', ref: others[1] });
+
+    displayReadings.forEach(function(r, i) {
+      html += '<div class="reading-card">' +
+        '<div class="reading-header" onclick="toggleReading(this, \'' + encodeURIComponent(r.ref) + '\')">' +
+        '<span>' + r.label + ': ' + r.ref + '</span>' +
+        '<span class="chevron">&#9660;</span></div>' +
+        '<div class="reading-body" id="reading-' + i + '">' +
+        '<div class="loading">Tap to load ' + r.ref + '</div></div></div>';
+    });
+
+    if (others.length > 2) {
+      html += '<div class="content-card" style="margin-top:8px">' +
+        '<p style="font-size:0.85rem;color:var(--text-secondary)"><strong>Additional readings:</strong> ' +
+        others.slice(2).join('; ') + '</p></div>';
+    }
+  } else if (today.getDay() === 0) {
+    // Sunday: try specific week key first (e.g., "Advent 3", "Lent 4"), then generic season
+    var seasonKey = info.season;
+    var rclData = null;
+    // Build a specific RCL key from the daily lectionary week key (e.g., lent_4 -> "Lent 4")
+    if (weekKey) {
+      var specificKey = weekKey.replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+      if (RCL[specificKey] && RCL[specificKey][info.yearLetter]) {
+        rclData = RCL[specificKey][info.yearLetter];
+        seasonKey = specificKey;
+      }
+    }
+    if (!rclData && RCL[seasonKey] && RCL[seasonKey][info.yearLetter]) {
+      rclData = RCL[seasonKey][info.yearLetter];
+    }
+    if (rclData && rclData.first !== "Various OT") {
+      html += '<div class="content-card" style="margin-bottom:8px;padding:12px 16px;background:var(--elca-blue);color:white;border-radius:var(--radius);">' +
+        '<strong>' + seasonKey + ' &mdash; Sunday Readings</strong></div>';
+      var readingsList = [
+        { label: 'First Reading', ref: rclData.first },
+        { label: 'Psalm', ref: rclData.psalm },
+        { label: 'Second Reading', ref: rclData.second },
+        { label: 'Gospel', ref: rclData.gospel }
+      ];
+      readingsList.forEach(function(r, i) {
+        html += '<div class="reading-card">' +
+          '<div class="reading-header" onclick="toggleReading(this, \'' + encodeURIComponent(r.ref) + '\')">' +
+          '<span>' + r.label + ': ' + r.ref + '</span>' +
+          '<span class="chevron">&#9660;</span></div>' +
+          '<div class="reading-body" id="reading-' + i + '">' +
+          '<div class="loading">Tap to load ' + r.ref + '</div></div></div>';
+      });
+    } else {
+      html += '<div class="content-card">' +
+        '<p>Visit <a href="https://lectionary.library.vanderbilt.edu/" target="_blank" rel="noopener" style="color:var(--elca-blue)">Vanderbilt Lectionary</a> for today\'s Sunday readings.</p></div>';
+    }
+  } else {
+    html += '<div class="content-card"><h3>Daily Readings</h3>' +
+      '<p>Readings for this day are not yet available in the embedded lectionary data. Visit ' +
+      '<a href="https://www.elca.org/resources/daily-bible-reading" target="_blank" rel="noopener" style="color:var(--elca-blue)">ELCA Daily Bible Reading</a> or ' +
+      '<a href="https://lectionary.library.vanderbilt.edu/" target="_blank" rel="noopener" style="color:var(--elca-blue)">Vanderbilt Lectionary</a> for today\'s readings.</p></div>';
+  }
+
+  html += '<div class="content-card" style="margin-top:16px">' +
+    '<h3>Bible Verse Lookup</h3>' +
+    '<p style="margin-bottom:12px">Enter any Bible reference to look up the KJV text:</p>' +
+    '<div style="display:flex;gap:8px">' +
+    '<input type="text" id="verseInput" placeholder="e.g. John 3:16 or Psalm 23" ' +
+    'style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:0.95rem;background:var(--bg);color:var(--text);font-family:var(--font-body);" ' +
+    'onkeypress="if(event.key===\'Enter\')lookupVerse()">' +
+    '<button onclick="lookupVerse()" ' +
+    'style="padding:10px 18px;background:var(--elca-blue);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-family:var(--font-body);">Look Up</button>' +
+    '</div><div id="verseResult" style="margin-top:12px"></div></div>';
+
+  container.innerHTML = html;
+}
+
+
+async function toggleReading(header, refEncoded) {
+  const body = header.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+
+  if (isOpen) {
+    body.classList.remove('open');
+    header.querySelector('.chevron').textContent = '\u25BC';
+    return;
+  }
+
+  body.classList.add('open');
+  header.querySelector('.chevron').textContent = '\u25B2';
+
+  if (body.querySelector('.loading')) {
+    const ref = decodeURIComponent(refEncoded);
+    await fetchBibleText(ref, body);
+  }
+}
+
+async function fetchBibleText(ref, container) {
+  try {
+    // Clean up reference for API
+    let cleanRef = ref.replace(/\[.*?\]/g, '').trim();
+    cleanRef = cleanRef.replace(/[;,]\s*/g, ',');
+
+    const response = await fetch(`https://bible-api.com/${encodeURIComponent(cleanRef)}?translation=kjv`);
+    if (!response.ok) throw new Error('Not found');
+    const data = await response.json();
+
+    container.innerHTML = `
+      <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">${data.reference} (KJV)</p>
+      <p class="prayer-text" style="font-size:0.95rem;">${data.text}</p>
+    `;
+  } catch (e) {
+    container.innerHTML = `
+      <p style="color:var(--text-secondary)">Could not load this passage automatically.
+      <a href="https://www.biblegateway.com/passage/?search=${encodeURIComponent(ref)}&version=KJV"
+        target="_blank" rel="noopener" style="color:var(--elca-blue)">Read on Bible Gateway</a></p>
+    `;
+  }
+}
+
+async function lookupVerse() {
+  const input = document.getElementById('verseInput').value.trim();
+  const result = document.getElementById('verseResult');
+  if (!input) return;
+
+  result.innerHTML = '<div class="loading">Loading...</div>';
+  await fetchBibleText(input, result);
+}
+
+// ==========================================
+// INITIALIZATION
+// ==========================================
+(function init() {
+  const today = new Date();
+  const info = getLiturgicalInfo(today);
+
+  document.getElementById('todayDate').textContent =
+    today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  document.getElementById('todaySeason').textContent =
+    `${info.season} \u2014 Year ${info.yearLetter}`;
+
+  // Register service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
+})();
+</script>
+</body>
+</html>
