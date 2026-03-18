@@ -133,7 +133,7 @@ body {
 
 .nav-card:hover, .nav-card:active {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,119,139,0.15);
+  box-shadow: 0 4px 12px var(--liturgical-card-hover, rgba(0,119,139,0.15));
   border-color: var(--elca-blue);
 }
 
@@ -318,6 +318,61 @@ body {
   display: block;
 }
 
+/* Festival / Commemoration cards */
+.festival-card {
+  background: var(--bg-card);
+  border: 2px solid var(--elca-red);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.festival-card.commemoration {
+  border-color: #8B6914;
+}
+.festival-banner {
+  background: var(--elca-red);
+  color: white;
+  padding: 10px 16px;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.festival-card.commemoration .festival-banner {
+  background: #8B6914;
+}
+.festival-banner .festival-icon {
+  font-size: 1.1rem;
+}
+.festival-bio-toggle {
+  padding: 0 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  background: var(--bg-card);
+  padding: 10px 16px;
+}
+.festival-bio-toggle:hover {
+  background: var(--bg);
+}
+.festival-bio {
+  padding: 0 16px 16px;
+  display: none;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+.festival-bio.open {
+  display: block;
+}
+
 .loading {
   text-align: center;
   color: var(--text-secondary);
@@ -327,7 +382,7 @@ body {
 
 /* Liturgical season banner */
 .season-banner {
-  background: linear-gradient(135deg, var(--elca-blue), var(--elca-blue-dark));
+  background: linear-gradient(135deg, var(--liturgical-gradient1, var(--elca-blue)), var(--liturgical-gradient2, var(--elca-blue-dark)));
   color: white;
   border-radius: var(--radius);
   padding: 20px;
@@ -1004,6 +1059,936 @@ body {
 
 <script>
 // ==========================================
+// ELCA CALENDAR OF SAINTS AND FESTIVALS
+// ==========================================
+const ELCA_CALENDAR = {
+  "01-01": [
+    {
+      name: "Name of Jesus",
+      type: "lesser_festival",
+      bio: "The Circumcision and Naming of Jesus celebrates the formal naming of Christ eight days after his birth, according to Jewish law. The name Jesus (Yeshua) means \"the Lord saves,\" emphasizing Christ's role as Savior. This feast day reflects the Church's meditation on the significance of Christ's name and his identification with humanity through the covenant of circumcision."
+    }
+  ],
+  "01-02": [
+    {
+      name: "Johann Konrad Wilhelm Löhe, renewer of the church, died 1872",
+      type: "commemoration",
+      bio: "Johann Konrad Wilhelm Löhe was a 19th-century German Lutheran pastor and theologian who dedicated his life to church renewal and missionary work. He founded a deaconess community and was instrumental in establishing Lutheran missions and educational institutions. Löhe's emphasis on liturgical worship and practical theology influenced Lutheran renewal movements throughout Europe and America."
+    }
+  ],
+  "01-13": [
+    {
+      name: "Martin Luther King Jr., renewer of society, martyr, died 1968",
+      type: "commemoration",
+      bio: "Martin Luther King Jr. was an American Baptist minister and civil rights activist who became the most prominent leader of the African American Civil Rights Movement. He championed nonviolent resistance and racial equality, delivering the iconic \"I Have a Dream\" speech and winning the Nobel Peace Prize. His assassination in 1968 made him a martyr for justice and human dignity."
+    }
+  ],
+  "01-15": [
+    {
+      name: "Martin Luther King Jr., renewer of society, martyr, died 1968",
+      type: "commemoration",
+      bio: "Martin Luther King Jr. was an American Baptist minister and civil rights activist who became the most prominent leader of the African American Civil Rights Movement. He championed nonviolent resistance and racial equality, delivering the iconic \"I Have a Dream\" speech and winning the Nobel Peace Prize. His assassination in 1968 made him a martyr for justice and human dignity."
+    }
+  ],
+  "01-18": [
+    {
+      name: "Confession of Peter",
+      type: "lesser_festival",
+      bio: "The Confession of Peter celebrates Simon Peter's declaration that Jesus is \"the Messiah, the Son of the living God\" (Matthew 16:16). This moment represents a foundational confession of faith in the Church and Jesus's affirmation of Peter as a rock upon which the Church would be built. The feast emphasizes the primacy of faith and apostolic witness in Christian tradition."
+    }
+  ],
+  "01-19": [
+    {
+      name: "Henry, Bishop of Uppsala, martyr, died 1156",
+      type: "commemoration",
+      bio: "Henry was an English-born bishop who served as the Bishop of Uppsala in Sweden during the 12th century. He played a crucial role in spreading Christianity to Finland and establishing the Church in Nordic regions. Henry was martyred while on missionary work, earning veneration as a saint and patron of Finland in the Nordic Lutheran tradition."
+    }
+  ],
+  "01-25": [
+    {
+      name: "Conversion of Paul",
+      type: "lesser_festival",
+      bio: "The Conversion of Paul commemorates the apostle's dramatic transformation from persecutor of Christians to missionary. On the road to Damascus, Paul encountered the risen Christ and became convinced that Jesus was the true Messiah. This conversion marked the beginning of his extraordinary ministry to the Gentiles and his letters, which form much of the New Testament."
+    }
+  ],
+  "01-26": [
+    {
+      name: "Timothy, Titus, and Silas, missionaries",
+      type: "commemoration",
+      bio: "Timothy, Titus, and Silas were faithful companions of the apostle Paul in his missionary journeys. Timothy served as Paul's trusted coworker and bishop of Ephesus, while Titus was entrusted with leadership of the Cretan church. Silas was a prophet and missionary who accompanied Paul through Asia Minor, and all three exemplified dedication to spreading the Gospel across the Mediterranean world."
+    }
+  ],
+  "01-27": [
+    {
+      name: "Lydia, Dorcas, and Phoebe, witnesses to the faith",
+      type: "commemoration",
+      bio: "Lydia, Dorcas, and Phoebe were women of remarkable faith and service in the early Church. Lydia was a merchant in Philippi who became Paul's first convert in Europe; Dorcas (Tabitha) was known for her acts of charity and raised from the dead by Peter; Phoebe was a deacon who carried Paul's Letter to the Romans. These women exemplify the vital role of women in apostolic ministry and community care."
+    }
+  ],
+  "01-28": [
+    {
+      name: "Thomas Aquinas, teacher, died 1274",
+      type: "commemoration",
+      bio: "Thomas Aquinas was a 13th-century Dominican friar, priest, and Doctor of the Church renowned for his synthesis of Aristotelian philosophy and Christian theology. His monumental work, the Summa Theologiae, became a foundational text for medieval theology and remains influential in Catholic and Lutheran traditions. Aquinas emphasized the complementary relationship between reason and faith in understanding divine truth."
+    }
+  ],
+  "02-02": [
+    {
+      name: "Presentation of Our Lord",
+      type: "lesser_festival",
+      bio: "The Presentation of Jesus at the Temple commemorates the day when Mary and Joseph brought the infant Jesus to Jerusalem to fulfill the Jewish law of purification. Simeon and Anna, devout servants of the Lord, recognized Jesus as the long-awaited Messiah and gave thanks. This feast day, also known as Candlemas, marks the meeting of the Messiah with the faith of Israel and the beginning of his public ministry."
+    }
+  ],
+  "02-03": [
+    {
+      name: "Ansgar, Bishop of Hamburg, missionary to Denmark and Sweden, died 865",
+      type: "commemoration",
+      bio: "Ansgar was a 9th-century German missionary known as the \"Apostle of the North\" for his tireless efforts to bring Christianity to Scandinavia. He served as the Archbishop of Hamburg and Bremen and undertook several dangerous missionary journeys to Denmark and Sweden despite many obstacles. Ansgar's devotion to spreading the Gospel and his pastoral care for new converts exemplified missionary commitment in medieval Europe."
+    }
+  ],
+  "02-05": [
+    {
+      name: "The Martyrs of Japan, died 1597",
+      type: "commemoration",
+      bio: "The Martyrs of Japan refers to twenty-six Christian converts—both Japanese and foreign missionaries—who were crucified in Nagasaki in 1597 during a period of persecution. Their deaths represented the first major martyrdom in Japan and were intended to eradicate Christianity from the islands. These martyrs are venerated as witnesses to faith who refused to renounce their belief in Christ despite torture and execution."
+    }
+  ],
+  "02-14": [
+    {
+      name: "Cyril, monk, died 869; Methodius, bishop, died 885; missionaries to the Slavs",
+      type: "commemoration",
+      bio: "Cyril and Methodius were Greek brothers and Byzantine missionaries who brought Christianity and literacy to the Slavic peoples in the 9th century. Cyril developed the Glagolitic alphabet and later the Cyrillic script to enable Slavic peoples to worship in their own language. Together, they translated biblical and liturgical texts, earning them recognition as the greatest missionaries to Eastern Europe and patrons of ecumenical dialogue."
+    }
+  ],
+  "02-18": [
+    {
+      name: "Martin Luther, renewer of the church, died 1546",
+      type: "commemoration",
+      bio: "Martin Luther was a German Augustinian friar and theologian whose 1517 posting of the Ninety-Five Theses critiquing indulgences sparked the Protestant Reformation. His emphasis on justification by faith alone and the authority of Scripture reshaped Christianity and Western culture. Luther's translation of the Bible into German and his prolific writings on theology, music, and education continue to influence Lutheran and broader Christian traditions."
+    }
+  ],
+  "02-20": [
+    {
+      name: "Rasmus Jensen, the first Lutheran pastor in North America, died 1620",
+      type: "commemoration",
+      bio: "Rasmus Jensen was a Danish-Norwegian Lutheran pastor who became the first ordained minister of the Lutheran faith to serve in North America. He arrived in New Sweden (present-day Delaware) in 1638 and ministered to Swedish settlers, establishing one of the earliest Lutheran congregations in what would become the United States. Jensen's work laid the foundation for Lutheran presence and ministry in the New World."
+    }
+  ],
+  "02-23": [
+    {
+      name: "Polycarp, Bishop of Smyrna, martyr, died 156",
+      type: "commemoration",
+      bio: "Polycarp was an early Christian bishop of Smyrna in Asia Minor and a link between the apostolic age and later Christianity through his connections with the Apostle John. Known for his steadfast faith and pastoral leadership, he was arrested during persecution and offered the opportunity to renounce Christ; his refusal led to his martyrdom at an advanced age. His martyrdom account is one of the earliest detailed records of Christian execution."
+    }
+  ],
+  "02-24": [
+    {
+      name: "Matthias, Apostle",
+      type: "lesser_festival",
+      bio: "Matthias was chosen as an apostle to replace Judas Iscariot after the Ascension, ensuring the apostolic college remained at twelve members. He was numbered among those who had been with Jesus from his baptism and was a witness to the Resurrection. Little else is known of Matthias from Scripture, but his selection underscores the apostolic community's commitment to maintaining its twelve-fold structure symbolizing the twelve tribes of Israel."
+    }
+  ],
+  "02-25": [
+    {
+      name: "Elizabeth Fedde, deaconess, died 1921",
+      type: "commemoration",
+      bio: "Elizabeth Fedde was a Norwegian-American Lutheran deaconess who dedicated her life to nursing, compassionate care, and social service in late 19th and early 20th-century America. She trained nurses, established hospitals and deaconess communities, and responded to the health and spiritual needs of Norwegian immigrants and the poor. Fedde exemplified the Lutheran deaconess movement's commitment to healing and service as Christian vocation."
+    }
+  ],
+  "03-01": [
+    {
+      name: "George Herbert, hymnwriter, died 1633",
+      type: "commemoration",
+      bio: "George Herbert was an English poet and Anglican priest whose devotional poetry and hymns express profound faith and spiritual longing. His collection \"The Temple\" contains meditations on Christian life and God's grace characterized by wit, emotional honesty, and theological depth. Herbert's hymns, including \"Love Bade Me Welcome,\" continue to inspire Christian worship and are valued across Lutheran, Anglican, and ecumenical traditions."
+    }
+  ],
+  "03-02": [
+    {
+      name: "John Wesley, died 1791; Charles Wesley, died 1788; renewers of the church",
+      type: "commemoration",
+      bio: "John and Charles Wesley were English ministers whose emphasis on methodical prayer, disciplined Christian living, and heartfelt faith sparked the Methodist revival of the 18th century. John established the Methodist movement emphasizing spiritual vitality and social holiness, while Charles composed over 6,000 hymns including \"O Love That Wilt Not Let Me Go\" and \"Hark the Herald Angels Sing.\" The Wesleyan tradition continues to emphasize practical piety and social concern."
+    }
+  ],
+  "03-07": [
+    {
+      name: "Perpetua and Felicity and companions, martyrs at Carthage, died 202",
+      type: "commemoration",
+      bio: "Perpetua and Felicity were early Christian women martyred in Carthage during Emperor Septimius Severus's persecution of Christians. Perpetua, a young noblewoman, and Felicity, a pregnant slave, faced execution together with other companions, exemplifying courage and faith in the face of death. Their Acts, an early Christian text partly written by Perpetua herself, remain one of the most moving accounts of early Christian witness and sacrifice."
+    }
+  ],
+  "03-10": [
+    {
+      name: "Harriet Tubman, died 1913; Sojourner Truth, died 1883; renewers of society",
+      type: "commemoration",
+      bio: "Harriet Tubman and Sojourner Truth were African American women whose courageous activism transformed American society and fought against slavery and injustice. Harriet Tubman escaped slavery and became a conductor of the Underground Railroad, leading approximately seventy enslaved people to freedom. Sojourner Truth, born enslaved, became a powerful abolitionist speaker and women's rights advocate whose \"Ain't I a Woman?\" speech remains iconic. Both exemplified Christian commitment to liberation and human dignity."
+    }
+  ],
+  "03-12": [
+    {
+      name: "Gregory the Great, Bishop of Rome, died 604",
+      type: "lesser_festival",
+      bio: "Gregory the Great was a 6th-century pope and Doctor of the Church who profoundly shaped Christian theology, liturgy, and papal authority. He emphasize pastoral care, reformed the Church's administration, and promoted Gregorian chant and liturgical music. Gregory's theological writings on grace, prayer, and spiritual direction remain influential, and his life exemplifies the integration of contemplative spirituality with active ecclesiastical leadership."
+    }
+  ],
+  "03-17": [
+    {
+      name: "Patrick, bishop, missionary to Ireland, died 461",
+      type: "commemoration",
+      bio: "Patrick was a 5th-century Christian missionary credited with bringing Christianity to Ireland and transforming the island from pagan to Christian. Captured as a slave in youth, he escaped and later returned as a bishop to minister to the Irish people with compassion and strategic use of symbolic imagery. Patrick's missionary strategy, his establishment of monastic communities, and his letters provide insights into early Christian ministry in hostile territories."
+    }
+  ],
+  "03-19": [
+    {
+      name: "Joseph, Guardian of Jesus",
+      type: "lesser_festival",
+      bio: "Joseph was the earthly father and guardian of Jesus, a carpenter of Nazareth whose faithful obedience and protective love shaped Christ's earthly life. The Gospels portray Joseph as a righteous man who accepted God's call to marry Mary and protect the Christ-child despite bewildering circumstances. Joseph exemplifies quiet faithfulness, the dignity of ordinary work, and the role of human instruments in God's redemptive plan."
+    }
+  ],
+  "03-21": [
+    {
+      name: "Thomas Cranmer, Bishop of Canterbury, martyr, died 1556",
+      type: "commemoration",
+      bio: "Thomas Cranmer was the first Protestant Archbishop of Canterbury whose theological acumen and liturgical reforms shaped the English Reformation and the Book of Common Prayer. He sought to balance Protestant theology with Catholic tradition in worship and doctrine. Martyred during the Catholic reaction under Queen Mary I, Cranmer's final recantation and restoration to faith exemplify the courage required to witness to truth during religious conflict."
+    }
+  ],
+  "03-22": [
+    {
+      name: "Jonathan Edwards, teacher, missionary to American Indians, died 1758",
+      type: "commemoration",
+      bio: "Jonathan Edwards was a brilliant American theologian, philosopher, and revival preacher whose sermons like \"Sinners in the Hands of an Angry God\" defined the Great Awakening. His theological system synthesized Reformed doctrine with philosophical rigor, and he wrote extensively on religious affections, freedom of the will, and divine sovereignty. Edwards also served as a missionary to Native Americans, demonstrating his commitment to Gospel proclamation across cultural boundaries."
+    }
+  ],
+  "03-24": [
+    {
+      name: "Oscar Arnulfo Romero, Bishop of San Salvador, martyr, died 1980",
+      type: "commemoration",
+      bio: "Oscar Romero was a 20th-century Salvadoran bishop who became a prophetic voice for the poor and oppressed despite initial reluctance to engage in political advocacy. Transformed by the murder of his friend Father Rutilio Grande, Romero increasingly denounced government violence and social injustice from his pulpit and in pastoral letters. His assassination while celebrating Mass made him a martyr for justice and a symbol of the Church's commitment to the oppressed."
+    }
+  ],
+  "03-25": [
+    {
+      name: "Annunciation of Our Lord",
+      type: "lesser_festival",
+      bio: "The Annunciation commemorates the Angel Gabriel's announcement to Mary that she would bear the Son of God. Mary's response of faithful obedience—\"Let it be to me according to your word\"—marks the pivotal moment when the Word became flesh. This feast celebrates the Incarnation's beginning, Mary's role as Theotokos (Mother of God), and the gracious divine initiative in human salvation."
+    }
+  ],
+  "03-29": [
+    {
+      name: "Hans Nielsen Hauge, renewer of the church, died 1824",
+      type: "commemoration",
+      bio: "Hans Nielsen Hauge was a Norwegian lay preacher and religious reformer whose emphasis on heartfelt faith and Christian living sparked a spiritual renewal movement in 19th-century Scandinavia. Despite arrest and persecution by the state church, Hauge founded conventicles—small prayer and study groups—that emphasized personal conversion, moral seriousness, and spiritual community. His movement significantly shaped Norwegian Lutheran piety and social consciousness."
+    }
+  ],
+  "03-31": [
+    {
+      name: "John Donne, poet, died 1631",
+      type: "commemoration",
+      bio: "John Donne was an English poet and Dean of St. Paul's Cathedral whose metaphysical poetry combines intellectual rigor with passionate spiritual longing. His Holy Sonnets grapple with sin, redemption, and divine love with distinctive wit and emotional intensity. Donne's sermons and devotional writings exemplify his integration of learning, theology, and pastoral care, making him a pivotal figure in English religious literature."
+    }
+  ],
+  "04-04": [
+    {
+      name: "Benedict the African, confessor, died 1589",
+      type: "commemoration",
+      bio: "Benedict was an African-born Franciscan lay brother who served in a monastery in Sicily during the 16th century despite facing racism and discrimination. Known for his humility, spiritual wisdom, and reputation for miracles, he was eventually appointed superior of the monastery. Benedict's canonization reflects the Church's recognition of holiness transcending racial and social boundaries and his significance in early African Christian presence in Europe."
+    }
+  ],
+  "04-06": [
+    {
+      name: "Albrecht Dürer, died 1528; Michelangelo Buonarroti, died 1564; Lucas Cranach, died 1553; artists",
+      type: "commemoration",
+      bio: "Albrecht Dürer, Michelangelo, and Lucas Cranach were Renaissance masters whose artistic genius reflected and shaped Christian theology and spirituality. Dürer created detailed engravings and paintings of religious subjects emphasizing spiritual depth; Michelangelo painted the Sistine Chapel ceiling depicting creation and divine majesty; Cranach illustrated Protestant theology and created reformational religious art. These artists understood their work as sacred vocation, using their talents to glorify God and teach Christian truth."
+    }
+  ],
+  "04-09": [
+    {
+      name: "Dietrich Bonhoeffer, theologian, died 1945",
+      type: "commemoration",
+      bio: "Dietrich Bonhoeffer was a German Lutheran pastor and theologian who resisted the Nazi regime and was executed for his involvement in a plot against Hitler. His works, including \"The Cost of Discipleship,\" emphasize radical Christian obedience and costly grace. Bonhoeffer's life and death exemplify Christian witness and moral courage in confronting tyranny, making him a martyred prophet of 20th-century faith and ethics."
+    }
+  ],
+  "04-10": [
+    {
+      name: "Mikael Agricola, Bishop of Turku, died 1557",
+      type: "commemoration",
+      bio: "Mikael Agricola was a 16th-century Finnish bishop credited with creating written Finnish and bringing the Reformation to Finland. He translated the liturgy, biblical passages, and catechetical materials into Finnish, thereby establishing Finnish as a literary language and enabling Finnish people to worship in their native tongue. Agricola exemplifies the Reformation principle that all peoples should access Scripture and worship in their own language."
+    }
+  ],
+  "04-19": [
+    {
+      name: "Olavus Petri, priest, died 1552; Laurentius Petri, Bishop of Uppsala, died 1573; renewers of the church",
+      type: "commemoration",
+      bio: "Olavus Petri and his brother Laurentius Petri were Swedish reformers who led the Swedish Reformation and established the Lutheran church in Sweden. Olavus, a priest and author, promoted evangelical theology and translated the New Testament into Swedish, while Laurentius served as Archbishop of Uppsala and shaped the Swedish church's doctrine and practice. Together, they secured Lutheran Christianity's institutional establishment in Scandinavia."
+    }
+  ],
+  "04-21": [
+    {
+      name: "Anselm, Bishop of Canterbury, died 1109",
+      type: "commemoration",
+      bio: "Anselm was an 11th-century Archbishop of Canterbury and Doctor of the Church renowned for his theological brilliance and devotional writings. He developed the ontological argument for God's existence and wrote on redemption, emphasizing Christ's satisfaction for human sin. Anselm's reflections on faith seeking understanding and his meditation on God's love remain influential in Christian theology and spirituality."
+    }
+  ],
+  "04-23": [
+    {
+      name: "Toyohiko Kagawa, renewer of society, died 1960",
+      type: "commemoration",
+      bio: "Toyohiko Kagawa was a Japanese Christian minister and social reformer who dedicated his life to serving the poor in urban slums and promoting peace and justice. Despite poverty and illness, he worked tirelessly for labor rights, cooperative movements, and disarmament. Kagawa's integration of spiritual faith with social advocacy exemplified the Church's responsibility to challenge injustice and work for human transformation."
+    }
+  ],
+  "04-25": [
+    {
+      name: "Mark, Evangelist",
+      type: "lesser_festival",
+      bio: "Mark was one of the four evangelists and author of the Gospel bearing his name, the earliest written account of Jesus's life and ministry. His Gospel emphasizes Jesus's deeds of power and his role as a teacher of wisdom, and uniquely focuses on the disciples' confusion and faith struggles. Mark's witness to the Incarnate Word and his fastidious preservation of apostolic tradition shaped the Church's understanding of Christ."
+    }
+  ],
+  "04-29": [
+    {
+      name: "Catherine of Siena, theologian, died 1380",
+      type: "commemoration",
+      bio: "Catherine of Siena was a 14th-century Italian mystic, theologian, and Doctor of the Church whose spiritual visions and writings profoundly influenced medieval theology and Church politics. A Dominican tertiary, she counseled popes, engaged in diplomatic missions for peace, and wrote extensively on divine love and human response. Catherine exemplified the integration of contemplative mysticism with active service in the world."
+    }
+  ],
+  "05-01": [
+    {
+      name: "Philip and James, Apostles",
+      type: "lesser_festival",
+      bio: "Philip and James were two of the Twelve Apostles called by Jesus to be his closest disciples. Philip brought Nathanael to Jesus and later asked to see the Father, while James (the Less) is believed to have led the Jerusalem church and was eventually martyred. Both apostles exemplified faithful discipleship and played significant roles in the early Church's witness to the Resurrection."
+    }
+  ],
+  "05-02": [
+    {
+      name: "Athanasius, Bishop of Alexandria, died 373",
+      type: "commemoration",
+      bio: "Athanasius was a 4th-century Egyptian bishop and Doctor of the Church whose defense of Trinitarian orthodoxy against Arian heresy shaped Christian theology profoundly. Exiled multiple times for his uncompromising stand on Christ's divinity, he wrote extensively including his Life of Anthony, which established the genre of Christian biography. Athanasius exemplifies courageous theological witness in defense of essential Christian truth."
+    }
+  ],
+  "05-04": [
+    {
+      name: "Monica, mother of Augustine, died 387",
+      type: "commemoration",
+      bio: "Monica was the mother of Augustine of Hippo, whose faithful prayers, patience, and love for her prodigal son exemplified Christian intercession and parental devotion. Though Augustine spent years pursuing worldly pursuits and heretical teachings, Monica's persistent faith and prayers ultimately contributed to his conversion and spiritual transformation. Augustine's Confessions memorializes her as a model of Christian motherhood and intercessory prayer."
+    }
+  ],
+  "05-09": [
+    {
+      name: "Nicolaus Ludwig von Zinzendorf, renewer of the church, hymnwriter, died 1760",
+      type: "commemoration",
+      bio: "Nicolaus Ludwig von Zinzendorf was an 18th-century German count and Lutheran renewal leader who founded the Moravian Church community at Herrnhut. A prolific hymnwriter, he emphasized the importance of heart religion, personal relationship with Christ, and ecumenical cooperation among Christians. Zinzendorf's vision of Christian community and his thousands of hymns influenced Pietism and shaped modern Christian spirituality."
+    }
+  ],
+  "05-14": [
+    {
+      name: "Matthias, Apostle",
+      type: "lesser_festival",
+      bio: "Matthias was chosen as an apostle to replace Judas Iscariot after the Ascension, ensuring the apostolic college remained at twelve members. He was numbered among those who had been with Jesus from his baptism and was a witness to the Resurrection. Little else is known of Matthias from Scripture, but his selection underscores the apostolic community's commitment to maintaining its twelve-fold structure symbolizing the twelve tribes of Israel."
+    }
+  ],
+  "05-18": [
+    {
+      name: "Erik, King of Sweden, martyr, died 1160",
+      type: "commemoration",
+      bio: "Erik IX was a 12th-century Swedish king known as Erik the Saint who dedicated himself to spreading Christianity throughout his realm and supporting the Church's institutional development. He led military campaigns against pagan populations and established laws based on Christian principles. His eventual martyrdom and canonization made him Sweden's patron saint and a symbol of Christian kingship in Nordic tradition."
+    }
+  ],
+  "05-21": [
+    {
+      name: "Helena, mother of Constantine, died around 330",
+      type: "commemoration",
+      bio: "Helena was the mother of Constantine the Great and a devout Christian woman who became legendary for her pilgrimage to the Holy Land and search for sacred relics. According to tradition, she discovered the True Cross and founded churches at sites significant to Christ's life. Though the historical details are debated, Helena is venerated as a model of Christian devotion and her influence on Constantine's Christianization of the Roman Empire was profound."
+    }
+  ],
+  "05-24": [
+    {
+      name: "Nicolaus Copernicus, died 1543; Leonhard Euler, died 1783; scientists",
+      type: "commemoration",
+      bio: "Nicolaus Copernicus and Leonhard Euler were brilliant scientists whose discoveries advanced human understanding of creation. Copernicus revolutionized astronomy by proposing the heliocentric model of the solar system, challenging medieval cosmology. Euler was an extraordinarily prolific mathematician who made fundamental contributions to every area of mathematics and physics. Both exemplified the integration of scientific inquiry with Christian faith and intellectual stewardship of God's creation."
+    }
+  ],
+  "05-27": [
+    {
+      name: "John Calvin, renewer of the church, died 1564",
+      type: "commemoration",
+      bio: "John Calvin was a 16th-century French theologian and reformer who shaped Protestant theology and ecclesiology through his magisterial Institutes of the Christian Religion. His systematic theology emphasizing God's sovereignty, predestination, and the authority of Scripture influenced Reformed, Presbyterian, and many evangelical traditions. Calvin's commitment to biblical education and church discipline made Geneva a center of Protestant learning and witness."
+    }
+  ],
+  "05-31": [
+    {
+      name: "Visit of Mary to Elizabeth",
+      type: "lesser_festival",
+      bio: "The Visit of Mary to Elizabeth commemorates the occasion when Mary, newly pregnant with Jesus, traveled to visit her elderly cousin Elizabeth, who was pregnant with John the Baptist. In Luke's account, Elizabeth and her unborn child recognized Mary's special role, and Mary responded with the song of praise known as the Magnificat. This feast celebrates the joy of expectation, the communion of saints, and Mary's prophetic witness to God's reversal of earthly values."
+    }
+  ],
+  "06-01": [
+    {
+      name: "Justin, martyr at Rome, died around 165",
+      type: "commemoration",
+      bio: "Justin was an early Christian apologist and martyr of the 2nd century who defended Christian faith to the Roman authorities and philosophers. His surviving works, the Apologies and Dialogue with Trypho, provide invaluable insights into early Christian theology, practice, and relationships with Judaism. Justin's fearless witness to his faith and his intellectual engagement with pagan philosophy exemplify Christian apologetics and integrity."
+    }
+  ],
+  "06-03": [
+    {
+      name: "The Martyrs of Uganda, died 1886",
+      type: "commemoration",
+      bio: "The Martyrs of Uganda refers to twenty-two young men, many of them pages in the royal court, executed under King Mwanga II for their Christian faith. Over the course of several years, Mwanga ordered Christians burned alive, hanged, and otherwise executed when they refused to abandon their faith. The Ugandan martyrs exemplify the courage of African Christians who chose loyalty to Christ over their lives and security."
+    }
+  ],
+  "06-05": [
+    {
+      name: "Boniface, Bishop of Mainz, missionary to Germany, martyr, died 754",
+      type: "commemoration",
+      bio: "Boniface was an 8th-century English missionary credited with bringing Christianity to Germanic peoples and organizing the Church in central Europe. Known as the \"Apostle of Germany,\" he established monasteries, reformed the Frankish church, and became Archbishop of Mainz. Boniface was martyred while conducting a missionary journey, exemplifying apostolic dedication and the role of missions in expanding Christendom."
+    }
+  ],
+  "06-07": [
+    {
+      name: "Seattle, chief of the Duwamish Confederacy, died 1866",
+      type: "commemoration",
+      bio: "Seattle was a Native American leader of the Duwamish people in what is now Washington state who converted to Christianity while maintaining his people's traditions and advocate for peaceful coexistence. Known for his wisdom, integrity, and oratory, he sought to navigate the conflict between Native American and European American communities with justice and compassion. His legacy exemplifies indigenous Christian faith and responsible leadership."
+    }
+  ],
+  "06-09": [
+    {
+      name: "Columba, died 597; Aidan, died 651; Bede, died 735; confessors",
+      type: "commemoration",
+      bio: "Columba, Aidan, and Bede were venerated Celtic and English confessors whose missionary work, monastic communities, and scholarly achievements shaped early medieval Christianity. Columba founded the monastery of Iona, which became a center of learning and evangelism; Aidan brought Christianity to Northumbria through patient pastoral work; Bede, the greatest scholar of his age, wrote biblical commentaries and the Ecclesiastical History of the English Church. Together, they exemplify the integration of contemplation, missionary zeal, and intellectual labor."
+    }
+  ],
+  "06-11": [
+    {
+      name: "Barnabas, Apostle",
+      type: "lesser_festival",
+      bio: "Barnabas was a Levite from Cyprus and an early Christian apostle who played a crucial role in the Jerusalem church and in Paul's missionary journeys. He introduced the converted Saul (Paul) to the apostles and later accompanied Paul on missionary travels. Known as \"a good man, full of the Holy Spirit and of faith,\" Barnabas exemplified encouragement, generosity, and the vital role of supporters in Christian ministry."
+    }
+  ],
+  "06-12": [
+    {
+      name: "Barnabas, Apostle",
+      type: "lesser_festival",
+      bio: "Barnabas was a Levite from Cyprus and an early Christian apostle who played a crucial role in the Jerusalem church and in Paul's missionary journeys. He introduced the converted Saul (Paul) to the apostles and later accompanied Paul on missionary travels. Known as \"a good man, full of the Holy Spirit and of faith,\" Barnabas exemplified encouragement, generosity, and the vital role of supporters in Christian ministry."
+    }
+  ],
+  "06-14": [
+    {
+      name: "Basil the Great, Bishop of Caesarea, died 379; Gregory, Bishop of Nyssa, died around 385; Gregory of Nazianzus, Bishop of Constantinople, died around 389; Macrina, teacher, died 379",
+      type: "commemoration",
+      bio: "Basil the Great, Gregory of Nyssa, Gregory of Nazianzus, and Macrina were brilliant 4th-century theologians and teachers known as the Cappadocian Fathers (and Mother). They defended Trinitarian orthodoxy against Arian heresy and developed profound theology on the Holy Spirit and the nature of God. These three brothers and their sister Macrina exemplified deep learning, spiritual discipline, monastic renewal, and the integration of Christian faith with philosophical rigor."
+    }
+  ],
+  "06-17": [
+    {
+      name: "Emanuel Nine, martyrs, died 2015",
+      type: "commemoration",
+      bio: "The Emanuel Nine refers to nine African American church members murdered at Emanuel African Methodist Episcopal Church in Charleston, South Carolina in a racially motivated terrorist attack. The victims were killed during a Bible study by a white supremacist, yet their families offered forgiveness and the church community demonstrated remarkable grace. The Emanuel Nine exemplify contemporary Christian witness, racial reconciliation, and redemptive faith in the face of violence."
+    }
+  ],
+  "06-21": [
+    {
+      name: "Onesimos Nesib, translator, evangelist, died 1931",
+      type: "commemoration",
+      bio: "Onesimos Nesib was an Ethiopian evangelist and Bible translator who brought Christianity to the Galla (Oromo) people of Ethiopia despite significant cultural and political obstacles. He translated Scripture and Christian literature into Oromo, enabling his people to encounter God's Word in their native language. Nesib exemplified missionary courage and the importance of indigenous leadership in spreading the Gospel across cultural boundaries."
+    }
+  ],
+  "06-24": [
+    {
+      name: "John the Baptist",
+      type: "lesser_festival",
+      bio: "John the Baptist was the forerunner to Jesus Christ who baptized him in the Jordan River and testified to his identity as the Messiah. Known for his ascetic lifestyle, prophetic preaching, and call to repentance, John prepared Israel for Jesus's coming. Though eventually beheaded for his faithfulness, John exemplified prophetic witness and the importance of turning people's hearts toward God."
+    }
+  ],
+  "06-25": [
+    {
+      name: "Presentation of the Augsburg Confession, 1530; Philipp Melanchthon, renewer of the church, died 1560",
+      type: "commemoration",
+      bio: "The Presentation of the Augsburg Confession on June 25, 1530, before Emperor Charles V marked a pivotal moment in Reformation history when Lutheran princes formally presented their theological position. Philipp Melanchthon, Luther's colleague and the document's primary author, was a brilliant theologian and educator whose irenic approach sought to reconcile doctrinal differences. The Augsburg Confession became foundational to Lutheran identity, and Melanchthon's theological synthesis shaped Lutheran orthodoxy."
+    }
+  ],
+  "06-27": [
+    {
+      name: "Cyril, Bishop of Alexandria, died 444",
+      type: "commemoration",
+      bio: "Cyril was a 5th-century Bishop of Alexandria and Doctor of the Church whose theological defense of Christ's divinity and unity shaped Christological doctrine. He championed the affirmation that Mary is Theotokos (Mother of God) at the Council of Ephesus in 431. Though his methods were sometimes controversial, Cyril's unwavering commitment to protecting orthodox Christology exemplified theological courage and ecclesial responsibility."
+    }
+  ],
+  "06-29": [
+    {
+      name: "Peter and Paul, Apostles",
+      type: "lesser_festival",
+      bio: "Peter and Paul were the two greatest apostles whose missionary leadership and faithful witness formed the foundation of the early Church. Peter, called Cephas (the Rock), led the Jerusalem church and brought the Gospel to Jews and Gentiles, while Paul became the apostle to the Gentiles whose letters comprise much of the New Testament. Both were eventually martyred in Rome, symbolizing the Church's willingness to suffer for Christ."
+    }
+  ],
+  "07-01": [
+    {
+      name: "Catherine Winkworth, died 1878; John Mason Neale, died 1866; hymnwriters",
+      type: "commemoration",
+      bio: "Catherine Winkworth and John Mason Neale were 19th-century hymnwriters whose translations and compositions enriched Christian worship across denominational traditions. Winkworth, though typically overlooked, translated numerous German hymns into English, including works by Martin Luther and Paul Gerhardt. Neale translated Latin and Greek hymns and composed original works emphasizing the Church year. Both exemplified the integration of scholarly learning and spiritual creativity in hymnody."
+    }
+  ],
+  "07-03": [
+    {
+      name: "Thomas, Apostle",
+      type: "lesser_festival",
+      bio: "Thomas was one of the Twelve Apostles remembered for his initial doubt regarding Jesus's Resurrection until he encountered the risen Christ directly. Though often unfairly called \"doubting Thomas,\" he demonstrated deep faith and was willing to risk death to follow Jesus. According to tradition, Thomas became a missionary to India, exemplifying the apostolic commission to witness to all nations."
+    }
+  ],
+  "07-06": [
+    {
+      name: "Jan Hus, martyr, died 1415",
+      type: "commemoration",
+      bio: "Jan Hus was a Bohemian priest and theologian who anticipated the Reformation by nearly a century through his critiques of Church corruption and emphasis on Scripture. His work influenced John Wycliffe and later Protestant reformers, and he championed communion in both kinds for the laity. Hus was condemned and burned at the Council of Constance, becoming a martyr whose death sparked the Hussite movement and influenced Czech national identity."
+    }
+  ],
+  "07-11": [
+    {
+      name: "Benedict of Nursia, Abbot of Monte Cassino, died around 540",
+      type: "commemoration",
+      bio: "Benedict was a 6th-century Italian monk and founder of the Benedictine Order, whose Rule established the monastic way of life based on communal living, work, prayer, and stable community. His insistence on moderation, discipline, and balance created a sustainable model of monastic living that profoundly shaped medieval Christianity and European culture. Benedict's emphasis on ora et labora (prayer and work) continues to inspire Christian spirituality."
+    }
+  ],
+  "07-12": [
+    {
+      name: "Nathan Söderblom, Bishop of Uppsala, died 1931",
+      type: "commemoration",
+      bio: "Nathan Söderblom was a 20th-century Swedish Lutheran bishop and pioneering ecumenist whose passion for Christian unity and peace shaped modern ecumenical Christianity. He founded the Life and Work movement, which advanced dialogue among churches on social and ethical issues. Söderblom's commitment to reconciliation, his historical-critical biblical scholarship, and his promotion of interconfessional cooperation made him a significant figure in 20th-century Christianity."
+    }
+  ],
+  "07-15": [
+    {
+      name: "Vladimir, first Christian ruler of Russia, died 1015",
+      type: "commemoration",
+      bio: "Vladimir was the Grand Duke of Kiev who converted to Christianity and brought the Christian faith to Russia in the 10th century through his decisive leadership. His baptism and subsequent Christianization of his realm fundamentally transformed Russian civilization and culture. Vladimir exemplified transformative Christian leadership and the power of royal conversion to shape entire nations' spiritual destiny."
+    }
+  ],
+  "07-17": [
+    {
+      name: "Bartolomé de Las Casas, missionary to the Indies, died 1566",
+      type: "commemoration",
+      bio: "Bartolomé de Las Casas was a 16th-century Spanish Dominican friar and missionary who became a passionate defender of indigenous peoples against exploitation and enslavement by Spanish conquistadors. Though he initially participated in the conquest, he underwent a conversion in conscience and devoted his later years to advocating for indigenous rights and challenging colonial cruelty. Las Casas exemplified moral courage and the Church's prophetic witness against injustice."
+    }
+  ],
+  "07-22": [
+    {
+      name: "Mary Magdalene, Apostle",
+      type: "lesser_festival",
+      bio: "Mary Magdalene was a devoted follower of Jesus who witnessed his Crucifixion and was the first person to encounter the risen Christ. The Gospels portray her as a woman of extraordinary faith whom Jesus liberated from demons, and she became a crucial witness to the Resurrection. Known as \"apostle to the apostles,\" Mary Magdalene exemplified faithful discipleship and the vital role of women in Christian witness."
+    }
+  ],
+  "07-23": [
+    {
+      name: "Birgitta of Sweden, died 1373",
+      type: "commemoration",
+      bio: "Birgitta of Sweden was a 14th-century mystical writer, visionary, and reformer who founded the Bridgettine Order and sought to influence papal and ecclesiastical reform. Her mystical revelations emphasized Christ's suffering and God's mercy, and she used her spiritual authority to counsel popes and princes toward righteousness. Birgitta exemplified women's spiritual authority and the integration of mystical experience with prophetic witness."
+    }
+  ],
+  "07-25": [
+    {
+      name: "James, Apostle",
+      type: "lesser_festival",
+      bio: "James, the son of Zebedee, was one of Jesus's inner circle of apostles and the first among the Twelve to be martyred. Known for his initial ambition and later transformation into a faithful witness, James exemplified the cost of discipleship. According to tradition, he was martyred in Jerusalem, and his shrine in Santiago de Compostela became one of medieval Christendom's most important pilgrimage destinations."
+    }
+  ],
+  "07-28": [
+    {
+      name: "Johann Sebastian Bach, died 1750; Heinrich Schütz, died 1672; George Frederick Handel, died 1759; musicians",
+      type: "commemoration",
+      bio: "Johann Sebastian Bach, Heinrich Schütz, and George Frederick Handel were Baroque composers of extraordinary genius whose sacred music glorified God and shaped Christian worship. Bach composed numerous cantatas, passions, and fugues integrating theology with musical architecture; Schütz created the first German operas and sacred concertos; Handel composed oratorios including Messiah. These musicians exemplified the integration of artistic excellence with Christian faith."
+    }
+  ],
+  "07-29": [
+    {
+      name: "Mary, Martha, and Lazarus of Bethany",
+      type: "commemoration",
+      bio: "Mary, Martha, and Lazarus were siblings of Bethany whom Jesus loved and who witnessed his resurrection power when he raised Lazarus from the dead. Their home was a sanctuary where Jesus found hospitality and friendship, and their individual responses to Jesus—Martha's service, Mary's contemplation, Lazarus's resurrection—exemplify different dimensions of Christian living and faith. They demonstrate Jesus's affection for ordinary believers."
+    }
+  ],
+  "07-30": [
+    {
+      name: "Robert Barnes, confessor and martyr, died 1540",
+      type: "commemoration",
+      bio: "Robert Barnes was an English Augustinian friar, biblical scholar, and early Protestant reformer who championed evangelical theology and suffered persecution for his faith. He fled to the Continent after facing accusations of heresy, served as a diplomat, and was eventually burned at the stake by Henry VIII. Barnes exemplified Reformed conviction and the willingness to sacrifice life rather than compromise theological integrity."
+    }
+  ],
+  "08-08": [
+    {
+      name: "Dominic, founder of the Order of Preachers (Dominicans), died 1221",
+      type: "commemoration",
+      bio: "Dominic was a 13th-century Spanish priest who founded the Dominican Order (Order of Preachers) dedicated to theological learning, preaching, and combating heresy. His emphasis on education, scholarly rigor, and evangelical preaching created a new model of religious life. The Dominicans produced numerous theologians and saints, and Dominic's vision of preaching as a primary Christian vocation shaped medieval and modern Christianity."
+    }
+  ],
+  "08-10": [
+    {
+      name: "Lawrence, deacon, martyr, died 258",
+      type: "commemoration",
+      bio: "Lawrence was an early Christian deacon in Rome who was martyred during persecution by distributing the Church's treasures to the poor rather than surrendering them to authorities. According to tradition, he was burned to death on a gridiron, becoming an iconic martyr of the early Church. Lawrence exemplified devotion to the poor and a willingness to suffer rather than betray Christian stewardship."
+    }
+  ],
+  "08-11": [
+    {
+      name: "Clare, Abbess of San Damiano, died 1253",
+      type: "commemoration",
+      bio: "Clare was a 13th-century Italian abbess who founded the Poor Ladies (later Poor Clares), a Franciscan order devoted to poverty, contemplation, and mystical prayer. Though she never traveled from her convent, her spiritual influence extended far, and she was recognized as an abbess of extraordinary holiness and theological insight. Clare exemplified the power of contemplative life and female spiritual leadership in the medieval Church."
+    }
+  ],
+  "08-13": [
+    {
+      name: "Florence Nightingale, died 1910; Clara Maass, died 1901; renewers of society",
+      type: "commemoration",
+      bio: "Florence Nightingale and Clara Maass were pioneering nurses whose dedication to healing transformed modern medicine and health care. Nightingale revolutionized nursing during the Crimean War through evidence-based care and sanitation reform, while Maass served in the Spanish-American War and eventually died from yellow fever contracted while advancing medical knowledge. Both exemplified Christian healing as sacred vocation and self-sacrificial service."
+    }
+  ],
+  "08-14": [
+    {
+      name: "Maximilian Kolbe, died 1941; Kaj Munk, died 1944; martyrs",
+      type: "commemoration",
+      bio: "Maximilian Kolbe and Kaj Munk were 20th-century martyrs who resisted Nazi tyranny and were killed for their faith and conscience. Kolbe, a Polish Franciscan, volunteered to die in place of a fellow prisoner at Auschwitz, while Munk, a Danish pastor, was murdered for his resistance preaching against Nazism. Both exemplify Christian courage in confronting evil and the ultimate witness of martyrdom."
+    }
+  ],
+  "08-15": [
+    {
+      name: "Mary, Mother of Our Lord",
+      type: "lesser_festival",
+      bio: "The Feast of Mary celebrates the Virgin Mary's significance as the Mother of Jesus and her role in salvation history. The Church honors her as Theotokos (Mother of God) and acknowledges her faithful obedience, her suffering at the foot of the Cross, and her intercessory presence in the communion of saints. This feast affirms Mary's unique place in Christian faith while maintaining proper distinction between honoring and worshipping."
+    }
+  ],
+  "08-20": [
+    {
+      name: "Bernard, Abbot of Clairvaux, died 1153",
+      type: "commemoration",
+      bio: "Bernard was a 12th-century Cistercian monk and abbot whose mystical theology, eloquent preaching, and monastic reforms profoundly influenced medieval Christianity. His sermons on the Song of Songs and his writings on mystical experience shaped Christian spirituality, and he exerted considerable influence on papal affairs and Church politics. Bernard exemplified the integration of contemplative depth with active ecclesiastical engagement."
+    }
+  ],
+  "08-24": [
+    {
+      name: "Bartholomew, Apostle",
+      type: "lesser_festival",
+      bio: "Bartholomew was one of the Twelve Apostles, often identified with Nathanael in John's Gospel, whom Jesus called \"an Israelite without guile.\" His initial skepticism about Jesus yielded to complete faith after encountering the risen Lord. According to tradition, Bartholomew became a missionary to distant lands, and his faithful witness exemplifies the transformation of doubt into devoted discipleship."
+    }
+  ],
+  "08-25": [
+    {
+      name: "Louis, King of France, died 1270",
+      type: "commemoration",
+      bio: "Louis IX of France, known as Saint Louis, was a 13th-century king devoted to justice, the poor, and ecclesiastical reform. He established hospitals, reformed the legal system to favor the vulnerable, and led crusades he believed would extend Christendom. Though some aspects of his reign are controversial, Louis exemplified medieval ideals of Christian kingship emphasizing moral governance and service to subjects."
+    }
+  ],
+  "08-28": [
+    {
+      name: "Augustine, Bishop of Hippo, died 430",
+      type: "commemoration",
+      bio: "Augustine was a 4th-century North African bishop and Doctor of the Church whose theological brilliance and honest spiritual journey shaped Christian thought profoundly. His Confessions recount his conversion from licentiousness through philosophical seeking to Christian faith, while his City of God defended Christianity against imperial critics. Augustine's theology of grace, the will, and divine predestination remains foundational to Western Christian thought."
+    }
+  ],
+  "08-31": [
+    {
+      name: "John Bunyan, teacher, died 1688",
+      type: "commemoration",
+      bio: "John Bunyan was a 17th-century English Baptist preacher and author whose Pilgrim's Progress became one of the most widely read works in Christian literature. Written during imprisonment for preaching without official license, Pilgrim's Progress uses allegorical narrative to depict the Christian life's journey toward salvation. Bunyan exemplified faithful pastoring under persecution and the power of imaginative theological teaching."
+    }
+  ],
+  "09-02": [
+    {
+      name: "Nikolai Frederik Severin Grundtvig, bishop, renewer of the church, died 1872",
+      type: "commemoration",
+      bio: "Nikolai Grundtvig was a 19th-century Danish bishop, theologian, and hymnwriter whose vision of Christian education and renewal shaped Nordic Lutheranism profoundly. He emphasized the importance of folk schools, national identity, and congregational participation in Church life. Grundtvig's thousands of hymns reflect his theology of grace, resurrection, and the importance of tradition in Christian faith."
+    }
+  ],
+  "09-09": [
+    {
+      name: "Peter Claver, priest, missionary to Colombia, died 1654",
+      type: "commemoration",
+      bio: "Peter Claver was a 17th-century Spanish Jesuit missionary who devoted his life to serving African slaves arriving in Cartagena, Colombia. In the face of cruelty and degradation, Claver provided food, medical care, and spiritual comfort to the enslaved, baptizing thousands. He exemplified Christian compassion toward the most vulnerable and prophetic witness against the evil of slavery centuries before its abolition."
+    }
+  ],
+  "09-13": [
+    {
+      name: "John Chrysostom, Bishop of Constantinople, died 407",
+      type: "commemoration",
+      bio: "John Chrysostom was a 4th-century bishop and Doctor of the Church famous for his eloquent preaching (Chrysostom means \"golden-mouthed\"). His biblical commentaries and homilies provided rigorous exegesis and practical spiritual guidance, and he reformed Constantinople's Church while facing political opposition. John exemplified prophetic preaching, scriptural fidelity, and pastoral courage in the face of adversity."
+    }
+  ],
+  "09-14": [
+    {
+      name: "Holy Cross Day",
+      type: "lesser_festival",
+      bio: "Holy Cross Day commemorates the discovery of the True Cross by St. Helena and celebrates Christ's redemptive work through the Cross. The Cross, once a symbol of shame and death, became the sign of salvation through Christ's sacrificial death and Resurrection. This feast affirms the centrality of the Crucifixion to Christian faith and the paradox that the instrument of torture became the instrument of salvation."
+    }
+  ],
+  "09-16": [
+    {
+      name: "Cyprian, Bishop of Carthage, martyr, died around 258",
+      type: "commemoration",
+      bio: "Cyprian was a 3rd-century North African bishop and Doctor of the Church whose theological writings on Church unity, episcopal authority, and Christian discipline influenced ecclesiology profoundly. He faced persecution and ultimately martyrdom, maintaining unity among Christians during crisis. Cyprian exemplified pastoral leadership, theological substance, and willingness to suffer for the faith."
+    }
+  ],
+  "09-17": [
+    {
+      name: "Hildegard, Abbess of Bingen, died 1179",
+      type: "commemoration",
+      bio: "Hildegard of Bingen was a 12th-century German Benedictine abbess, mystic, theologian, healer, and composer whose visionary writings integrated theology with natural philosophy and medicine. She founded her own monastery, wrote extensively on theology and healing, composed liturgical music, and corresponded with popes and emperors. Hildegard exemplified women's intellectual authority and the integration of spirituality with natural knowledge."
+    }
+  ],
+  "09-18": [
+    {
+      name: "Dag Hammarskjöld, renewer of society, died 1961",
+      type: "commemoration",
+      bio: "Dag Hammarskjöld was a Swedish diplomat and United Nations Secretary-General whose commitment to peace, justice, and reconciliation shaped international relations during the Cold War. A contemplative Christian whose spiritual life sustained his demanding diplomatic work, his death in an airplane crash while mediating an African conflict exemplified his dedication. Hammarskjöld demonstrated how faith could inform public service."
+    }
+  ],
+  "09-21": [
+    {
+      name: "Matthew, Apostle and Evangelist",
+      type: "lesser_festival",
+      bio: "Matthew was a tax collector called by Jesus to be an apostle and became the author of the Gospel bearing his name. His Gospel emphasizes Jesus as the Messiah foretold in Hebrew Scripture and is addressed to Jewish audiences. Matthew's transformation from a despised tax collector to a faithful apostle exemplifies Jesus's power to call and transform ordinary people into witnesses of the Gospel."
+    }
+  ],
+  "09-29": [
+    {
+      name: "Michael and All Angels",
+      type: "lesser_festival",
+      bio: "Michaelmas celebrates the Archangel Michael and all God's angels as heavenly servants and messengers of the divine will. Michael is depicted in Scripture as the warrior angel defending God's people against Satan, while other angels carry God's messages and accompany believers. This feast affirms the spiritual reality of heavenly beings and the Church's communion with all God's creation."
+    }
+  ],
+  "09-30": [
+    {
+      name: "Jerome, translator, teacher, died 420",
+      type: "commemoration",
+      bio: "Jerome was a 4th-century Church Father and Doctor of the Church best known for translating the Bible into Latin (the Vulgate), making Scripture accessible to the Western Church. His biblical commentaries provided rigorous scholarly exegesis, and his spiritual writings emphasized ascetic discipline and rigorous learning. Jerome exemplified the integration of scholarly expertise with spiritual devotion and the importance of making Scripture available in vernacular languages."
+    }
+  ],
+  "10-04": [
+    {
+      name: "Francis of Assisi, renewer of the church, died 1226",
+      type: "commemoration",
+      bio: "Francis of Assisi was an Italian mystic and founder of the Franciscan Order who revolutionized religious life through emphasis on poverty, simplicity, and joyful faith. His mystical devotion to Christ's Passion and his love for creation profoundly influenced Christian spirituality. Francis exemplified radical obedience to the Gospel and demonstrated the transformative power of voluntary poverty and peace."
+    }
+  ],
+  "10-06": [
+    {
+      name: "William Tyndale, translator, martyr, died 1536",
+      type: "commemoration",
+      bio: "William Tyndale was an English translator and reformer who devoted his life to translating the Bible into English so that common people could read God's Word. In the face of ecclesiastical opposition, he continued his translation work while in exile, eventually being betrayed and executed. Tyndale exemplified commitment to making Scripture accessible and was willing to die for this conviction."
+    }
+  ],
+  "10-07": [
+    {
+      name: "Henry Melchior Muhlenberg, pastor in North America, died 1787",
+      type: "commemoration",
+      bio: "Henry Melchior Muhlenberg was a German-born Lutheran pastor who became the patriarch of American Lutheranism in the 18th century. He established congregations, organized the first Lutheran synod, and provided pastoral care to German immigrants while promoting Lutheran identity and education. Muhlenberg exemplified missionary vision and the establishment of institutional Church life in a new land."
+    }
+  ],
+  "10-15": [
+    {
+      name: "Teresa of Ávila, teacher, renewer of the church, died 1582",
+      type: "commemoration",
+      bio: "Teresa of Ávila was a 16th-century Spanish Carmelite nun, mystic, and Doctor of the Church whose interior spiritual life and reform work transformed monastic religion. Her autobiographical writings provide profound insights into mystical prayer and contemplative practice, while her foundational work established Reformed Carmelite communities. Teresa exemplified the integration of mystical depth with active reform and teaching."
+    }
+  ],
+  "10-17": [
+    {
+      name: "Ignatius, Bishop of Antioch, martyr, died around 115",
+      type: "commemoration",
+      bio: "Ignatius was a 2nd-century bishop of Antioch whose letters written while imprisoned provide invaluable insights into early Christian theology and Church organization. His letters emphasize the reality of Christ's physical Incarnation against docetic heresy, the authority of bishops, and the importance of Church unity. Ignatius exemplified apostolic faith and was willing to face martyrdom with faith and joy."
+    }
+  ],
+  "10-18": [
+    {
+      name: "Luke, Evangelist",
+      type: "lesser_festival",
+      bio: "Luke was a physician and evangelist who authored both the Gospel bearing his name and the Acts of the Apostles. His Gospel, written with literary skill and historical detail, emphasizes Jesus's compassion for the outcasts and the role of women. Luke's two-volume work provides the most extensive account of early Christian history and exemplifies the importance of historical witness to the Gospel."
+    }
+  ],
+  "10-23": [
+    {
+      name: "James of Jerusalem, martyr, died around 62",
+      type: "commemoration",
+      bio: "James, the brother of Jesus, became the leader of the Jerusalem Church and wrote the Epistle of James emphasizing faith expressed through works. Initially skeptical of Jesus during his earthly ministry, James came to faith through the Resurrection and provided apostolic leadership to the mother church. He was eventually martyred, exemplifying the cost of apostolic leadership and the importance of faith expressed through action."
+    }
+  ],
+  "10-26": [
+    {
+      name: "Philipp Nicolai, died 1608; Johann Heermann, died 1647; Paul Gerhardt, died 1676; hymnwriters",
+      type: "commemoration",
+      bio: "Philipp Nicolai, Johann Heermann, and Paul Gerhardt were 16th- and 17th-century German hymnwriters whose devotional poetry enriched Protestant worship profoundly. Nicolai composed \"O Morning Star, How Fair and Bright\" and other hymns of deep spirituality; Heermann contributed numerous devotional hymns; Gerhardt wrote over 120 hymns characterized by emotional depth and theological substance. These hymnwriters exemplified the integration of personal piety with congregational worship."
+    }
+  ],
+  "10-28": [
+    {
+      name: "Simon and Jude, Apostles",
+      type: "lesser_festival",
+      bio: "Simon and Jude (also called Thaddaeus) were two of the Twelve Apostles about whom little is recorded in Scripture, yet both remained faithful disciples despite limited prominence. Simon, called the Zealot, and Jude are honored for their faithful apostolic witness. Their inclusion among the Twelve emphasizes that Christ calls and equips all kinds of believers for his service."
+    }
+  ],
+  "10-31": [
+    {
+      name: "Reformation Day",
+      type: "lesser_festival",
+      bio: "Reformation Day commemorates the Protestant Reformation initiated by Martin Luther's challenges to Church authority and theology in 1517. This feast celebrates the recovery of biblical authority, justification by faith alone, and the universal priesthood of believers. While recognizing Reformation contributions, the Church acknowledges that reform remains an ongoing necessity and emphasizes commitment to both continuity and renewal."
+    }
+  ],
+  "11-01": [
+    {
+      name: "All Saints Day",
+      type: "lesser_festival",
+      bio: "All Saints Day honors the communion of saints—all believers, both living and departed, who constitute the body of Christ. The celebration affirms that the Church's unity transcends death and that the living are joined with the faithful departed in Christ. This feast emphasizes the resurrection hope and the reality of eternal fellowship with God and all God's people."
+    }
+  ],
+  "11-03": [
+    {
+      name: "Martín de Porres, renewer of society, died 1639",
+      type: "commemoration",
+      bio: "Martín de Porres was a 16th-century Peruvian Dominican lay brother of mixed racial heritage who became renowned for his healing ministry, compassion for the poor and enslaved, and charitable works. In the context of Spanish colonial Peru, Martin exemplified radical Christian service transcending racial and social boundaries. He was eventually canonized, affirming the Church's recognition of holiness in humble, self-sacrificial service."
+    }
+  ],
+  "11-07": [
+    {
+      name: "John Christian Frederick Heyer, died 1873; Bartholomaeus Ziegenbalg, died 1719; Ludwig Nommensen, died 1918; missionaries",
+      type: "commemoration",
+      bio: "John Christian Frederick Heyer, Bartholomaeus Ziegenbalg, and Ludwig Nommensen were 18th- and 19th-century Lutheran missionaries who brought the Gospel to India, India, and Indonesia respectively. Heyer founded the first Indian Lutheran congregation; Ziegenbalg pioneered Protestant missions in India and translated Scripture; Nommensen worked among the Batak people of Sumatra, adapting ministry to indigenous culture. These missionaries exemplified commitment to cross-cultural Gospel proclamation."
+    }
+  ],
+  "11-11": [
+    {
+      name: "Martin, Bishop of Tours, died 397",
+      type: "commemoration",
+      bio: "Martin of Tours was a 4th-century bishop and monk famous for his charity, his encounter with a beggar to whom he gave half his cloak (recognized as Christ), and his monastic community at Marmoutier. Despite his prominence, Martin maintained humility and spiritual discipline, becoming a model of pastoral care and charitable service. His legend exemplified the integration of episcopal authority with monastic spirituality and Christ-like compassion."
+    }
+  ],
+  "11-17": [
+    {
+      name: "Elizabeth of Hungary, renewer of society, died 1231",
+      type: "commemoration",
+      bio: "Elizabeth of Hungary was a 13th-century noblewoman who, despite her royal status, devoted herself to serving the poor, sick, and marginalized with extraordinary compassion. Her works of mercy and ascetic discipline exemplified radical Christian love, and she was eventually widowed and entered a Franciscan community. Elizabeth exemplified that Christian holiness transcends social status and finds expression in sacrificial service."
+    }
+  ],
+  "11-23": [
+    {
+      name: "Clement, Bishop of Rome, died around 100",
+      type: "commemoration",
+      bio: "Clement was an early bishop of Rome whose letter to the Corinthian church (1 Clement) provides invaluable insights into early Christian theology and ecclesiology. His emphasis on apostolic succession, hierarchical Church order, and reconciliation among Christians influenced later ecclesiastical development. Clement exemplified apostolic authority and the importance of maintaining unity and order in the Church."
+    }
+  ],
+  "11-24": [
+    {
+      name: "Justus Falckner, died 1723; Jehu Jones, died 1852; William Passavant, died 1894; pastors",
+      type: "commemoration",
+      bio: "Justus Falckner, Jehu Jones, and William Passavant were American pastors who served with dedication in the United States during different periods. Falckner was among the first ordained Lutheran pastors in North America; Jones was an African American pastor who served his community with distinction; Passavant was a Lutheran pastor and educator who founded hospitals and schools. These pastors exemplified faithful pastoral ministry in the American context."
+    }
+  ],
+  "11-25": [
+    {
+      name: "Isaac Watts, hymnwriter, died 1748",
+      type: "commemoration",
+      bio: "Isaac Watts was an 18th-century English clergyman and hymnwriter who revolutionized English hymnody through his composition of nearly 750 hymns and spiritual songs. His works, including \"I Sing the Mighty Power of God\" and \"When I Survey the Wondrous Cross,\" combine theological depth with singable melodies. Watts demonstrated that hymns could teach doctrine while engaging the heart and emotions."
+    }
+  ],
+  "12-04": [
+    {
+      name: "John of Damascus, theologian and hymnwriter, died around 749",
+      type: "commemoration",
+      bio: "John of Damascus was a 8th-century Syrian theologian, hymnwriter, and Doctor of the Church whose defense of sacred images shaped Christian theology and practice. His theological synthesis, Exposition of the Orthodox Faith, systematized Christian doctrine and influenced both Eastern and Western theology. John exemplified the integration of theological rigor with mystical insight and the importance of sacred images in Christian devotion."
+    }
+  ],
+  "12-06": [
+    {
+      name: "Nicholas, Bishop of Myra, died around 342",
+      type: "commemoration",
+      bio: "Nicholas was a 4th-century bishop of Myra in Asia Minor renowned for his generosity, miraculous interventions, and pastoral care for the vulnerable. Though historical details are few, legend portrays him rescuing children and providing secretly for those in need. Nicholas became one of Christianity's most beloved saints, celebrated across Eastern and Western traditions, exemplifying Christian charity and protection of the innocent."
+    }
+  ],
+  "12-07": [
+    {
+      name: "Ambrose, Bishop of Milan, died 397",
+      type: "commemoration",
+      bio: "Ambrose was a 4th-century bishop of Milan and Doctor of the Church whose theological writings, hymns, and pastoral leadership profoundly influenced Western Christianity. He was instrumental in converting Augustine, stood against Imperial power in defense of Christian principle, and composed numerous hymns. Ambrose exemplified prophetic courage, theological substance, and the power of persuasive preaching."
+    }
+  ],
+  "12-13": [
+    {
+      name: "Lucy, martyr, died 304",
+      type: "commemoration",
+      bio: "Lucy was a 4th-century Christian martyr from Syracuse who, according to tradition, refused marriage to maintain her Christian commitment and was martyred for her faith. Venerated as a saint of vision and light, Lucy is celebrated particularly in Scandinavian traditions with special liturgies and candlelit processions. She exemplified youthful dedication to Christ and willingness to sacrifice earthly security for spiritual conviction."
+    }
+  ],
+  "12-14": [
+    {
+      name: "John of the Cross, renewer of the church, died 1591",
+      type: "commemoration",
+      bio: "John of the Cross was a 16th-century Spanish Carmelite friar, mystic, and Doctor of the Church whose poetry and theological writings provide profound guidance on the mystical journey. His teachings on the \"dark night of the soul\" describe spiritual transformation through suffering and purification. John exemplified radical surrender to God and articulated the deepest dimensions of mystical union with the divine."
+    }
+  ],
+  "12-20": [
+    {
+      name: "Katharina von Bora Luther, renewer of the church, died 1552",
+      type: "commemoration",
+      bio: "Katharina von Bora Luther was the wife of Martin Luther and a remarkable woman in her own right who supported the Reformation through her partnership with Martin. An escaped nun, she managed their household, raised their children, and participated in theological discussions. Katharina exemplified the Reformation affirmation of marriage and family life as sacred vocations and women's crucial contributions to Church renewal."
+    }
+  ],
+  "12-26": [
+    {
+      name: "Stephen, Deacon and Martyr",
+      type: "lesser_festival",
+      bio: "Stephen was the first Christian martyr (protomartyr) whose death by stoning, recounted in Acts, exemplified faithful witness unto death. Full of faith and performing great wonders, he was condemned by the Jewish council and executed. His death profoundly affected Saul (Paul), whose conversion followed Stephen's martyrdom, demonstrating that faithful witness bears fruit even through death."
+    }
+  ],
+  "12-27": [
+    {
+      name: "John, Apostle and Evangelist",
+      type: "lesser_festival",
+      bio: "John, the beloved disciple, was one of Jesus's closest followers and the author of the Fourth Gospel emphasizing Jesus's divinity and intimate relationship with believers. His Gospel, along with three epistles and Revelation, provides profound theological reflection on Christ's identity and redemptive work. John exemplified contemplative discipleship and the integration of mystical intimacy with apostolic witness."
+    }
+  ],
+  "12-28": [
+    {
+      name: "The Holy Innocents, Martyrs",
+      type: "lesser_festival",
+      bio: "The Holy Innocents refers to the children of Bethlehem killed by King Herod in his attempt to eliminate the newborn Jesus. Though they could not consciously confess Christ, the Church honors them as the first martyrs whose deaths occurred as an indirect consequence of Christ's coming. Their feast exemplifies the costliness of God's redemptive work and affirms that innocence and vulnerability are protected in God's kingdom."
+    }
+  ]
+};
+
+
+function getTodayFestivals(date) {
+  var mm = String(date.getMonth() + 1).padStart(2, '0');
+  var dd = String(date.getDate()).padStart(2, '0');
+  var key = mm + '-' + dd;
+  return ELCA_CALENDAR[key] || [];
+}
+
+function buildFestivalHTML(festivals) {
+  if (!festivals || festivals.length === 0) return '';
+  var html = '';
+  festivals.forEach(function(f, idx) {
+    var isLesser = f.type === 'lesser_festival';
+    var cardClass = isLesser ? 'festival-card' : 'festival-card commemoration';
+    var icon = isLesser ? '\u271D' : '\uD83D\uDD4A';
+    var typeLabel = isLesser ? 'Lesser Festival' : 'Commemoration';
+    var bioId = 'festival-bio-' + idx;
+    html += '<div class="' + cardClass + '">' +
+      '<div class="festival-banner">' +
+      '<span class="festival-icon">' + icon + '</span>' +
+      '<span>' + typeLabel + ': ' + f.name + '</span></div>' +
+      '<div class="festival-bio-toggle" onclick="toggleFestivalBio(\'' + bioId + '\', this)">' +
+      '<span>About ' + f.name.split(',')[0] + '</span>' +
+      '<span class="chevron">&#9660;</span></div>' +
+      '<div class="festival-bio" id="' + bioId + '">' +
+      '<p>' + f.bio + '</p></div></div>';
+  });
+  return html;
+}
+
+function toggleFestivalBio(bioId, toggle) {
+  var bio = document.getElementById(bioId);
+  var isOpen = bio.classList.contains('open');
+  if (isOpen) {
+    bio.classList.remove('open');
+    toggle.querySelector('.chevron').textContent = '\u25BC';
+  } else {
+    bio.classList.add('open');
+    toggle.querySelector('.chevron').textContent = '\u25B2';
+  }
+}
+
+// ==========================================
 // APP STATE AND NAVIGATION
 // ==========================================
 let currentPage = 'home';
@@ -1082,6 +2067,7 @@ function getLiturgicalInfo(date) {
   const year = date.getFullYear();
   const month = date.getMonth();
   const day = date.getDate();
+  const dayOfWeek = date.getDay(); // 0=Sun
 
   const easter = getEasterDate(year);
   const daysSinceEaster = Math.floor((date - easter) / 86400000);
@@ -1092,59 +2078,141 @@ function getLiturgicalInfo(date) {
   const adventYear = date >= adventStart ? year : year - 1;
   const yearLetter = ['A', 'B', 'C'][adventYear % 3];
 
-  // Determine season
+  // Determine season and color
   let season = '';
   let color = '';
 
-  if (date >= adventStart || date < new Date(year, 0, 6)) {
-    if (month === 11 && day >= 25) {
-      season = 'Christmas';
-      color = 'white';
-    } else if (month === 0 && day < 6) {
-      season = 'Christmas';
-      color = 'white';
-    } else {
-      season = 'Advent';
-      color = 'blue';
-    }
-  } else if (month === 0 && day === 6) {
-    season = 'Epiphany of Our Lord';
-    color = 'white';
-  } else if (daysSinceEaster >= -46 && daysSinceEaster < 0) {
-    if (daysSinceEaster >= -7) {
-      season = 'Holy Week';
-    } else {
-      season = 'Lent';
-    }
-    color = 'purple';
-  } else if (daysSinceEaster === 0) {
-    season = 'Easter Sunday';
-    color = 'white';
-  } else if (daysSinceEaster > 0 && daysSinceEaster <= 49) {
-    season = 'Easter';
-    color = 'white';
-  } else if (daysSinceEaster === 49) {
-    season = 'Pentecost';
-    color = 'red';
-  } else if (date >= new Date(year, 0, 7) && daysSinceEaster < -46) {
-    season = 'Time after Epiphany';
-    color = 'green';
-  } else {
-    season = 'Time after Pentecost';
-    color = 'green';
+  // --- Fixed-date festivals (checked first so they override seasons) ---
+
+  // Reformation Day: Oct 31, or the preceding Sunday if observed as Reformation Sunday
+  if (month === 9 && day === 31) {
+    return { season: 'Reformation Day', color: 'red', yearLetter };
+  }
+  // Reformation Sunday (last Sunday in October — when Oct 31 isn't a Sunday)
+  if (month === 9 && dayOfWeek === 0 && day >= 25 && day <= 31) {
+    return { season: 'Reformation Sunday', color: 'red', yearLetter };
   }
 
-  // Special days
-  if (daysSinceEaster === -46) season = 'Ash Wednesday';
-  if (daysSinceEaster === -7) season = 'Palm Sunday';
-  if (daysSinceEaster === -3) season = 'Maundy Thursday';
-  if (daysSinceEaster === -2) season = 'Good Friday';
-  if (daysSinceEaster === -1) season = 'Holy Saturday';
-  if (daysSinceEaster === 39) season = 'Ascension of Our Lord';
-  if (daysSinceEaster === 49) season = 'Day of Pentecost';
-  if (daysSinceEaster === 56) season = 'Holy Trinity';
+  // All Saints Day: Nov 1 (or first Sunday in November)
+  if (month === 10 && day === 1) {
+    return { season: 'All Saints Day', color: 'white', yearLetter };
+  }
+  if (month === 10 && dayOfWeek === 0 && day >= 1 && day <= 7) {
+    return { season: 'All Saints Sunday', color: 'white', yearLetter };
+  }
 
-  return { season, color, yearLetter };
+  // Christ the King: last Sunday before Advent
+  const christTheKing = new Date(adventStart);
+  christTheKing.setDate(christTheKing.getDate() - 7);
+  if (month === christTheKing.getMonth() && day === christTheKing.getDate()) {
+    return { season: 'Christ the King', color: 'white', yearLetter };
+  }
+
+  // Transfiguration of Our Lord: Sunday before Ash Wednesday (last Sunday after Epiphany)
+  const ashWed = new Date(easter);
+  ashWed.setDate(ashWed.getDate() - 46);
+  const transfig = new Date(ashWed);
+  transfig.setDate(transfig.getDate() - (ashWed.getDay() === 0 ? 7 : ashWed.getDay()));
+  if (month === transfig.getMonth() && day === transfig.getDate()) {
+    return { season: 'Transfiguration of Our Lord', color: 'white', yearLetter };
+  }
+
+  // Baptism of Our Lord: first Sunday after Jan 6
+  if (month === 0 && dayOfWeek === 0 && day >= 7 && day <= 13) {
+    return { season: 'Baptism of Our Lord', color: 'white', yearLetter };
+  }
+
+  // --- Moveable seasons (Easter-relative) ---
+
+  // Good Friday — BLACK
+  if (daysSinceEaster === -2) {
+    return { season: 'Good Friday', color: 'black', yearLetter };
+  }
+
+  // Holy Saturday
+  if (daysSinceEaster === -1) {
+    return { season: 'Holy Saturday', color: 'black', yearLetter };
+  }
+
+  // Palm Sunday / Sunday of the Passion — SCARLET
+  if (daysSinceEaster === -7) {
+    return { season: 'Sunday of the Passion', color: 'scarlet', yearLetter };
+  }
+
+  // Monday–Wednesday of Holy Week — SCARLET
+  if (daysSinceEaster >= -6 && daysSinceEaster <= -4) {
+    return { season: 'Holy Week', color: 'scarlet', yearLetter };
+  }
+
+  // Maundy Thursday — SCARLET
+  if (daysSinceEaster === -3) {
+    return { season: 'Maundy Thursday', color: 'scarlet', yearLetter };
+  }
+
+  // Ash Wednesday — PURPLE
+  if (daysSinceEaster === -46) {
+    return { season: 'Ash Wednesday', color: 'purple', yearLetter };
+  }
+
+  // Lent (after Ash Wed, before Holy Week) — PURPLE
+  if (daysSinceEaster > -46 && daysSinceEaster < -7) {
+    return { season: 'Lent', color: 'purple', yearLetter };
+  }
+
+  // Easter Sunday — GOLD (queen of feasts)
+  if (daysSinceEaster === 0) {
+    return { season: 'The Resurrection of Our Lord', color: 'gold', yearLetter };
+  }
+
+  // Easter season (through day before Pentecost) — WHITE
+  if (daysSinceEaster > 0 && daysSinceEaster < 49) {
+    if (daysSinceEaster === 39) {
+      return { season: 'Ascension of Our Lord', color: 'white', yearLetter };
+    }
+    return { season: 'Easter', color: 'white', yearLetter };
+  }
+
+  // Day of Pentecost — RED (bright)
+  if (daysSinceEaster === 49) {
+    return { season: 'Day of Pentecost', color: 'red', yearLetter };
+  }
+
+  // Holy Trinity (Sunday after Pentecost) — WHITE
+  if (daysSinceEaster === 56) {
+    return { season: 'Holy Trinity', color: 'white', yearLetter };
+  }
+
+  // --- Fixed seasons ---
+
+  // Advent — BLUE
+  if (date >= adventStart && month === 11 && day < 25) {
+    return { season: 'Advent', color: 'blue', yearLetter };
+  }
+  // Handle Advent that may start in late November
+  if (date >= adventStart) {
+    if (month === 11 && day >= 25) {
+      return { season: 'Christmas', color: 'white', yearLetter };
+    }
+    return { season: 'Advent', color: 'blue', yearLetter };
+  }
+
+  // Christmas: Dec 25 – Jan 5
+  if ((month === 11 && day >= 25) || (month === 0 && day < 6)) {
+    return { season: 'Christmas', color: 'white', yearLetter };
+  }
+
+  // Epiphany: Jan 6
+  if (month === 0 && day === 6) {
+    return { season: 'Epiphany of Our Lord', color: 'white', yearLetter };
+  }
+
+  // Time after Epiphany — GREEN
+  if (month >= 0 && daysSinceEaster < -46) {
+    return { season: 'Time after Epiphany', color: 'green', yearLetter };
+  }
+
+  // Time after Pentecost — GREEN (the long green season)
+  return { season: 'Time after Pentecost', color: 'green', yearLetter };
 }
 
 // ==========================================
@@ -1387,6 +2455,7 @@ const RCL = {
 // DAILY READINGS DISPLAY
 // ==========================================
 function loadReadings() {
+  try {
   const today = new Date();
   const info = getLiturgicalInfo(today);
   const dayAbbrev = getDayAbbrev(today);
@@ -1400,6 +2469,12 @@ function loadReadings() {
     '<div class="season">' + info.season + ' &mdash; Year ' + info.yearLetter + '</div>' +
     '</div>';
 
+  // Show festivals/commemorations for today
+  var todayFestivals = getTodayFestivals(today);
+  if (todayFestivals.length > 0) {
+    html += buildFestivalHTML(todayFestivals);
+  }
+
   // Try to get daily readings from the ELW daily lectionary
   let dailyReadings = null;
   if (weekKey && DAILY_LECTIONARY[info.yearLetter] && DAILY_LECTIONARY[info.yearLetter][weekKey]) {
@@ -1411,7 +2486,7 @@ function loadReadings() {
 
   if (dailyReadings && dailyReadings.length > 0) {
     html += '<div class="content-card" style="margin-bottom:8px;padding:12px 16px;background:var(--elca-blue);color:white;border-radius:var(--radius);">' +
-      '<strong>ELW Daily Lectionary</strong> &mdash; Week: ' + weekKey.replace(/_/g, ' ') +
+      '<strong>ELW Daily Lectionary</strong> &mdash; Week: ' + weekKey.replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); }) +
       '</div>';
 
     var psalms = dailyReadings.filter(function(r) { return r.toLowerCase().startsWith('psalm'); });
@@ -1491,6 +2566,11 @@ function loadReadings() {
     '</div><div id="verseResult" style="margin-top:12px"></div></div>';
 
   container.innerHTML = html;
+  } catch (e) {
+    console.error('Error loading readings:', e);
+    const container = document.getElementById('readingsContent');
+    if (container) container.innerHTML = '<div class="content-card"><p>Error loading readings. Please try refreshing the page.</p></div>';
+  }
 }
 
 
@@ -1519,7 +2599,10 @@ async function fetchBibleText(ref, container) {
     let cleanRef = ref.replace(/\[.*?\]/g, '').trim();
     cleanRef = cleanRef.replace(/[;,]\s*/g, ',');
 
-    const response = await fetch(`https://bible-api.com/${encodeURIComponent(cleanRef)}?translation=kjv`);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const response = await fetch(`https://bible-api.com/${encodeURIComponent(cleanRef)}?translation=kjv`, { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (!response.ok) throw new Error('Not found');
     const data = await response.json();
 
@@ -1546,6 +2629,122 @@ async function lookupVerse() {
 }
 
 // ==========================================
+// LITURGICAL COLOR THEMING
+// ==========================================
+// ELCA parament color palettes — dark-mode optimized
+// Each has: header (header bg), accent (links/labels), accentLight (dark-mode links),
+// headerDark (hover on reading-headers), gradient1/gradient2 (season banner),
+// themeColor (meta tag / PWA), cardHover (nav card hover shadow)
+const LITURGICAL_PALETTES = {
+  blue: {
+    // Advent — hope
+    header: '#1a4b8c',
+    headerDark: '#133a6e',
+    accent: '#1a4b8c',
+    accentLight: '#60a5fa',
+    gradient1: '#1a4b8c',
+    gradient2: '#0f2f5c',
+    themeColor: '#1a4b8c',
+    cardHover: 'rgba(26,75,140,0.15)',
+  },
+  purple: {
+    // Lent — repentance
+    header: '#5b2182',
+    headerDark: '#461968',
+    accent: '#5b2182',
+    accentLight: '#c084fc',
+    gradient1: '#5b2182',
+    gradient2: '#3b1057',
+    themeColor: '#5b2182',
+    cardHover: 'rgba(91,33,130,0.15)',
+  },
+  scarlet: {
+    // Holy Week (Palm Sunday – Maundy Thursday) — passion/blood
+    header: '#8b1a1a',
+    headerDark: '#6d1414',
+    accent: '#8b1a1a',
+    accentLight: '#f87171',
+    gradient1: '#8b1a1a',
+    gradient2: '#5c0e0e',
+    themeColor: '#8b1a1a',
+    cardHover: 'rgba(139,26,26,0.15)',
+  },
+  red: {
+    // Pentecost, Reformation — fire, Spirit
+    header: '#c41e24',
+    headerDark: '#a0181d',
+    accent: '#c41e24',
+    accentLight: '#fb7185',
+    gradient1: '#c41e24',
+    gradient2: '#891519',
+    themeColor: '#c41e24',
+    cardHover: 'rgba(196,30,36,0.15)',
+  },
+  white: {
+    // Christmas, Easter, festivals — joy, light
+    header: '#b8860b',
+    headerDark: '#996f09',
+    accent: '#8B6914',
+    accentLight: '#fbbf24',
+    gradient1: '#b8860b',
+    gradient2: '#8B6914',
+    themeColor: '#b8860b',
+    cardHover: 'rgba(184,134,11,0.15)',
+  },
+  gold: {
+    // Easter Day specifically — queen of feasts
+    header: '#b8860b',
+    headerDark: '#996f09',
+    accent: '#8B6914',
+    accentLight: '#fbbf24',
+    gradient1: '#b8860b',
+    gradient2: '#7a5a0b',
+    themeColor: '#b8860b',
+    cardHover: 'rgba(184,134,11,0.15)',
+  },
+  green: {
+    // Ordinary time — growth
+    header: '#1a6b3c',
+    headerDark: '#145530',
+    accent: '#1a6b3c',
+    accentLight: '#4ade80',
+    gradient1: '#1a6b3c',
+    gradient2: '#0f4427',
+    themeColor: '#1a6b3c',
+    cardHover: 'rgba(26,107,60,0.15)',
+  },
+  black: {
+    // Good Friday — mourning, stripped
+    header: '#1a1a1a',
+    headerDark: '#111111',
+    accent: '#4a4a4a',
+    accentLight: '#94a3b8',
+    gradient1: '#1a1a1a',
+    gradient2: '#0a0a0a',
+    themeColor: '#1a1a1a',
+    cardHover: 'rgba(0,0,0,0.12)',
+  },
+};
+
+function applyLiturgicalTheme(colorKey) {
+  const palette = LITURGICAL_PALETTES[colorKey] || LITURGICAL_PALETTES.green;
+
+  // Set CSS custom properties on :root
+  const root = document.documentElement;
+  root.style.setProperty('--elca-blue', palette.header);
+  root.style.setProperty('--elca-blue-dark', palette.headerDark);
+  root.style.setProperty('--elca-blue-light', palette.accentLight);
+  root.style.setProperty('--liturgical-accent', palette.accent);
+  root.style.setProperty('--liturgical-gradient1', palette.gradient1);
+  root.style.setProperty('--liturgical-gradient2', palette.gradient2);
+  root.style.setProperty('--liturgical-card-hover', palette.cardHover);
+
+  // Update meta theme-color for PWA / Safari
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', palette.themeColor);
+}
+
+// ==========================================
 // INITIALIZATION
 // ==========================================
 (function init() {
@@ -1556,6 +2755,9 @@ async function lookupVerse() {
     today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   document.getElementById('todaySeason').textContent =
     `${info.season} \u2014 Year ${info.yearLetter}`;
+
+  // Apply liturgical color theme
+  applyLiturgicalTheme(info.color);
 
   // Register service worker
   if ('serviceWorker' in navigator) {
