@@ -2236,37 +2236,37 @@ function getLiturgicalInfo(date) {
 const DAILY_LECTIONARY = {
   A: {
     advent_1: {Th: ["Psalm 122", "Daniel 9:15-19", "James 4:1-10"], F: ["Psalm 122", "Genesis 6:1-10", "Hebrews 11:1-7"], Sa: ["Psalm 122", "Genesis 6:11-22", "Matthew 24:1-22"], M: ["Psalm 124", "Genesis 8:1-19", "Romans 6:1-11"], Tu: ["Psalm 124", "Genesis 9:1-17", "Hebrews 11:32-40"], W: ["Psalm 124", "Isaiah 54:1-10", "Matthew 24:23-35"]},
-    advent_2: {Th: ["Psalm 72:1-7, 18-19", "Isaiah 4:2-6", "Acts 1:12-17, 21-26"], F: ["Psalm 72:1-7, 18-19", "Isaiah 30:19-26", "Acts 13:16-25"], Sa: ["Psalm 72:1-7, 18-19", "Isaiah 40:1-11", "John 1:19-28"], M: ["Psalm 21", "Isaiah 24:1-16a", "1 Thessalonians 4:1-12"], Tu: ["Psalm 21", "Isaiah 41:14-20", "Romans 15:14-21"], W: ["Psalm 21", "Genesis 15:1-18", "Matthew 12:33-37"]},
+    advent_2: {Th: ["Psalm 72:1-7, 18-19", "Isaiah 4:2-6", "Acts 1:12-17, 21-26"], F: ["Psalm 72:1-7, 18-19", "Isaiah 30:19-26", "Acts 13:16-25"], Sa: ["Psalm 72:1-7, 18-19", "Isaiah 40:1-11", "John 1:19-28"], M: ["Psalm 21", "Isaiah 24:1-16", "1 Thessalonians 4:1-12"], Tu: ["Psalm 21", "Isaiah 41:14-20", "Romans 15:14-21"], W: ["Psalm 21", "Genesis 15:1-18", "Matthew 12:33-37"]},
     advent_3: {Th: ["Psalm 146:5-10", "Ruth 1:6-18", "2 Peter 3:1-10"], F: ["Psalm 146:5-10", "Ruth 4:13-17", "2 Peter 3:11-18"], Sa: ["Psalm 146:5-10", "1 Samuel 2:1-8", "Luke 3:1-18"], M: ["Psalm 42", "Isaiah 29:17-24", "Acts 5:12-16"], Tu: ["Psalm 42", "Ezekiel 47:1-12", "Jude 17-25"], W: ["Psalm 42", "Zechariah 8:1-17", "Matthew 8:14-17, 28-34"]},
     advent_4: {Th: ["Psalm 80:1-7, 17-19", "2 Samuel 7:1-17", "Galatians 3:23-29"], F: ["Psalm 80:1-7, 17-19", "2 Samuel 7:18-22", "Galatians 4:1-7"], Sa: ["Psalm 80:1-7, 17-19", "2 Samuel 7:23-29", "John 3:31-36"], M: ["1 Samuel 2:1-10", "Genesis 17:15-22", "Galatians 4:8-20"], Tu: ["1 Samuel 2:1-10", "Genesis 21:1-21", "Galatians 4:21-5:1"], W: ["1 Samuel 2:1-10", "Genesis 37:2-11", "Matthew 1:1-17"]},
     christmas_days: {Th: ["Psalm 20", "Jeremiah 31:15-22", "Luke 19:41-44"], F: ["Psalm 20", "Isaiah 26:1-9", "2 Corinthians 4:16-18"], Sa: ["Jeremiah 31:7-14", "Psalm 147:12-20", "Ephesians 1:3-14", "John 1:[1-9] 10-18"], M: ["Psalm 20", "Genesis 12:1-7", "Hebrews 11:1-12"], Tu: ["Psalm 148", "Proverbs 8:22-31", "1 John 5:1-12"], W: ["Psalm 148", "Isaiah 49:13-23", "Matthew 18:1-14"]},
-    epiphany_days: {Th: ["Psalm 29", "1 Samuel 3:1-9", "Acts 9:1-9"], F: ["Psalm 29", "1 Samuel 3:10-4:1a", "Acts 9:10-19a"], Sa: ["Psalm 29", "1 Samuel 7:3-17", "Acts 9:19b-31"], M: ["Psalm 89:5-37", "Genesis 35:1-15", "Acts 10:44-48"], Tu: ["Psalm 89:5-37", "Jeremiah 1:4-10", "Acts 8:4-13"], W: ["Psalm 89:5-37", "Isaiah 51:1-16", "Matthew 12:15-21"]},
+    epiphany_days: {Th: ["Psalm 29", "1 Samuel 3:1-9", "Acts 9:1-9"], F: ["Psalm 29", "1 Samuel 3:10-4:1", "Acts 9:10-19"], Sa: ["Psalm 29", "1 Samuel 7:3-17", "Acts 9:19-31"], M: ["Psalm 89:5-37", "Genesis 35:1-15", "Acts 10:44-48"], Tu: ["Psalm 89:5-37", "Jeremiah 1:4-10", "Acts 8:4-13"], W: ["Psalm 89:5-37", "Isaiah 51:1-16", "Matthew 12:15-21"]},
     epiphany_2: {Th: ["Psalm 40:1-11", "Isaiah 22:15-25", "Galatians 1:6-12"], F: ["Psalm 40:1-11", "Genesis 27:30-38", "Acts 1:1-5"], Sa: ["Psalm 40:1-11", "1 Kings 19:19-21", "Luke 5:1-11"], M: ["Psalm 40:6-17", "Exodus 12:1-13, 21-28", "Acts 8:26-40"], Tu: ["Psalm 40:6-17", "Isaiah 53:1-12", "Hebrews 10:1-4"], W: ["Psalm 40:6-17", "Isaiah 48:12-21", "Matthew 9:14-17"]},
     epiphany_3: {Th: ["Psalm 27:1-6", "1 Samuel 1:1-20", "Galatians 1:11-24"], F: ["Psalm 27:1-6", "1 Samuel 9:27-10:8", "Galatians 2:1-10"], Sa: ["Psalm 27:1-6", "1 Samuel 15:34-16:13", "Luke 5:27-32"], M: ["Psalm 27:7-14", "Judges 6:11-24", "Ephesians 5:6-14"], Tu: ["Psalm 27:7-14", "Judges 7:12-22", "Philippians 2:12-18"], W: ["Psalm 27:7-14", "Genesis 49:1-2, 8-13, 21-26", "Luke 1:67-79"]},
     epiphany_4: {Th: ["Psalm 15", "Deuteronomy 16:18-20", "1 Peter 3:8-12"], F: ["Psalm 15", "Deuteronomy 24:17-25:4", "1 Timothy 5:17-24"], Sa: ["Psalm 15", "Micah 3:1-4", "John 13:31-35"], M: ["Psalm 37:1-17", "Ruth 1:1-18", "Philemon 1-25"], Tu: ["Psalm 37:1-17", "Ruth 2:1-16", "James 5:1-6"], W: ["Psalm 37:1-17", "Ruth 3:1-13; 4:13-22", "Luke 6:17-26"]},
     epiphany_5: {Th: ["Psalm 112:1-9 [10]", "Deuteronomy 4:1-14", "1 John 5:1-5"], F: ["Psalm 112:1-9 [10]", "Isaiah 29:1-12", "James 3:13-18"], Sa: ["Psalm 112:1-9 [10]", "Isaiah 29:13-16", "Mark 7:1-8"], M: ["Psalm 119:105-112", "2 Kings 22:3-20", "Romans 11:2-10"], Tu: ["Psalm 119:105-112", "2 Kings 23:1-8, 21-25", "2 Corinthians 4:1-12"], W: ["Psalm 119:105-112", "Proverbs 6:6-23", "John 8:12-30"]},
-    epiphany_6: {Th: ["Psalm 119:1-8", "Genesis 26:1-5", "James 1:12-16"], F: ["Psalm 119:1-8", "Leviticus 26:34-46", "1 John 2:7-17"], Sa: ["Psalm 119:1-8", "Deuteronomy 30:1-9a", "Matthew 15:1-9"], M: ["Psalm 119:9-16", "Exodus 20:1-21", "James 1:2-8"], Tu: ["Psalm 119:9-16", "Deuteronomy 23:21-24:4, 10-15", "James 2:1-13"], W: ["Psalm 119:9-16", "Proverbs 2:1-15", "Matthew 19:1-12"]},
+    epiphany_6: {Th: ["Psalm 119:1-8", "Genesis 26:1-5", "James 1:12-16"], F: ["Psalm 119:1-8", "Leviticus 26:34-46", "1 John 2:7-17"], Sa: ["Psalm 119:1-8", "Deuteronomy 30:1-9", "Matthew 15:1-9"], M: ["Psalm 119:9-16", "Exodus 20:1-21", "James 1:2-8"], Tu: ["Psalm 119:9-16", "Deuteronomy 23:21-24:4, 10-15", "James 2:1-13"], W: ["Psalm 119:9-16", "Proverbs 2:1-15", "Matthew 19:1-12"]},
     epiphany_7: {Th: ["Psalm 119:33-40", "Exodus 22:21-27", "1 Corinthians 10:23-11:1"], F: ["Psalm 119:33-40", "Leviticus 6:1-7", "Galatians 5:2-6"], Sa: ["Psalm 119:33-40", "Leviticus 24:10-23", "Matthew 7:1-12"], M: ["Psalm 119:57-64", "Proverbs 25:11-22", "Romans 12:9-21"], Tu: ["Psalm 119:57-64", "Genesis 31:1-3, 17-50", "Hebrews 12:14-16"], W: ["Psalm 119:57-64", "Proverbs 3:27-35", "Luke 18:18-30"]},
     epiphany_8: {Th: ["Psalm 131", "Proverbs 12:22-28", "Philippians 2:19-24"], F: ["Psalm 131", "Isaiah 26:1-6", "Philippians 2:25-30"], Sa: ["Psalm 131", "Isaiah 31:1-9", "Luke 11:14-23"], M: ["Psalm 104", "Deuteronomy 32:1-14", "Hebrews 10:32-39"], Tu: ["Psalm 104", "1 Kings 17:1-16", "1 Corinthians 4:6-21"], W: ["Psalm 104", "Isaiah 66:7-13", "Luke 12:22-31"]},
-    transfiguration: {Th: ["Psalm 2", "Exodus 6:2-9", "Hebrews 8:1-7"], F: ["Psalm 2", "Exodus 19:9b-25", "Hebrews 11:23-28"], Sa: ["Psalm 2", "1 Kings 21:20-29", "Mark 9:9-13"], M: ["Psalm 78:17-20, 52-55", "Exodus 33:7-23", "Acts 7:30-34"], Tu: ["Psalm 78:17-20, 52-55", "1 Kings 19:9-18", "Romans 11:1-6"]},
-    ash_wednesday: {W: ["Joel 2:1-2, 12-17", "Psalm 51:1-17", "2 Corinthians 5:20b-6:10", "Matthew 6:1-6, 16-21"]},
+    transfiguration: {Th: ["Psalm 2", "Exodus 6:2-9", "Hebrews 8:1-7"], F: ["Psalm 2", "Exodus 19:9-25", "Hebrews 11:23-28"], Sa: ["Psalm 2", "1 Kings 21:20-29", "Mark 9:9-13"], M: ["Psalm 78:17-20, 52-55", "Exodus 33:7-23", "Acts 7:30-34"], Tu: ["Psalm 78:17-20, 52-55", "1 Kings 19:9-18", "Romans 11:1-6"]},
+    ash_wednesday: {W: ["Joel 2:1-2, 12-17", "Psalm 51:1-17", "2 Corinthians 5:20-6:10", "Matthew 6:1-6, 16-21"]},
     lent_1: {Th: ["Psalm 51", "Jonah 3:1-10", "Romans 1:1-7"], F: ["Psalm 51", "Jonah 4:1-11", "Romans 1:8-17"], Sa: ["Psalm 51", "Isaiah 58:1-12", "Matthew 18:1-7"], M: ["Psalm 32", "1 Kings 19:1-8", "Hebrews 2:10-18"], Tu: ["Psalm 32", "Genesis 4:1-16", "Hebrews 4:14-5:10"], W: ["Psalm 32", "Exodus 34:1-9, 27-28", "Matthew 18:10-14"]},
     lent_2: {Th: ["Psalm 121", "Isaiah 51:1-3", "2 Timothy 1:3-7"], F: ["Psalm 121", "Micah 7:18-20", "Romans 3:21-31"], Sa: ["Psalm 121", "Isaiah 51:4-8", "Luke 7:1-10"], M: ["Psalm 128", "Numbers 21:4-9", "Hebrews 3:1-6"], Tu: ["Psalm 128", "Isaiah 65:17-25", "Romans 4:6-13"], W: ["Psalm 128", "Ezekiel 36:22-32", "John 7:53-8:11"]},
     lent_3: {Th: ["Psalm 95", "Exodus 16:1-8", "Colossians 1:15-23"], F: ["Psalm 95", "Exodus 16:9-21", "Ephesians 2:11-22"], Sa: ["Psalm 95", "Exodus 16:27-35", "John 4:1-6"], M: ["Psalm 81", "Genesis 24:1-27", "2 John 1-13"], Tu: ["Psalm 81", "Genesis 29:1-14", "1 Corinthians 10:1-4"], W: ["Psalm 81", "Jeremiah 2:4-13", "John 7:14-31, 37-39"]},
     lent_4: {Th: ["Psalm 23", "1 Samuel 15:10-21", "Ephesians 4:25-32"], F: ["Psalm 23", "1 Samuel 15:22-31", "Ephesians 5:1-9"], Sa: ["Psalm 23", "1 Samuel 15:32-34", "John 1:1-9"], M: ["Psalm 146", "Isaiah 59:9-19", "Acts 9:1-20"], Tu: ["Psalm 146", "Isaiah 42:14-21", "Colossians 1:9-14"], W: ["Psalm 146", "Isaiah 60:17-22", "Matthew 9:27-34"]},
     lent_5: {Th: ["Psalm 130", "Ezekiel 1:1-3; 2:8-3:3", "Revelation 10:1-11"], F: ["Psalm 130", "Ezekiel 33:10-16", "Revelation 11:15-19"], Sa: ["Psalm 130", "Ezekiel 36:8-15", "Luke 24:44-53"], M: ["Psalm 143", "1 Kings 17:17-24", "Acts 20:7-12"], Tu: ["Psalm 143", "2 Kings 4:18-37", "Ephesians 2:1-10"], W: ["Psalm 143", "Jeremiah 32:1-9, 36-41", "Matthew 22:23-33"]},
-    lent_6: {Th: ["Psalm 31:9-16", "1 Samuel 16:11-13", "Philippians 1:1-11"], F: ["Psalm 31:9-16", "Job 13:13-19", "Philippians 1:21-30"], Sa: ["Psalm 31:9-16", "Lamentations 3:55-66", "Mark 10:32-34"], M: ["Isaiah 42:1-9", "Psalm 36:5-11", "Hebrews 9:11-15", "John 12:1-11"], Tu: ["Isaiah 49:1-7", "Psalm 71:1-14", "1 Corinthians 1:18-31", "John 12:20-36"], W: ["Isaiah 50:4-9a", "Psalm 70", "Hebrews 12:1-3", "John 13:21-32"]},
-    three_days: {Th: ["Exodus 12:1-4 [5-10] 11-14", "Psalm 116:1-2, 12-19", "1 Corinthians 11:23-26", "John 13:1-17, 31b-35"], F: ["Isaiah 52:13-53:12", "Psalm 22", "Hebrews 10:16-25", "John 18:1-19:42"], Sa: ["Psalm 136:1-9, 23-26", "Genesis 1:1-2:4a", "Romans 6:3-11"], M: ["Psalm 118:1-2, 14-24", "Exodus 14:10-31; 15:20-21", "Colossians 3:5-11"], Tu: ["Psalm 118:1-2, 14-24", "Exodus 15:1-18", "Colossians 3:12-17"], W: ["Psalm 118:1-2, 14-24", "Joshua 3:1-17", "Matthew 28:1-10"]},
+    lent_6: {Th: ["Psalm 31:9-16", "1 Samuel 16:11-13", "Philippians 1:1-11"], F: ["Psalm 31:9-16", "Job 13:13-19", "Philippians 1:21-30"], Sa: ["Psalm 31:9-16", "Lamentations 3:55-66", "Mark 10:32-34"], M: ["Isaiah 42:1-9", "Psalm 36:5-11", "Hebrews 9:11-15", "John 12:1-11"], Tu: ["Isaiah 49:1-7", "Psalm 71:1-14", "1 Corinthians 1:18-31", "John 12:20-36"], W: ["Isaiah 50:4-9", "Psalm 70", "Hebrews 12:1-3", "John 13:21-32"]},
+    three_days: {Th: ["Exodus 12:1-4 [5-10] 11-14", "Psalm 116:1-2, 12-19", "1 Corinthians 11:23-26", "John 13:1-17, 31-35"], F: ["Isaiah 52:13-53:12", "Psalm 22", "Hebrews 10:16-25", "John 18:1-19:42"], Sa: ["Psalm 136:1-9, 23-26", "Genesis 1:1-2:4", "Romans 6:3-11"], M: ["Psalm 118:1-2, 14-24", "Exodus 14:10-31; 15:20-21", "Colossians 3:5-11"], Tu: ["Psalm 118:1-2, 14-24", "Exodus 15:1-18", "Colossians 3:12-17"], W: ["Psalm 118:1-2, 14-24", "Joshua 3:1-17", "Matthew 28:1-10"]},
     easter_2: {Th: ["Psalm 16", "Song of Solomon 2:8-15", "Colossians 4:2-5"], F: ["Psalm 16", "Song of Solomon 5:9-6:3", "1 Corinthians 15:1-11"], Sa: ["Psalm 16", "Song of Solomon 8:6-7", "John 20:11-20"], M: ["Psalm 114", "Judges 6:36-40", "1 Corinthians 15:12-20"], Tu: ["Psalm 114", "Jonah 1:1-17", "1 Corinthians 15:19-28"], W: ["Psalm 114", "Jonah 2:1-10", "Matthew 12:38-42"]},
-    easter_3: {Th: ["Psalm 116:1-4, 12-19", "Isaiah 25:1-5", "1 Peter 1:8b-12"], F: ["Psalm 116:1-4, 12-19", "Isaiah 26:1-4", "1 Peter 1:13-16"], Sa: ["Psalm 116:1-4, 12-19", "Isaiah 25:6-9", "Luke 14:12-14"], M: ["Psalm 134", "Genesis 18:1-14", "1 Peter 1:23-25"], Tu: ["Psalm 134", "Proverbs 8:32-9:6", "1 Peter 2:1-3"], W: ["Psalm 134", "Exodus 24:1-11", "John 21:1-14"]},
-    easter_4: {Th: ["Psalm 23", "Exodus 2:15b-25", "1 Peter 2:9-12"], F: ["Psalm 23", "Exodus 3:16-22; 4:18-20", "1 Peter 2:13-17"], Sa: ["Psalm 23", "Ezekiel 34:1-16", "Luke 15:1-7"], M: ["Psalm 100", "Ezekiel 34:17-23", "1 Peter 5:1-5"], Tu: ["Psalm 100", "Ezekiel 34:23-31", "Hebrews 13:20-21"], W: ["Psalm 100", "Jeremiah 23:1-8", "Matthew 20:17-28"]},
+    easter_3: {Th: ["Psalm 116:1-4, 12-19", "Isaiah 25:1-5", "1 Peter 1:8-12"], F: ["Psalm 116:1-4, 12-19", "Isaiah 26:1-4", "1 Peter 1:13-16"], Sa: ["Psalm 116:1-4, 12-19", "Isaiah 25:6-9", "Luke 14:12-14"], M: ["Psalm 134", "Genesis 18:1-14", "1 Peter 1:23-25"], Tu: ["Psalm 134", "Proverbs 8:32-9:6", "1 Peter 2:1-3"], W: ["Psalm 134", "Exodus 24:1-11", "John 21:1-14"]},
+    easter_4: {Th: ["Psalm 23", "Exodus 2:15-25", "1 Peter 2:9-12"], F: ["Psalm 23", "Exodus 3:16-22; 4:18-20", "1 Peter 2:13-17"], Sa: ["Psalm 23", "Ezekiel 34:1-16", "Luke 15:1-7"], M: ["Psalm 100", "Ezekiel 34:17-23", "1 Peter 5:1-5"], Tu: ["Psalm 100", "Ezekiel 34:23-31", "Hebrews 13:20-21"], W: ["Psalm 100", "Jeremiah 23:1-8", "Matthew 20:17-28"]},
     easter_5: {Th: ["Psalm 31:1-5, 15-16", "Genesis 12:1-3", "Acts 6:8-15"], F: ["Psalm 31:1-5, 15-16", "Exodus 3:1-12", "Acts 7:1-16"], Sa: ["Psalm 31:1-5, 15-16", "Jeremiah 26:20-24", "John 8:48-59"], M: ["Psalm 102:1-17", "Exodus 13:17-22", "Acts 7:17-40"], Tu: ["Psalm 102:1-17", "Proverbs 3:5-12", "Acts 7:44-56"], W: ["Psalm 102:1-17", "Proverbs 3:13-18", "John 8:31-38"]},
     easter_6: {Th: ["Psalm 66:8-20", "Genesis 6:5-22", "Acts 27:1-12"], F: ["Psalm 66:8-20", "Genesis 7:1-24", "Acts 27:13-38"], Sa: ["Psalm 66:8-20", "Genesis 8:13-19", "John 14:27-29"], M: ["Psalm 93", "Genesis 9:8-17", "Acts 27:39-44"], Tu: ["Psalm 93", "Deuteronomy 5:22-33", "1 Peter 3:8-12"], W: ["Psalm 93", "Deuteronomy 31:1-13", "John 16:16-24"]},
     easter_7: {Th: ["Acts 1:1-11", "Psalm 47", "Ephesians 1:15-23", "Luke 24:44-53"], F: ["Psalm 93", "2 Kings 2:1-12", "Ephesians 2:1-7"], Sa: ["Psalm 93", "2 Kings 2:13-15", "John 8:21-30"], M: ["Psalm 99", "Leviticus 9:1-11, 22-24", "1 Peter 4:1-6"], Tu: ["Psalm 99", "Numbers 16:41-50", "1 Peter 4:7-11"], W: ["Psalm 99", "1 Kings 8:54-65", "John 3:31-36"]},
-    pentecost: {Th: ["Psalm 33:12-22", "Exodus 19:1-9a", "Acts 2:1-11"], F: ["Psalm 33:12-22", "Exodus 19:16-25", "Romans 8:14-17"], Sa: ["Psalm 33:12-22", "Exodus 20:1-21", "Matthew 5:1-12"], M: ["Psalm 104:24-34, 35b", "Joel 2:18-29", "Romans 8:18-24"], Tu: ["Psalm 104:24-34, 35b", "Ezekiel 39:7-8, 21-29", "Romans 8:26-27"], W: ["Psalm 104:24-34, 35b", "Numbers 11:24-30", "John 7:37-39"]},
-    holy_trinity: {Th: ["Psalm 8", "Job 38:1-11", "2 Timothy 1:8-12a"], F: ["Psalm 8", "Job 38:12-21", "2 Timothy 1:12b-14"], Sa: ["Psalm 8", "Job 38:22-38", "John 14:15-17"], M: ["Psalm 29", "Job 38:39-39:12", "1 Corinthians 12:1-3"], Tu: ["Psalm 29", "Job 39:13-25", "1 Corinthians 12:4-13"], W: ["Psalm 29", "Job 39:26-40:5", "John 14:25-26"]},
+    pentecost: {Th: ["Psalm 33:12-22", "Exodus 19:1-9", "Acts 2:1-11"], F: ["Psalm 33:12-22", "Exodus 19:16-25", "Romans 8:14-17"], Sa: ["Psalm 33:12-22", "Exodus 20:1-21", "Matthew 5:1-12"], M: ["Psalm 104:24-34, 35", "Joel 2:18-29", "Romans 8:18-24"], Tu: ["Psalm 104:24-34, 35", "Ezekiel 39:7-8, 21-29", "Romans 8:26-27"], W: ["Psalm 104:24-34, 35", "Numbers 11:24-30", "John 7:37-39"]},
+    holy_trinity: {Th: ["Psalm 8", "Job 38:1-11", "2 Timothy 1:8-12"], F: ["Psalm 8", "Job 38:12-21", "2 Timothy 1:12-14"], Sa: ["Psalm 8", "Job 38:22-38", "John 14:15-17"], M: ["Psalm 29", "Job 38:39-39:12", "1 Corinthians 12:1-3"], Tu: ["Psalm 29", "Job 39:13-25", "1 Corinthians 12:4-13"], W: ["Psalm 29", "Job 39:26-40:5", "John 14:25-26"]},
     may_24: {Th: ["Psalm 131", "Proverbs 12:22-28", "Philippians 2:19-24"], F: ["Psalm 131", "Isaiah 26:1-6", "Philippians 2:25-30"], Sa: ["Psalm 131", "Isaiah 31:1-9", "Luke 11:14-23"], M: ["Psalm 104", "Deuteronomy 32:1-14", "Hebrews 10:32-39"], Tu: ["Psalm 104", "1 Kings 17:1-16", "1 Corinthians 4:6-21"], W: ["Psalm 104", "Isaiah 66:7-13", "Luke 12:22-31"]},
-    may_29: {Th: ["Psalm 31:1-5, 19-24", "Exodus 24:1-8", "Romans 2:17-29"], F: ["Psalm 31:1-5, 19-24", "Deuteronomy 30:1-5", "Romans 9:6-13"], Sa: ["Psalm 31:1-5, 19-24", "Amos 2:6-11", "Matthew 7:1-6"], M: ["Psalm 52", "Joshua 8:30-35", "Romans 2:1-11"], Tu: ["Psalm 52", "Joshua 24:1-2, 11-28", "Romans 3:9-22a"], W: ["Psalm 52", "Job 28:12-28", "Matthew 7:13-20"]},
+    may_29: {Th: ["Psalm 31:1-5, 19-24", "Exodus 24:1-8", "Romans 2:17-29"], F: ["Psalm 31:1-5, 19-24", "Deuteronomy 30:1-5", "Romans 9:6-13"], Sa: ["Psalm 31:1-5, 19-24", "Amos 2:6-11", "Matthew 7:1-6"], M: ["Psalm 52", "Joshua 8:30-35", "Romans 2:1-11"], Tu: ["Psalm 52", "Joshua 24:1-2, 11-28", "Romans 3:9-22"], W: ["Psalm 52", "Job 28:12-28", "Matthew 7:13-20"]},
     jun_5: {Th: ["Psalm 50:7-15", "Lamentations 1:7-11", "2 Peter 2:17-22"], F: ["Psalm 50:7-15", "Lamentations 3:40-58", "Acts 28:1-10"], Sa: ["Psalm 50:7-15", "Exodus 34:1-9", "Matthew 9:27-34"], M: ["Psalm 40:1-8", "Leviticus 15:25-31; 22:1-9", "2 Corinthians 6:14-7:2"], Tu: ["Psalm 40:1-8", "Hosea 8:11-14; 10:1-2", "Hebrews 13:1-16"], W: ["Psalm 40:1-8", "Hosea 14:1-9", "Matthew 12:1-8"]},
     jun_12: {Th: ["Psalm 100", "Exodus 4:18-23", "Hebrews 3:1-6"], F: ["Psalm 100", "Exodus 4:27-31", "Acts 7:35-43"], Sa: ["Psalm 100", "Exodus 6:28-7:13", "Mark 7:1-13"], M: ["Psalm 105:1-11, 37-45", "Joshua 1:1-11", "1 Thessalonians 3:1-5"], Tu: ["Psalm 105:1-11, 37-45", "1 Samuel 3:1-9", "2 Thessalonians 2:13-3:5"], W: ["Psalm 105:1-11, 37-45", "Proverbs 4:10-27", "Luke 6:12-19"]},
     jun_19: {Th: ["Psalm 69:7-10 [11-15] 16-18", "Jeremiah 18:12-17", "Hebrews 2:5-9"], F: ["Psalm 69:7-10 [11-15] 16-18", "Jeremiah 18:18-23", "Acts 5:17-26"], Sa: ["Psalm 69:7-10 [11-15] 16-18", "Jeremiah 20:1-6", "Luke 11:53-12:3"], M: ["Psalm 6", "Micah 7:1-7", "Revelation 2:1-7"], Tu: ["Psalm 6", "Jeremiah 26:1-12", "Revelation 2:8-11"], W: ["Psalm 6", "Jeremiah 38:1-13", "Matthew 10:5-23"]},
@@ -2279,61 +2279,61 @@ const DAILY_LECTIONARY = {
     aug_7: {Th: ["Psalm 85:8-13", "1 Kings 18:1-16", "Acts 17:10-15"], F: ["Psalm 85:8-13", "1 Kings 18:17-19, 30-40", "Acts 18:24-28"], Sa: ["Psalm 85:8-13", "1 Kings 18:41-46", "Matthew 16:1-4"], M: ["Psalm 18:1-19", "Genesis 7:11-8:5", "2 Peter 2:4-10"], Tu: ["Psalm 18:1-19", "Genesis 19:1-29", "Romans 9:14-29"], W: ["Psalm 18:1-19", "Job 36:24-33; 37:14-24", "Matthew 8:23-27"]},
     aug_14: {Th: ["Psalm 67", "Isaiah 45:20-25", "Revelation 15:1-4"], F: ["Psalm 67", "Isaiah 63:15-19", "Acts 14:19-28"], Sa: ["Psalm 67", "Isaiah 56:1-5", "Matthew 14:34-36"], M: ["Psalm 87", "2 Kings 5:1-14", "Acts 15:1-21"], Tu: ["Psalm 87", "Isaiah 43:8-13", "Romans 11:13-29"], W: ["Psalm 87", "Isaiah 66:18-23", "Matthew 8:1-13"]},
     aug_21: {Th: ["Psalm 138", "Ezekiel 28:11-19", "1 Corinthians 6:1-11"], F: ["Psalm 138", "Ezekiel 31:15-18", "2 Corinthians 10:12-18"], Sa: ["Psalm 138", "Ezekiel 36:33-38", "Matthew 16:5-12"], M: ["Psalm 18:1-3, 20-32", "1 Samuel 7:3-13", "Romans 2:1-11"], Tu: ["Psalm 18:1-3, 20-32", "Deuteronomy 32:18-20, 28-39", "Romans 11:33-36"], W: ["Psalm 18:1-3, 20-32", "Isaiah 28:14-22", "Matthew 26:6-13"]},
-    aug_28: {Th: ["Psalm 26:1-8", "Jeremiah 14:13-18", "Ephesians 5:1-6"], F: ["Psalm 26:1-8", "Jeremiah 15:1-9", "2 Thessalonians 2:7-12"], Sa: ["Psalm 26:1-8", "Jeremiah 15:10-14", "Matthew 8:14-17"], M: ["Psalm 17", "2 Samuel 11:2-26", "Revelation 3:1-6"], Tu: ["Psalm 17", "2 Samuel 11:27b-12:15", "Revelation 3:7-13"], W: ["Psalm 17", "Jeremiah 17:5-18", "Matthew 12:22-32"]},
-    sep_4: {Th: ["Psalm 119:33-40", "Ezekiel 24:1-14", "2 Corinthians 12:11-21"], F: ["Psalm 119:33-40", "Ezekiel 24:15-27", "Romans 10:15b-21"], Sa: ["Psalm 119:33-40", "Ezekiel 33:1-6", "Matthew 23:29-36"], M: ["Psalm 119:65-72", "Leviticus 4:27-31; 5:14-16", "1 Peter 2:11-17"], Tu: ["Psalm 119:65-72", "Deuteronomy 17:2-13", "Romans 13:1-7"], W: ["Psalm 119:65-72", "Leviticus 16:1-5, 20-28", "Matthew 21:18-22"]},
+    aug_28: {Th: ["Psalm 26:1-8", "Jeremiah 14:13-18", "Ephesians 5:1-6"], F: ["Psalm 26:1-8", "Jeremiah 15:1-9", "2 Thessalonians 2:7-12"], Sa: ["Psalm 26:1-8", "Jeremiah 15:10-14", "Matthew 8:14-17"], M: ["Psalm 17", "2 Samuel 11:2-26", "Revelation 3:1-6"], Tu: ["Psalm 17", "2 Samuel 11:27-12:15", "Revelation 3:7-13"], W: ["Psalm 17", "Jeremiah 17:5-18", "Matthew 12:22-32"]},
+    sep_4: {Th: ["Psalm 119:33-40", "Ezekiel 24:1-14", "2 Corinthians 12:11-21"], F: ["Psalm 119:33-40", "Ezekiel 24:15-27", "Romans 10:15-21"], Sa: ["Psalm 119:33-40", "Ezekiel 33:1-6", "Matthew 23:29-36"], M: ["Psalm 119:65-72", "Leviticus 4:27-31; 5:14-16", "1 Peter 2:11-17"], Tu: ["Psalm 119:65-72", "Deuteronomy 17:2-13", "Romans 13:1-7"], W: ["Psalm 119:65-72", "Leviticus 16:1-5, 20-28", "Matthew 21:18-22"]},
     sep_11: {Th: ["Psalm 103:[1-7] 8-13", "Genesis 37:12-36", "1 John 3:11-16"], F: ["Psalm 103:[1-7] 8-13", "Genesis 41:53-42:17", "Acts 7:9-16"], Sa: ["Psalm 103:[1-7] 8-13", "Genesis 45:1-20", "Matthew 6:7-15"], M: ["Psalm 133", "Genesis 48:8-22", "Hebrews 11:23-29"], Tu: ["Psalm 133", "Genesis 49:29-50:14", "Romans 14:13-15:2"], W: ["Psalm 133", "Genesis 50:22-26", "Mark 11:20-25"]},
     sep_18: {Th: ["Psalm 145:1-8", "Nahum 1:1, 14-2:2", "2 Corinthians 13:1-4"], F: ["Psalm 145:1-8", "Nahum 2:3-13", "2 Corinthians 13:5-10"], Sa: ["Psalm 145:1-8", "Zephaniah 2:13-15", "Matthew 19:23-30"], M: ["Psalm 106:1-12", "Genesis 27:1-29", "Romans 16:1-16"], Tu: ["Psalm 106:1-12", "Genesis 28:10-17", "Romans 16:17-20"], W: ["Psalm 106:1-12", "Isaiah 41:1-13", "Matthew 18:1-5"]},
     sep_25: {Th: ["Psalm 25:1-9", "Ezekiel 12:17-28", "James 4:11-16"], F: ["Psalm 25:1-9", "Ezekiel 18:5-18", "Acts 13:32-41"], Sa: ["Psalm 25:1-9", "Ezekiel 18:19-24", "Mark 11:27-33"], M: ["Psalm 28", "Judges 14:1-20", "Philippians 1:3-14"], Tu: ["Psalm 28", "Judges 16:1-22", "Philippians 1:15-21"], W: ["Psalm 28", "Judges 16:23-31", "Matthew 9:2-8"]},
-    oct_2: {Th: ["Psalm 80:7-15", "Jeremiah 2:14-22", "Colossians 2:16-23"], F: ["Psalm 80:7-15", "Jeremiah 2:23-37", "Philippians 2:14-18; 3:1-4a"], Sa: ["Psalm 80:7-15", "Jeremiah 6:1-10", "John 7:40-52"], M: ["Psalm 144", "Ezekiel 19:10-14", "1 Peter 2:4-10"], Tu: ["Psalm 144", "Isaiah 27:1-6", "2 Corinthians 5:17-21"], W: ["Psalm 144", "Song of Solomon 8:5-14", "John 11:45-57"]},
-    oct_9: {Th: ["Psalm 23", "Isaiah 22:1-8a", "1 Peter 5:1-5, 12-14"], F: ["Psalm 23", "Isaiah 22:8b-14", "James 4:4-10"], Sa: ["Psalm 23", "Isaiah 24:17-23", "Mark 2:18-22"], M: ["Psalm 34", "Exodus 19:7-20", "Jude 17-25"], Tu: ["Psalm 34", "Amos 9:5-15", "Philippians 3:13-4:1"], W: ["Psalm 34", "Song of Solomon 7:10-8:4", "John 6:25-35"]},
+    oct_2: {Th: ["Psalm 80:7-15", "Jeremiah 2:14-22", "Colossians 2:16-23"], F: ["Psalm 80:7-15", "Jeremiah 2:23-37", "Philippians 2:14-18; 3:1-4"], Sa: ["Psalm 80:7-15", "Jeremiah 6:1-10", "John 7:40-52"], M: ["Psalm 144", "Ezekiel 19:10-14", "1 Peter 2:4-10"], Tu: ["Psalm 144", "Isaiah 27:1-6", "2 Corinthians 5:17-21"], W: ["Psalm 144", "Song of Solomon 8:5-14", "John 11:45-57"]},
+    oct_9: {Th: ["Psalm 23", "Isaiah 22:1-8", "1 Peter 5:1-5, 12-14"], F: ["Psalm 23", "Isaiah 22:8-14", "James 4:4-10"], Sa: ["Psalm 23", "Isaiah 24:17-23", "Mark 2:18-22"], M: ["Psalm 34", "Exodus 19:7-20", "Jude 17-25"], Tu: ["Psalm 34", "Amos 9:5-15", "Philippians 3:13-4:1"], W: ["Psalm 34", "Song of Solomon 7:10-8:4", "John 6:25-35"]},
     oct_16: {Th: ["Psalm 96:1-9 [10-13]", "Judges 17:1-6", "3 John 9-12"], F: ["Psalm 96:1-9 [10-13]", "Deuteronomy 17:14-20", "1 Peter 5:1-5"], Sa: ["Psalm 96:1-9 [10-13]", "Isaiah 14:3-11", "Matthew 14:1-12"], M: ["Psalm 98", "Daniel 3:1-18", "Revelation 18:1-10, 19-20"], Tu: ["Psalm 98", "Daniel 3:19-30", "Revelation 18:21-24"], W: ["Psalm 98", "Daniel 6:1-28", "Matthew 17:22-27"]},
     oct_23: {Th: ["Psalm 1", "Numbers 5:5-10", "Titus 1:5-16"], F: ["Psalm 1", "Deuteronomy 9:25-10:5", "Titus 2:7-8, 11-15"], Sa: ["Psalm 1", "Proverbs 24:23-34", "John 5:39-47"], M: ["Psalm 119:41-48", "Deuteronomy 6:1-9, 20-25", "James 2:8-13"], Tu: ["Psalm 119:41-48", "Deuteronomy 10:10-22", "James 2:14-26"], W: ["Psalm 119:41-48", "Proverbs 16:1-20", "Matthew 19:16-22"]},
     oct_30: {Th: ["Psalm 43", "1 Samuel 2:27-36", "Romans 2:17-29"], F: ["Psalm 43", "Ezekiel 13:1-16", "2 Peter 2:1-3"], Sa: ["Psalm 43", "Malachi 1:6-2:9", "Matthew 23:13-28"], M: ["Psalm 5", "Jeremiah 5:18-31", "1 Thessalonians 2:13-20"], Tu: ["Psalm 5", "Lamentations 2:13-17", "Acts 13:1-12"], W: ["Psalm 5", "Proverbs 16:21-33", "Matthew 15:1-9"]},
     nov_6: {Th: ["Psalm 70", "Amos 1:1-2:5", "Revelation 8:6-9:12"], F: ["Psalm 70", "Amos 3:1-12", "Revelation 9:13-21"], Sa: ["Psalm 70", "Amos 4:6-13", "Matthew 24:1-14"], M: ["Psalm 63", "Amos 8:7-14", "1 Corinthians 14:20-25"], Tu: ["Psalm 63", "Joel 1:1-14", "1 Thessalonians 3:6-13"], W: ["Psalm 63", "Joel 3:9-21", "Matthew 24:29-35"]},
     nov_13: {Th: ["Psalm 90:1-8 [9-11] 12", "Ezekiel 6:1-14", "Revelation 16:1-7"], F: ["Psalm 90:1-8 [9-11] 12", "Ezekiel 7:1-9", "Revelation 16:8-21"], Sa: ["Psalm 90:1-8 [9-11] 12", "Ezekiel 7:10-27", "Matthew 12:43-45"], M: ["Psalm 9:1-14", "Zechariah 1:7-17", "Romans 2:1-11"], Tu: ["Psalm 9:1-14", "Zechariah 2:1-5; 5:1-4", "1 Thessalonians 5:12-18"], W: ["Psalm 9:1-14", "Job 16:1-21", "Matthew 24:45-51"]},
-    christ_king: {Th: ["Psalm 95:1-7a", "1 Kings 22:13-23", "Revelation 14:1-11"], F: ["Psalm 95:1-7a", "1 Chronicles 17:1-15", "Revelation 22:1-9"], Sa: ["Psalm 95:1-7a", "Isaiah 44:21-28", "Matthew 12:46-50"], M: ["Psalm 7", "Esther 2:1-18", "2 Timothy 2:8-13"], Tu: ["Psalm 7", "Esther 8:3-17", "Revelation 19:1-9"], W: ["Psalm 7", "Ezekiel 33:7-20", "John 5:19-40"]}
+    christ_king: {Th: ["Psalm 95:1-7", "1 Kings 22:13-23", "Revelation 14:1-11"], F: ["Psalm 95:1-7", "1 Chronicles 17:1-15", "Revelation 22:1-9"], Sa: ["Psalm 95:1-7", "Isaiah 44:21-28", "Matthew 12:46-50"], M: ["Psalm 7", "Esther 2:1-18", "2 Timothy 2:8-13"], Tu: ["Psalm 7", "Esther 8:3-17", "Revelation 19:1-9"], W: ["Psalm 7", "Ezekiel 33:7-20", "John 5:19-40"]}
   },
   B: {
-    advent_1: {Th: ["Psalm 80:1-7, 17-19", "Zechariah 13:1-9", "Revelation 14:6-13"], F: ["Psalm 80:1-7, 17-19", "Zechariah 14:1-9", "1 Thessalonians 4:1-18"], Sa: ["Psalm 80:1-7, 17-19", "Micah 2:1-13", "Matthew 24:15-31"], M: ["Psalm 79", "Micah 4:1-5", "Revelation 15:1-8"], Tu: ["Psalm 79", "Micah 4:6-13", "Revelation 18:1-10"], W: ["Psalm 79", "Micah 5:1-5a", "Luke 21:34-38"]},
+    advent_1: {Th: ["Psalm 80:1-7, 17-19", "Zechariah 13:1-9", "Revelation 14:6-13"], F: ["Psalm 80:1-7, 17-19", "Zechariah 14:1-9", "1 Thessalonians 4:1-18"], Sa: ["Psalm 80:1-7, 17-19", "Micah 2:1-13", "Matthew 24:15-31"], M: ["Psalm 79", "Micah 4:1-5", "Revelation 15:1-8"], Tu: ["Psalm 79", "Micah 4:6-13", "Revelation 18:1-10"], W: ["Psalm 79", "Micah 5:1-5", "Luke 21:34-38"]},
     advent_2: {Th: ["Psalm 85:1-2, 8-13", "Hosea 6:1-6", "1 Thessalonians 1:2-10"], F: ["Psalm 85:1-2, 8-13", "Jeremiah 1:4-10", "Acts 11:19-26"], Sa: ["Psalm 85:1-2, 8-13", "Ezekiel 36:24-28", "Mark 11:27-33"], M: ["Psalm 27", "Isaiah 26:7-15", "Acts 2:37-42"], Tu: ["Psalm 27", "Isaiah 4:2-6", "Acts 11:1-18"], W: ["Psalm 27", "Malachi 2:10-3:1", "Luke 1:5-17"]},
     advent_3: {Th: ["Psalm 126", "Habakkuk 2:1-5", "Philippians 3:7-11"], F: ["Psalm 126", "Habakkuk 3:2-6", "Philippians 3:12-16"], Sa: ["Psalm 126", "Habakkuk 3:13-19", "Matthew 21:28-32"], M: ["Psalm 125", "1 Kings 18:1-18", "Ephesians 6:10-17"], Tu: ["Psalm 125", "2 Kings 2:9-22", "Acts 3:17-4:4"], W: ["Psalm 125", "Malachi 3:16-4:6", "Mark 9:9-13"]},
-    advent_4: {Th: ["Psalm 89:1-4, 19-26", "2 Samuel 6:1-11", "Hebrews 1:1-4"], F: ["Psalm 89:1-4, 19-26", "2 Samuel 6:12-19", "Hebrews 1:5-14"], Sa: ["Psalm 89:1-4, 19-26", "Judges 13:2-24", "John 7:40-52"], M: ["Luke 1:46b-55", "1 Samuel 1:1-18", "Hebrews 9:1-14"], Tu: ["Luke 1:46b-55", "1 Samuel 1:19-28", "Hebrews 8:1-13"], W: ["Luke 1:46b-55", "1 Samuel 2:1-10", "Mark 11:1-11"]},
+    advent_4: {Th: ["Psalm 89:1-4, 19-26", "2 Samuel 6:1-11", "Hebrews 1:1-4"], F: ["Psalm 89:1-4, 19-26", "2 Samuel 6:12-19", "Hebrews 1:5-14"], Sa: ["Psalm 89:1-4, 19-26", "Judges 13:2-24", "John 7:40-52"], M: ["Luke 1:46-55", "1 Samuel 1:1-18", "Hebrews 9:1-14"], Tu: ["Luke 1:46-55", "1 Samuel 1:19-28", "Hebrews 8:1-13"], W: ["Luke 1:46-55", "1 Samuel 2:1-10", "Mark 11:1-11"]},
     christmas_days: {Th: ["Psalm 148", "Isaiah 49:5-15", "Matthew 12:46-50"], F: ["Psalm 148", "Proverbs 9:1-12", "2 Peter 3:8-13"], Sa: ["Jeremiah 31:7-14", "Psalm 98", "Ephesians 1:3-14", "John 1:[1-9] 10-18"], M: ["Psalm 148", "Proverbs 1:1-7", "James 3:13-18"], Tu: ["Psalm 148", "Exodus 33:18-23", "1 John 1:1-9"], W: ["Psalm 148", "Jeremiah 31:15-17", "Matthew 2:13-18"]},
-    epiphany_days: {Th: ["Psalm 29", "1 Samuel 3:1-21", "Acts 9:10-19a"], F: ["Psalm 29", "1 Samuel 16:1-13", "1 Timothy 4:11-16"], Sa: ["Psalm 29", "1 Kings 2:1-4, 10-12", "Luke 5:1-11"], M: ["Psalm 69:1-5, 30-36", "Genesis 17:1-13", "Romans 4:1-12"], Tu: ["Psalm 69:1-5, 30-36", "Exodus 30:22-38", "Acts 22:2-16"], W: ["Psalm 69:1-5, 30-36", "Isaiah 41:14-20", "John 1:29-34"]},
+    epiphany_days: {Th: ["Psalm 29", "1 Samuel 3:1-21", "Acts 9:10-19"], F: ["Psalm 29", "1 Samuel 16:1-13", "1 Timothy 4:11-16"], Sa: ["Psalm 29", "1 Kings 2:1-4, 10-12", "Luke 5:1-11"], M: ["Psalm 69:1-5, 30-36", "Genesis 17:1-13", "Romans 4:1-12"], Tu: ["Psalm 69:1-5, 30-36", "Exodus 30:22-38", "Acts 22:2-16"], W: ["Psalm 69:1-5, 30-36", "Isaiah 41:14-20", "John 1:29-34"]},
     epiphany_2: {Th: ["Psalm 139:1-6, 13-18", "Judges 2:6-15", "2 Corinthians 10:1-11"], F: ["Psalm 139:1-6, 13-18", "Judges 2:16-23", "Acts 13:16-25"], Sa: ["Psalm 139:1-6, 13-18", "1 Samuel 2:21-25", "Matthew 25:1-13"], M: ["Psalm 86", "1 Samuel 9:27-10:8", "2 Corinthians 6:14-7:1"], Tu: ["Psalm 86", "1 Samuel 15:10-31", "Acts 5:1-11"], W: ["Psalm 86", "Genesis 16:1-14", "Luke 18:15-17"]},
-    epiphany_3: {Th: ["Psalm 62:5-12", "Jeremiah 19:1-15", "Revelation 18:11-20"], F: ["Psalm 62:5-12", "Jeremiah 20:7-13", "2 Peter 3:1-7"], Sa: ["Psalm 62:5-12", "Jeremiah 20:14-18", "Luke 10:13-16"], M: ["Psalm 46", "Genesis 12:1-9", "1 Corinthians 7:17-24"], Tu: ["Psalm 46", "Genesis 45:25-46:7", "Acts 5:33-42"], W: ["Psalm 46", "Proverbs 8:1-21", "Mark 3:13-19a"]},
+    epiphany_3: {Th: ["Psalm 62:5-12", "Jeremiah 19:1-15", "Revelation 18:11-20"], F: ["Psalm 62:5-12", "Jeremiah 20:7-13", "2 Peter 3:1-7"], Sa: ["Psalm 62:5-12", "Jeremiah 20:14-18", "Luke 10:13-16"], M: ["Psalm 46", "Genesis 12:1-9", "1 Corinthians 7:17-24"], Tu: ["Psalm 46", "Genesis 45:25-46:7", "Acts 5:33-42"], W: ["Psalm 46", "Proverbs 8:1-21", "Mark 3:13-19"]},
     epiphany_4: {Th: ["Psalm 111", "Deuteronomy 3:23-29", "Romans 9:6-18"], F: ["Psalm 111", "Deuteronomy 12:28-32", "Revelation 2:12-17"], Sa: ["Psalm 111", "Deuteronomy 13:1-5", "Matthew 8:28-9:1"], M: ["Psalm 35:1-10", "Numbers 22:1-21", "Acts 21:17-26"], Tu: ["Psalm 35:1-10", "Numbers 22:22-28", "1 Corinthians 7:32-40"], W: ["Psalm 35:1-10", "Jeremiah 29:1-14", "Mark 5:1-20"]},
-    epiphany_5: {Th: ["Psalm 147:1-11, 20c", "Proverbs 12:10-21", "Galatians 5:2-15"], F: ["Psalm 147:1-11, 20c", "Job 36:1-23", "1 Corinthians 9:1-16"], Sa: ["Psalm 147:1-11, 20c", "Isaiah 46:1-13", "Matthew 12:9-14"], M: ["Psalm 102:12-28", "2 Kings 4:8-17, 32-37", "Acts 14:1-7"], Tu: ["Psalm 102:12-28", "2 Kings 8:1-6", "Acts 15:36-41"], W: ["Psalm 102:12-28", "Job 6:1-13", "Mark 3:7-12"]},
+    epiphany_5: {Th: ["Psalm 147:1-11, 20", "Proverbs 12:10-21", "Galatians 5:2-15"], F: ["Psalm 147:1-11, 20", "Job 36:1-23", "1 Corinthians 9:1-16"], Sa: ["Psalm 147:1-11, 20", "Isaiah 46:1-13", "Matthew 12:9-14"], M: ["Psalm 102:12-28", "2 Kings 4:8-17, 32-37", "Acts 14:1-7"], Tu: ["Psalm 102:12-28", "2 Kings 8:1-6", "Acts 15:36-41"], W: ["Psalm 102:12-28", "Job 6:1-13", "Mark 3:7-12"]},
     epiphany_6: {Th: ["Psalm 30", "Leviticus 13:1-17", "Hebrews 12:7-13"], F: ["Psalm 30", "Leviticus 14:1-20", "Acts 19:11-20"], Sa: ["Psalm 30", "Leviticus 14:21-32", "Matthew 26:6-13"], M: ["Psalm 6", "2 Chronicles 26:1-21", "Acts 3:1-10"], Tu: ["Psalm 6", "2 Kings 7:3-10", "1 Corinthians 10:14-11:1"], W: ["Psalm 6", "Job 30:16-31", "John 4:46-54"]},
     epiphany_7: {Th: ["Psalm 41", "2 Chronicles 7:12-22", "3 John 2-8"], F: ["Psalm 41", "Isaiah 38:1-8", "Hebrews 12:7-13"], Sa: ["Psalm 41", "Isaiah 39:1-8", "Luke 4:38-41"], M: ["Psalm 38", "Isaiah 30:18-26", "Acts 14:8-18"], Tu: ["Psalm 38", "Micah 4:1-7", "2 Corinthians 1:1-11"], W: ["Psalm 38", "Lamentations 5:1-22", "John 5:19-29"]},
     epiphany_8: {Th: ["Psalm 103:1-13, 22", "Ezekiel 16:1-14", "Romans 3:1-8"], F: ["Psalm 103:1-13, 22", "Ezekiel 16:44-52", "2 Peter 1:1-11"], Sa: ["Psalm 103:1-13, 22", "Ezekiel 16:53-63", "John 7:53-8:11"], M: ["Psalm 45:6-17", "Hosea 3:1-5", "2 Corinthians 1:23-2:11"], Tu: ["Psalm 45:6-17", "Hosea 14:1-9", "2 Corinthians 11:1-15"], W: ["Psalm 45:6-17", "Isaiah 62:1-5", "John 3:22-36"]},
     transfiguration: {Th: ["Psalm 50:1-6", "1 Kings 11:26-40", "2 Corinthians 2:12-17"], F: ["Psalm 50:1-6", "1 Kings 14:1-18", "1 Timothy 1:12-20"], Sa: ["Psalm 50:1-6", "1 Kings 16:1-7", "Luke 19:41-44"], M: ["Psalm 110:1-4", "Exodus 19:7-25", "Hebrews 2:1-4"], Tu: ["Psalm 110:1-4", "Job 19:23-27", "1 Timothy 3:14-16"]},
-    ash_wednesday: {W: ["Joel 2:1-2, 12-17", "Psalm 51:1-17", "2 Corinthians 5:20b-6:10", "Matthew 6:1-6, 16-21"]},
-    lent_1: {Th: ["Psalm 25:1-10", "Daniel 9:1-14", "1 John 1:3-10"], F: ["Psalm 25:1-10", "Daniel 9:15-25a", "2 Timothy 4:1-5"], Sa: ["Psalm 25:1-10", "Psalm 32", "Matthew 9:2-13"], M: ["Psalm 77", "Job 4:1-21", "Ephesians 2:1-10"], Tu: ["Psalm 77", "Job 5:8-27", "1 Peter 3:8-18a"], W: ["Psalm 77", "Proverbs 30:1-9", "Matthew 4:1-11"]},
+    ash_wednesday: {W: ["Joel 2:1-2, 12-17", "Psalm 51:1-17", "2 Corinthians 5:20-6:10", "Matthew 6:1-6, 16-21"]},
+    lent_1: {Th: ["Psalm 25:1-10", "Daniel 9:1-14", "1 John 1:3-10"], F: ["Psalm 25:1-10", "Daniel 9:15-25", "2 Timothy 4:1-5"], Sa: ["Psalm 25:1-10", "Psalm 32", "Matthew 9:2-13"], M: ["Psalm 77", "Job 4:1-21", "Ephesians 2:1-10"], Tu: ["Psalm 77", "Job 5:8-27", "1 Peter 3:8-18"], W: ["Psalm 77", "Proverbs 30:1-9", "Matthew 4:1-11"]},
     lent_2: {Th: ["Psalm 22:23-31", "Genesis 15:1-6, 12-18", "Romans 3:21-31"], F: ["Psalm 22:23-31", "Genesis 16:1-6", "Romans 4:1-12"], Sa: ["Psalm 22:23-31", "Genesis 16:7-15", "Mark 8:27-30"], M: ["Psalm 105:1-11, 37-45", "Genesis 21:1-7", "Hebrews 1:8-12"], Tu: ["Psalm 105:1-11, 37-45", "Genesis 22:1-19", "Hebrews 11:1-3, 13-19"], W: ["Psalm 105:1-11, 37-45", "Jeremiah 30:12-22", "John 12:36-43"]},
-    lent_3: {Th: ["Psalm 19", "Exodus 19:1-9a", "1 Peter 2:4-10"], F: ["Psalm 19", "Exodus 19:9b-15", "Acts 7:30-40"], Sa: ["Psalm 19", "Exodus 19:16-25", "Mark 9:2-8"], M: ["Psalm 84", "1 Kings 6:1-4, 21-22", "1 Corinthians 3:10-23"], Tu: ["Psalm 84", "2 Chronicles 29:1-11, 16-19", "Hebrews 9:23-28"], W: ["Psalm 84", "Ezra 6:1-16", "Mark 11:15-19"]},
+    lent_3: {Th: ["Psalm 19", "Exodus 19:1-9", "1 Peter 2:4-10"], F: ["Psalm 19", "Exodus 19:9-15", "Acts 7:30-40"], Sa: ["Psalm 19", "Exodus 19:16-25", "Mark 9:2-8"], M: ["Psalm 84", "1 Kings 6:1-4, 21-22", "1 Corinthians 3:10-23"], Tu: ["Psalm 84", "2 Chronicles 29:1-11, 16-19", "Hebrews 9:23-28"], W: ["Psalm 84", "Ezra 6:1-16", "Mark 11:15-19"]},
     lent_4: {Th: ["Psalm 107:1-3, 17-22", "Genesis 9:8-17", "Ephesians 1:3-6"], F: ["Psalm 107:1-3, 17-22", "Daniel 12:5-13", "Ephesians 1:7-14"], Sa: ["Psalm 107:1-3, 17-22", "Numbers 20:22-29", "John 3:1-13"], M: ["Psalm 107:1-16", "Exodus 15:22-27", "Hebrews 3:1-6"], Tu: ["Psalm 107:1-16", "Numbers 20:1-13", "1 Corinthians 10:6-13"], W: ["Psalm 107:1-16", "Isaiah 60:15-22", "John 8:12-20"]},
     lent_5: {Th: ["Psalm 51:1-12", "Isaiah 30:15-18", "Hebrews 4:1-13"], F: ["Psalm 51:1-12", "Exodus 30:1-10", "Hebrews 4:14-5:4"], Sa: ["Psalm 51:1-12", "Habakkuk 3:2-13", "John 12:1-11"], M: ["Psalm 119:9-16", "Isaiah 43:8-13", "2 Corinthians 3:4-11"], Tu: ["Psalm 119:9-16", "Isaiah 44:1-8", "Acts 2:14-24"], W: ["Psalm 119:9-16", "Haggai 2:1-9, 20-23", "John 12:34-50"]},
-    lent_6: {Th: ["Psalm 118:1-2, 19-29", "Deuteronomy 16:1-8", "Philippians 2:1-11"], F: ["Psalm 118:1-2, 19-29", "Jeremiah 33:1-9", "Philippians 2:12-18"], Sa: ["Psalm 118:1-2, 19-29", "Jeremiah 33:10-16", "Mark 10:32-34, 46-52"], M: ["Isaiah 42:1-9", "Psalm 36:5-11", "Hebrews 9:11-15", "John 12:1-11"], Tu: ["Isaiah 49:1-7", "Psalm 71:1-14", "1 Corinthians 1:18-31", "John 12:20-36"], W: ["Isaiah 50:4-9a", "Psalm 70", "Hebrews 12:1-3", "John 13:21-32"]},
-    three_days: {Th: ["Exodus 12:1-4 [5-10] 11-14", "Psalm 116:1-2, 12-19", "1 Corinthians 11:23-26", "John 13:1-17, 31b-35"], F: ["Isaiah 52:13-53:12", "Psalm 22", "Hebrews 10:16-25", "John 18:1-19:42"], Sa: ["Psalm 136:1-9, 23-26", "Genesis 1:1-2:4a", "Romans 6:3-11"], M: ["Psalm 118:1-2, 14-24", "Genesis 1:1-19", "1 Corinthians 15:35-49"], Tu: ["Psalm 118:1-2, 14-24", "Genesis 1:20-2:4a", "1 Corinthians 15:50-58"], W: ["Psalm 118:1-2, 14-24", "Song of Solomon 3:1-11", "Mark 16:1-8"]},
+    lent_6: {Th: ["Psalm 118:1-2, 19-29", "Deuteronomy 16:1-8", "Philippians 2:1-11"], F: ["Psalm 118:1-2, 19-29", "Jeremiah 33:1-9", "Philippians 2:12-18"], Sa: ["Psalm 118:1-2, 19-29", "Jeremiah 33:10-16", "Mark 10:32-34, 46-52"], M: ["Isaiah 42:1-9", "Psalm 36:5-11", "Hebrews 9:11-15", "John 12:1-11"], Tu: ["Isaiah 49:1-7", "Psalm 71:1-14", "1 Corinthians 1:18-31", "John 12:20-36"], W: ["Isaiah 50:4-9", "Psalm 70", "Hebrews 12:1-3", "John 13:21-32"]},
+    three_days: {Th: ["Exodus 12:1-4 [5-10] 11-14", "Psalm 116:1-2, 12-19", "1 Corinthians 11:23-26", "John 13:1-17, 31-35"], F: ["Isaiah 52:13-53:12", "Psalm 22", "Hebrews 10:16-25", "John 18:1-19:42"], Sa: ["Psalm 136:1-9, 23-26", "Genesis 1:1-2:4", "Romans 6:3-11"], M: ["Psalm 118:1-2, 14-24", "Genesis 1:1-19", "1 Corinthians 15:35-49"], Tu: ["Psalm 118:1-2, 14-24", "Genesis 1:20-2:4", "1 Corinthians 15:50-58"], W: ["Psalm 118:1-2, 14-24", "Song of Solomon 3:1-11", "Mark 16:1-8"]},
     easter_2: {Th: ["Psalm 133", "Daniel 1:1-21", "Acts 2:42-47"], F: ["Psalm 133", "Daniel 2:1-23", "Acts 4:23-31"], Sa: ["Psalm 133", "Daniel 2:24-49", "John 12:44-50"], M: ["Psalm 135", "Daniel 3:1-30", "1 John 2:3-11"], Tu: ["Psalm 135", "Daniel 6:1-28", "1 John 2:12-17"], W: ["Psalm 135", "Isaiah 26:1-15", "Mark 12:18-27"]},
-    easter_3: {Th: ["Psalm 4", "Daniel 9:1-19", "1 John 2:18-25"], F: ["Psalm 4", "Daniel 10:2-19", "1 John 2:26-28"], Sa: ["Psalm 4", "Acts 3:1-10", "Luke 22:24-30"], M: ["Psalm 150", "Jeremiah 30:1-11a", "1 John 3:10-16"], Tu: ["Psalm 150", "Hosea 5:15-6:6", "2 John 1-6"], W: ["Psalm 150", "Proverbs 9:1-6", "Mark 16:9-18"]},
+    easter_3: {Th: ["Psalm 4", "Daniel 9:1-19", "1 John 2:18-25"], F: ["Psalm 4", "Daniel 10:2-19", "1 John 2:26-28"], Sa: ["Psalm 4", "Acts 3:1-10", "Luke 22:24-30"], M: ["Psalm 150", "Jeremiah 30:1-11", "1 John 3:10-16"], Tu: ["Psalm 150", "Hosea 5:15-6:6", "2 John 1-6"], W: ["Psalm 150", "Proverbs 9:1-6", "Mark 16:9-18"]},
     easter_4: {Th: ["Psalm 23", "Genesis 30:25-43", "Acts 3:17-26"], F: ["Psalm 23", "Genesis 46:28-47:6", "Acts 4:1-4"], Sa: ["Psalm 23", "Genesis 48:8-19", "Mark 6:30-34"], M: ["Psalm 95", "1 Samuel 16:1-13", "1 Peter 5:1-5"], Tu: ["Psalm 95", "1 Chronicles 11:1-9", "Revelation 7:13-17"], W: ["Psalm 95", "Micah 7:8-20", "Mark 14:26-31"]},
-    easter_5: {Th: ["Psalm 22:25-31", "Amos 8:1-7", "Acts 8:1b-8"], F: ["Psalm 22:25-31", "Amos 8:11-13", "Acts 8:9-25"], Sa: ["Psalm 22:25-31", "Amos 9:7-15", "Mark 4:30-32"], M: ["Psalm 80", "Isaiah 5:1-7", "Galatians 5:16-26"], Tu: ["Psalm 80", "Isaiah 32:9-20", "James 3:17-18"], W: ["Psalm 80", "Isaiah 65:17-25", "John 14:18-31"]},
+    easter_5: {Th: ["Psalm 22:25-31", "Amos 8:1-7", "Acts 8:1-8"], F: ["Psalm 22:25-31", "Amos 8:11-13", "Acts 8:9-25"], Sa: ["Psalm 22:25-31", "Amos 9:7-15", "Mark 4:30-32"], M: ["Psalm 80", "Isaiah 5:1-7", "Galatians 5:16-26"], Tu: ["Psalm 80", "Isaiah 32:9-20", "James 3:17-18"], W: ["Psalm 80", "Isaiah 65:17-25", "John 14:18-31"]},
     easter_6: {Th: ["Psalm 98", "Isaiah 49:5-6", "Acts 10:1-34"], F: ["Psalm 98", "Isaiah 42:5-9", "Acts 10:34-43"], Sa: ["Psalm 98", "Deuteronomy 32:44-47", "Mark 10:42-45"], M: ["Psalm 93", "Deuteronomy 7:1-11", "1 Timothy 6:11-12"], Tu: ["Psalm 93", "Deuteronomy 11:1-17", "1 Timothy 6:13-16"], W: ["Psalm 93", "Deuteronomy 11:18-21", "Mark 16:19-20"]},
     easter_7: {Th: ["Acts 1:1-11", "Psalm 47", "Ephesians 1:15-23", "Luke 24:44-53"], F: ["Psalm 47", "Exodus 24:15-18", "Revelation 1:9-18"], Sa: ["Psalm 47", "Deuteronomy 34:1-7", "John 16:4-11"], M: ["Psalm 115", "Exodus 28:29-38", "Philippians 1:3-11"], Tu: ["Psalm 115", "Numbers 8:5-22", "Titus 1:1-9"], W: ["Psalm 115", "Ezra 9:5-15", "John 16:16-24"]},
-    pentecost: {Th: ["Psalm 33:12-22", "Genesis 2:4b-7", "1 Corinthians 15:42b-49"], F: ["Psalm 33:12-22", "Job 37:1-13", "1 Corinthians 15:50-57"], Sa: ["Psalm 33:12-22", "Exodus 15:6-11", "John 7:37-39"], M: ["Psalm 104:24-34, 35b", "Joel 2:18-29", "1 Corinthians 12:4-11"], Tu: ["Psalm 104:24-34, 35b", "Genesis 11:1-9", "1 Corinthians 12:12-27"], W: ["Psalm 104:24-34, 35b", "Ezekiel 37:1-14", "John 20:19-23"]},
+    pentecost: {Th: ["Psalm 33:12-22", "Genesis 2:4-7", "1 Corinthians 15:42-49"], F: ["Psalm 33:12-22", "Job 37:1-13", "1 Corinthians 15:50-57"], Sa: ["Psalm 33:12-22", "Exodus 15:6-11", "John 7:37-39"], M: ["Psalm 104:24-34, 35", "Joel 2:18-29", "1 Corinthians 12:4-11"], Tu: ["Psalm 104:24-34, 35", "Genesis 11:1-9", "1 Corinthians 12:12-27"], W: ["Psalm 104:24-34, 35", "Ezekiel 37:1-14", "John 20:19-23"]},
     holy_trinity: {Th: ["Psalm 29", "Isaiah 1:1-4, 16-20", "Romans 8:1-8"], F: ["Psalm 29", "Isaiah 2:1-5", "Romans 8:9-11"], Sa: ["Psalm 29", "Isaiah 5:15-24", "John 15:18-20, 26-27"], M: ["Psalm 20", "Numbers 9:15-23", "Revelation 4:1-8"], Tu: ["Psalm 20", "Exodus 25:1-22", "1 Corinthians 2:1-10"], W: ["Psalm 20", "Numbers 6:22-27", "Mark 4:21-25"]},
     may_24: {Th: ["Psalm 103:1-13, 22", "Ezekiel 16:1-14", "Romans 3:1-8"], F: ["Psalm 103:1-13, 22", "Ezekiel 16:44-52", "2 Peter 1:1-11"], Sa: ["Psalm 103:1-13, 22", "Ezekiel 16:53-63", "John 7:53-8:11"], M: ["Psalm 45:6-17", "Hosea 3:1-5", "2 Corinthians 1:23-2:11"], Tu: ["Psalm 45:6-17", "Hosea 14:1-9", "2 Corinthians 11:1-15"], W: ["Psalm 45:6-17", "Isaiah 62:1-5", "John 3:22-36"]},
     may_29: {Th: ["Psalm 81:1-10", "Exodus 31:12-18", "Acts 25:1-12"], F: ["Psalm 81:1-10", "Leviticus 23:1-8", "Romans 8:31-39"], Sa: ["Psalm 81:1-10", "Leviticus 24:5-9", "John 7:19-24"], M: ["Psalm 78:1-4, 52-72", "Exodus 16:13-26", "Romans 9:19-29"], Tu: ["Psalm 78:1-4, 52-72", "Exodus 16:27-36", "Acts 15:1-5, 22-35"], W: ["Psalm 78:1-4, 52-72", "1 Samuel 21:1-6", "John 5:1-18"]},
-    jun_5: {Th: ["Psalm 130", "Isaiah 28:9-13", "1 Peter 4:7-19"], F: ["Psalm 130", "Deuteronomy 1:34-40", "2 Corinthians 5:1-5"], Sa: ["Psalm 130", "Genesis 2:4b-14", "Luke 8:4-15"], M: ["Psalm 74", "1 Samuel 16:14-23", "Revelation 20:1-6"], Tu: ["Psalm 74", "1 Kings 18:17-40", "Revelation 20:7-15"], W: ["Psalm 74", "Isaiah 26:16-27:1", "Luke 11:14-28"]},
+    jun_5: {Th: ["Psalm 130", "Isaiah 28:9-13", "1 Peter 4:7-19"], F: ["Psalm 130", "Deuteronomy 1:34-40", "2 Corinthians 5:1-5"], Sa: ["Psalm 130", "Genesis 2:4-14", "Luke 8:4-15"], M: ["Psalm 74", "1 Samuel 16:14-23", "Revelation 20:1-6"], Tu: ["Psalm 74", "1 Kings 18:17-40", "Revelation 20:7-15"], W: ["Psalm 74", "Isaiah 26:16-27:1", "Luke 11:14-28"]},
     jun_12: {Th: ["Psalm 92:1-4, 12-15", "Genesis 3:14-24", "Hebrews 2:5-9"], F: ["Psalm 92:1-4, 12-15", "1 Kings 10:26-11:8", "Hebrews 11:4-7"], Sa: ["Psalm 92:1-4, 12-15", "2 Kings 14:1-14", "Mark 4:1-20"], M: ["Psalm 52", "Ezekiel 31:1-12", "Galatians 6:11-18"], Tu: ["Psalm 52", "Jeremiah 21:11-14", "Revelation 21:22-22:5"], W: ["Psalm 52", "Jeremiah 22:1-9", "Luke 6:43-45"]},
     jun_19: {Th: ["Psalm 107:1-3, 23-32", "Job 29:1-20", "Acts 20:1-16"], F: ["Psalm 107:1-3, 23-32", "Job 29:21-30:15", "Acts 21:1-16"], Sa: ["Psalm 107:1-3, 23-32", "Job 37:1-13", "Luke 21:25-28"], M: ["Psalm 65", "Exodus 7:14-24", "Acts 27:13-38"], Tu: ["Psalm 65", "Exodus 9:13-35", "Acts 27:39-44"], W: ["Psalm 65", "Joshua 10:1-14", "Mark 6:45-52"]},
     jun_26: {Th: ["Psalm 30", "Lamentations 1:16-22", "2 Corinthians 7:2-16"], F: ["Psalm 30", "Lamentations 2:1-12", "2 Corinthians 8:1-7"], Sa: ["Psalm 30", "Lamentations 2:18-22", "Luke 4:31-37"], M: ["Psalm 88", "Leviticus 21:1-15", "2 Corinthians 8:16-24"], Tu: ["Psalm 88", "Leviticus 15:19-31", "2 Corinthians 9:1-5"], W: ["Psalm 88", "2 Kings 20:1-11", "Mark 9:14-29"]},
     jul_3: {Th: ["Psalm 123", "Jeremiah 7:1-15", "1 Corinthians 4:8-13"], F: ["Psalm 123", "Jeremiah 7:16-26", "2 Corinthians 10:7-11"], Sa: ["Psalm 123", "Jeremiah 7:27-34", "Matthew 8:18-22"], M: ["Psalm 119:81-88", "Ezekiel 2:8-3:11", "2 Corinthians 11:16-33"], Tu: ["Psalm 119:81-88", "Jeremiah 16:1-13", "James 5:7-12"], W: ["Psalm 119:81-88", "Jeremiah 16:14-21", "John 7:1-9"]},
     jul_10: {Th: ["Psalm 85:8-13", "Amos 2:6-16", "Colossians 2:1-5"], F: ["Psalm 85:8-13", "Amos 3:1-12", "Colossians 4:2-18"], Sa: ["Psalm 85:8-13", "Amos 4:6-13", "Luke 1:57-80"], M: ["Psalm 142", "Amos 5:1-9", "Acts 21:27-39"], Tu: ["Psalm 142", "Amos 9:1-4", "Acts 23:12-35"], W: ["Psalm 142", "Amos 9:11-15", "Luke 7:31-35"]},
     jul_17: {Th: ["Psalm 23", "Jeremiah 10:1-16", "Colossians 1:15-23"], F: ["Psalm 23", "Jeremiah 10:17-25", "Acts 17:16-31"], Sa: ["Psalm 23", "Jeremiah 12:1-13", "Luke 18:35-43"], M: ["Psalm 100", "Jeremiah 50:1-7", "Hebrews 13:17-25"], Tu: ["Psalm 100", "Zechariah 9:14-10:2", "Acts 20:17-38"], W: ["Psalm 100", "2 Samuel 5:1-12", "Luke 15:1-7"]},
-    jul_24: {Th: ["Psalm 145:10-18", "1 Kings 19:19-21", "Colossians 1:9-14"], F: ["Psalm 145:10-18", "2 Kings 3:4-20", "Colossians 3:12-17"], Sa: ["Psalm 145:10-18", "2 Kings 4:38-41", "John 4:31-38"], M: ["Psalm 111", "Genesis 18:1-15", "Philippians 4:10-20"], Tu: ["Psalm 111", "Exodus 24:1-11", "Romans 15:22-33"], W: ["Psalm 111", "Isaiah 25:6-10a", "Mark 6:35-44"]},
+    jul_24: {Th: ["Psalm 145:10-18", "1 Kings 19:19-21", "Colossians 1:9-14"], F: ["Psalm 145:10-18", "2 Kings 3:4-20", "Colossians 3:12-17"], Sa: ["Psalm 145:10-18", "2 Kings 4:38-41", "John 4:31-38"], M: ["Psalm 111", "Genesis 18:1-15", "Philippians 4:10-20"], Tu: ["Psalm 111", "Exodus 24:1-11", "Romans 15:22-33"], W: ["Psalm 111", "Isaiah 25:6-10", "Mark 6:35-44"]},
     jul_31: {Th: ["Psalm 78:23-29", "Exodus 12:33-42", "1 Corinthians 11:17-22"], F: ["Psalm 78:23-29", "Exodus 12:43-13:2", "1 Corinthians 11:27-34"], Sa: ["Psalm 78:23-29", "Exodus 13:3-10", "Matthew 16:5-12"], M: ["Psalm 107:1-3, 33-43", "Numbers 11:16-23, 31-32", "Ephesians 4:17-24"], Tu: ["Psalm 107:1-3, 33-43", "Deuteronomy 8:1-20", "1 Corinthians 12:27-31"], W: ["Psalm 107:1-3, 33-43", "Isaiah 55:1-9", "Mark 8:1-10"]},
     aug_7: {Th: ["Psalm 34:1-8", "1 Samuel 28:20-25", "Romans 15:1-6"], F: ["Psalm 34:1-8", "2 Samuel 17:15-29", "Galatians 6:1-10"], Sa: ["Psalm 34:1-8", "1 Kings 2:1-9", "Matthew 7:7-11"], M: ["Psalm 81", "1 Kings 17:1-16", "Ephesians 5:1-14"], Tu: ["Psalm 81", "Ruth 2:1-23", "2 Peter 3:14-18"], W: ["Psalm 81", "Jeremiah 31:1-6", "John 6:35-40"]},
     aug_14: {Th: ["Psalm 34:9-14", "Job 11:1-20", "Acts 6:8-15"], F: ["Psalm 34:9-14", "Job 12:1-25", "Romans 16:17-20"], Sa: ["Psalm 34:9-14", "Job 13:1-19", "John 4:7-26"], M: ["Psalm 36", "Genesis 43:1-15", "Acts 6:1-7"], Tu: ["Psalm 36", "Genesis 45:1-15", "Acts 7:9-16"], W: ["Psalm 36", "Genesis 47:13-26", "Mark 8:14-21"]},
@@ -2350,44 +2350,44 @@ const DAILY_LECTIONARY = {
     oct_30: {Th: ["Psalm 119:1-8", "Exodus 22:1-15", "Hebrews 9:1-12"], F: ["Psalm 119:1-8", "Leviticus 19:32-37", "Romans 3:21-31"], Sa: ["Psalm 119:1-8", "Numbers 9:9-14", "Luke 10:25-37"], M: ["Psalm 51", "Deuteronomy 6:10-25", "Romans 12:17-21; 13:8-10"], Tu: ["Psalm 51", "Deuteronomy 28:58-29:1", "Acts 7:17-29"], W: ["Psalm 51", "Micah 6:1-8", "John 13:31-35"]},
     nov_6: {Th: ["Psalm 146", "Numbers 36:1-13", "Romans 5:6-11"], F: ["Psalm 146", "Deuteronomy 15:1-11", "Hebrews 9:15-24"], Sa: ["Psalm 146", "Deuteronomy 24:17-22", "Mark 11:12-14, 20-24"], M: ["Psalm 94", "Ruth 1:1-22", "1 Timothy 5:1-8"], Tu: ["Psalm 94", "Ruth 3:14-4:6", "1 Timothy 5:9-16"], W: ["Psalm 94", "Ruth 4:7-22", "Luke 4:16-30"]},
     nov_13: {Th: ["Psalm 16", "Daniel 4:4-18", "1 Timothy 6:11-21"], F: ["Psalm 16", "Daniel 4:19-27", "Colossians 2:6-15"], Sa: ["Psalm 16", "Daniel 4:28-37", "Mark 12:1-12"], M: ["Psalm 13", "Daniel 8:1-14", "Hebrews 10:26-31"], Tu: ["Psalm 13", "Daniel 8:15-27", "Hebrews 10:32-39"], W: ["Psalm 13", "Zechariah 12:1-13:1", "Mark 13:9-23"]},
-    christ_king: {Th: ["Psalm 93", "Ezekiel 28:1-10", "Acts 7:54-8:1a"], F: ["Psalm 93", "Ezekiel 28:20-26", "1 Corinthians 15:20-28"], Sa: ["Psalm 93", "Daniel 7:1-8, 15-18", "John 3:31-36"], M: ["Psalm 76", "Daniel 7:19-27", "Revelation 11:1-14"], Tu: ["Psalm 76", "Ezekiel 29:1-12", "Revelation 11:15-19"], W: ["Psalm 76", "Ezekiel 30:20-26", "John 16:25-33"]}
+    christ_king: {Th: ["Psalm 93", "Ezekiel 28:1-10", "Acts 7:54-8:1"], F: ["Psalm 93", "Ezekiel 28:20-26", "1 Corinthians 15:20-28"], Sa: ["Psalm 93", "Daniel 7:1-8, 15-18", "John 3:31-36"], M: ["Psalm 76", "Daniel 7:19-27", "Revelation 11:1-14"], Tu: ["Psalm 76", "Ezekiel 29:1-12", "Revelation 11:15-19"], W: ["Psalm 76", "Ezekiel 30:20-26", "John 16:25-33"]}
   },
   C: {
     advent_1: {Th: ["Psalm 25:1-10", "Nehemiah 9:6-15", "1 Thessalonians 5:1-11"], F: ["Psalm 25:1-10", "Nehemiah 9:16-25", "1 Thessalonians 5:12-22"], Sa: ["Psalm 25:1-10", "Nehemiah 9:26-31", "Luke 21:20-24"], M: ["Psalm 90", "Numbers 17:1-11", "2 Peter 3:1-18"], Tu: ["Psalm 90", "2 Samuel 7:18-29", "Revelation 22:12-16"], W: ["Psalm 90", "Isaiah 1:24-31", "Luke 11:29-32"]},
-    advent_2: {Th: ["Luke 1:68-79", "Malachi 3:5-12", "Philippians 1:12-18a"], F: ["Luke 1:68-79", "Malachi 3:13-18", "Philippians 1:18b-26"], Sa: ["Luke 1:68-79", "Malachi 4:1-6", "Luke 9:1-6"], M: ["Psalm 126", "Isaiah 40:1-11", "Romans 8:22-25"], Tu: ["Psalm 126", "Isaiah 19:18-25", "2 Peter 1:2-15"], W: ["Psalm 126", "Isaiah 35:3-7", "Luke 7:18-30"]},
+    advent_2: {Th: ["Luke 1:68-79", "Malachi 3:5-12", "Philippians 1:12-18"], F: ["Luke 1:68-79", "Malachi 3:13-18", "Philippians 1:18-26"], Sa: ["Luke 1:68-79", "Malachi 4:1-6", "Luke 9:1-6"], M: ["Psalm 126", "Isaiah 40:1-11", "Romans 8:22-25"], Tu: ["Psalm 126", "Isaiah 19:18-25", "2 Peter 1:2-15"], W: ["Psalm 126", "Isaiah 35:3-7", "Luke 7:18-30"]},
     advent_3: {Th: ["Isaiah 12:2-6", "Amos 6:1-8", "2 Corinthians 8:1-15"], F: ["Isaiah 12:2-6", "Amos 8:4-12", "2 Corinthians 9:1-15"], Sa: ["Isaiah 12:2-6", "Amos 9:8-15", "Luke 1:57-66"], M: ["Isaiah 11:1-9", "Numbers 16:1-19", "Hebrews 13:7-17"], Tu: ["Isaiah 11:1-9", "Numbers 16:20-35", "Acts 28:23-31"], W: ["Isaiah 11:1-9", "Micah 4:8-13", "Luke 7:31-35"]},
     advent_4: {Th: ["Psalm 80:1-7", "Jeremiah 31:31-34", "Hebrews 10:10-18"], F: ["Psalm 80:1-7", "Isaiah 42:10-18", "Hebrews 10:32-39"], Sa: ["Psalm 80:1-7", "Isaiah 66:7-11", "Luke 13:31-35"], M: ["Psalm 113", "Genesis 25:19-28", "Colossians 1:15-20"], Tu: ["Psalm 113", "Genesis 30:1-24", "Romans 8:18-30"], W: ["Psalm 113", "Isaiah 42:14-21", "Luke 1:5-25"]},
-    christmas_days: {Th: ["Psalm 147:12-20", "1 Chronicles 28:1-10", "1 Corinthians 3:10-17"], F: ["Psalm 147:12-20", "2 Chronicles 1:7-13", "Mark 13:32-37"], Sa: ["Jeremiah 31:7-14", "Psalm 147:12-20", "Ephesians 1:3-14", "John 1:[1-9] 10-18"], M: ["Psalm 147:12-20", "Proverbs 1:1-7", "James 3:13-18"], Tu: ["Psalm 148", "Proverbs 8:32-36", "John 21:19b-24"], W: ["Psalm 148", "Isaiah 54:1-13", "Revelation 21:1-7"]},
+    christmas_days: {Th: ["Psalm 147:12-20", "1 Chronicles 28:1-10", "1 Corinthians 3:10-17"], F: ["Psalm 147:12-20", "2 Chronicles 1:7-13", "Mark 13:32-37"], Sa: ["Jeremiah 31:7-14", "Psalm 147:12-20", "Ephesians 1:3-14", "John 1:[1-9] 10-18"], M: ["Psalm 147:12-20", "Proverbs 1:1-7", "James 3:13-18"], Tu: ["Psalm 148", "Proverbs 8:32-36", "John 21:19-24"], W: ["Psalm 148", "Isaiah 54:1-13", "Revelation 21:1-7"]},
     epiphany_days: {Th: ["Psalm 29", "Ecclesiastes 1:1-11", "1 Corinthians 1:18-31"], F: ["Psalm 29", "Ecclesiastes 2:1-11", "1 Corinthians 2:1-10"], Sa: ["Psalm 29", "Ecclesiastes 3:1-15", "1 Corinthians 2:11-16"], M: ["Psalm 106:1-12", "Judges 4:1-16", "Ephesians 6:10-17"], Tu: ["Psalm 106:1-12", "Judges 5:12-21", "1 John 5:13-21"], W: ["Psalm 106:1-12", "Numbers 27:1-11", "Luke 11:33-36"]},
     epiphany_2: {Th: ["Psalm 36:5-10", "Jeremiah 3:1-5", "Acts 8:18-24"], F: ["Psalm 36:5-10", "Jeremiah 3:19-25", "1 Corinthians 7:1-7"], Sa: ["Psalm 36:5-10", "Jeremiah 4:1-4", "Luke 11:14-23"], M: ["Psalm 145", "Isaiah 54:1-8", "Romans 12:9-21"], Tu: ["Psalm 145", "Song of Solomon 4:1-8", "1 Corinthians 1:3-17"], W: ["Psalm 145", "Song of Solomon 4:9-5:1", "Luke 5:33-39"]},
     epiphany_3: {Th: ["Psalm 19", "Isaiah 61:1-7", "Romans 7:1-6"], F: ["Psalm 19", "Nehemiah 2:1-10", "Romans 12:1-8"], Sa: ["Psalm 19", "Nehemiah 5:1-13", "Luke 2:39-52"], M: ["Psalm 119:89-96", "Jeremiah 36:1-10", "1 Corinthians 14:1-12"], Tu: ["Psalm 119:89-96", "Jeremiah 36:11-26", "2 Corinthians 7:2-12"], W: ["Psalm 119:89-96", "Jeremiah 36:27-32", "Luke 4:38-44"]},
     epiphany_4: {Th: ["Psalm 71:1-6", "2 Chronicles 34:1-7", "Acts 10:44-48"], F: ["Psalm 71:1-6", "2 Chronicles 35:20-27", "Acts 19:1-10"], Sa: ["Psalm 71:1-6", "2 Chronicles 36:11-21", "John 1:43-51"], M: ["Psalm 56", "1 Kings 17:8-16", "1 Corinthians 2:6-16"], Tu: ["Psalm 56", "2 Kings 5:1-14", "1 Corinthians 14:13-25"], W: ["Psalm 56", "Jeremiah 1:11-19", "Luke 19:41-44"]},
-    epiphany_5: {Th: ["Psalm 138", "Numbers 20:22-29", "Acts 9:19b-25"], F: ["Psalm 138", "Numbers 27:12-23", "Acts 9:26-31"], Sa: ["Psalm 138", "Judges 3:7-11", "Luke 4:42-44"], M: ["Psalm 115", "Judges 5:1-11", "1 Corinthians 14:26-40"], Tu: ["Psalm 115", "1 Samuel 9:15-10:1b", "1 Timothy 3:1-9"], W: ["Psalm 115", "Isaiah 8:1-15", "Luke 5:27-32"]},
+    epiphany_5: {Th: ["Psalm 138", "Numbers 20:22-29", "Acts 9:19-25"], F: ["Psalm 138", "Numbers 27:12-23", "Acts 9:26-31"], Sa: ["Psalm 138", "Judges 3:7-11", "Luke 4:42-44"], M: ["Psalm 115", "Judges 5:1-11", "1 Corinthians 14:26-40"], Tu: ["Psalm 115", "1 Samuel 9:15-10:1", "1 Timothy 3:1-9"], W: ["Psalm 115", "Isaiah 8:1-15", "Luke 5:27-32"]},
     epiphany_6: {Th: ["Psalm 1", "Jeremiah 13:12-19", "Acts 13:26-34"], F: ["Psalm 1", "Jeremiah 13:20-27", "1 Peter 1:17-2:1"], Sa: ["Psalm 1", "Jeremiah 17:1-4", "Luke 11:24-28"], M: ["Psalm 120", "2 Kings 24:18-25:21", "1 Corinthians 15:20-34"], Tu: ["Psalm 120", "Ezra 1:1-11", "2 Corinthians 1:12-19"], W: ["Psalm 120", "Jeremiah 22:11-17", "Luke 11:37-52"]},
     epiphany_7: {Th: ["Psalm 37:1-11, 39-40", "Genesis 43:16-34", "Romans 8:1-11"], F: ["Psalm 37:1-11, 39-40", "Genesis 44:1-17", "1 John 2:12-17"], Sa: ["Psalm 37:1-11, 39-40", "Genesis 44:18-34", "Luke 12:57-59"], M: ["Psalm 38", "Genesis 33:1-17", "1 Corinthians 11:2-16"], Tu: ["Psalm 38", "1 Samuel 24:1-22", "1 Corinthians 11:17-22, 27-33"], W: ["Psalm 38", "Leviticus 5:1-13", "Luke 17:1-4"]},
-    epiphany_8: {Th: ["Psalm 92:1-4, 12-15", "Proverbs 13:1-12", "Romans 5:12-6:2"], F: ["Psalm 92:1-4, 12-15", "Proverbs 15:1-9", "1 Thessalonians 4:13-18"], Sa: ["Psalm 92:1-4, 12-15", "Isaiah 30:8-17", "John 16:1-4a"], M: ["Psalm 1", "Jeremiah 24:1-10", "1 Corinthians 16:1-12"], Tu: ["Psalm 1", "Jeremiah 29:10-19", "1 Corinthians 16:13-24"], W: ["Psalm 1", "Proverbs 5:1-23", "Luke 14:34-35"]},
-    transfiguration: {Th: ["Psalm 99", "Deuteronomy 9:1-5", "Acts 3:11-16"], F: ["Psalm 99", "Deuteronomy 9:6-14", "Acts 10:1-8"], Sa: ["Psalm 99", "Deuteronomy 9:15-24", "Luke 10:21-24"], M: ["Psalm 35:11-28", "Exodus 35:1-29", "Acts 10:9-23a"], Tu: ["Psalm 35:11-28", "Ezekiel 1:1-2:1", "Acts 10:23b-33"]},
-    ash_wednesday: {W: ["Joel 2:1-2, 12-17", "Psalm 51:1-17", "2 Corinthians 5:20b-6:10", "Matthew 6:1-6, 16-21"]},
+    epiphany_8: {Th: ["Psalm 92:1-4, 12-15", "Proverbs 13:1-12", "Romans 5:12-6:2"], F: ["Psalm 92:1-4, 12-15", "Proverbs 15:1-9", "1 Thessalonians 4:13-18"], Sa: ["Psalm 92:1-4, 12-15", "Isaiah 30:8-17", "John 16:1-4"], M: ["Psalm 1", "Jeremiah 24:1-10", "1 Corinthians 16:1-12"], Tu: ["Psalm 1", "Jeremiah 29:10-19", "1 Corinthians 16:13-24"], W: ["Psalm 1", "Proverbs 5:1-23", "Luke 14:34-35"]},
+    transfiguration: {Th: ["Psalm 99", "Deuteronomy 9:1-5", "Acts 3:11-16"], F: ["Psalm 99", "Deuteronomy 9:6-14", "Acts 10:1-8"], Sa: ["Psalm 99", "Deuteronomy 9:15-24", "Luke 10:21-24"], M: ["Psalm 35:11-28", "Exodus 35:1-29", "Acts 10:9-23"], Tu: ["Psalm 35:11-28", "Ezekiel 1:1-2:1", "Acts 10:23-33"]},
+    ash_wednesday: {W: ["Joel 2:1-2, 12-17", "Psalm 51:1-17", "2 Corinthians 5:20-6:10", "Matthew 6:1-6, 16-21"]},
     lent_1: {Th: ["Psalm 91:1-2, 9-16", "Exodus 5:10-23", "Acts 7:30-34"], F: ["Psalm 91:1-2, 9-16", "Exodus 6:1-13", "Acts 7:35-42"], Sa: ["Psalm 91:1-2, 9-16", "Ecclesiastes 3:1-8", "John 12:27-36"], M: ["Psalm 17", "1 Chronicles 21:1-17", "1 John 2:1-6"], Tu: ["Psalm 17", "Zechariah 3:1-10", "2 Peter 2:4-21"], W: ["Psalm 17", "Job 1:1-22", "Luke 21:34-22:6"]},
-    lent_2: {Th: ["Psalm 27", "Genesis 13:1-7, 14-18", "Philippians 3:2-12"], F: ["Psalm 27", "Genesis 14:17-24", "Philippians 3:17-20"], Sa: ["Psalm 27", "Psalm 118:26-29", "Matthew 23:37-39"], M: ["Psalm 105:1-15 [16-41] 42", "Exodus 33:1-6", "Romans 4:1-12"], Tu: ["Psalm 105:1-15 [16-41] 42", "Numbers 14:10b-24", "1 Corinthians 10:1-13"], W: ["Psalm 105:1-15 [16-41] 42", "2 Chronicles 20:1-22", "Luke 13:22-31"]},
+    lent_2: {Th: ["Psalm 27", "Genesis 13:1-7, 14-18", "Philippians 3:2-12"], F: ["Psalm 27", "Genesis 14:17-24", "Philippians 3:17-20"], Sa: ["Psalm 27", "Psalm 118:26-29", "Matthew 23:37-39"], M: ["Psalm 105:1-15 [16-41] 42", "Exodus 33:1-6", "Romans 4:1-12"], Tu: ["Psalm 105:1-15 [16-41] 42", "Numbers 14:10-24", "1 Corinthians 10:1-13"], W: ["Psalm 105:1-15 [16-41] 42", "2 Chronicles 20:1-22", "Luke 13:22-31"]},
     lent_3: {Th: ["Psalm 63:1-8", "Daniel 3:19-30", "Revelation 2:8-11"], F: ["Psalm 63:1-8", "Daniel 12:1-4", "Revelation 3:1-6"], Sa: ["Psalm 63:1-8", "Isaiah 5:1-7", "Luke 6:43-45"], M: ["Psalm 39", "Jeremiah 11:1-17", "Romans 2:1-11"], Tu: ["Psalm 39", "Ezekiel 17:1-10", "Romans 2:12-16"], W: ["Psalm 39", "Numbers 13:17-27", "Luke 13:18-21"]},
     lent_4: {Th: ["Psalm 32", "Joshua 4:1-13", "2 Corinthians 4:16-5:5"], F: ["Psalm 32", "Joshua 4:14-24", "2 Corinthians 5:6-15"], Sa: ["Psalm 32", "Exodus 32:7-14", "Luke 15:1-10"], M: ["Psalm 53", "Leviticus 23:26-41", "Revelation 19:1-8"], Tu: ["Psalm 53", "Leviticus 25:1-19", "Revelation 19:9-10"], W: ["Psalm 53", "2 Kings 4:1-7", "Luke 9:10-17"]},
     lent_5: {Th: ["Psalm 126", "Isaiah 43:1-7", "Philippians 2:19-24"], F: ["Psalm 126", "Isaiah 43:8-15", "Philippians 2:25-3:1"], Sa: ["Psalm 126", "Exodus 12:21-27", "John 11:45-57"], M: ["Psalm 20", "Exodus 40:1-15", "Hebrews 10:19-25"], Tu: ["Psalm 20", "Judges 9:7-15", "1 John 2:18-28"], W: ["Psalm 20", "Habakkuk 3:2-15", "Luke 18:31-34"]},
-    lent_6: {Th: ["Psalm 31:9-16", "Isaiah 53:10-12", "Hebrews 2:1-9"], F: ["Psalm 31:9-16", "Isaiah 54:9-10", "Hebrews 2:10-18"], Sa: ["Psalm 31:9-16", "Leviticus 23:1-8", "Luke 22:1-13"], M: ["Isaiah 42:1-9", "Psalm 36:5-11", "Hebrews 9:11-15", "John 12:1-11"], Tu: ["Isaiah 49:1-7", "Psalm 71:1-14", "1 Corinthians 1:18-31", "John 12:20-36"], W: ["Isaiah 50:4-9a", "Psalm 70", "Hebrews 12:1-3", "John 13:21-32"]},
-    three_days: {Th: ["Exodus 12:1-4 [5-10] 11-14", "Psalm 116:1-2, 12-19", "1 Corinthians 11:23-26", "John 13:1-17, 31b-35"], F: ["Isaiah 52:13-53:12", "Psalm 22", "Hebrews 10:16-25", "John 18:1-19:42"], Sa: ["Psalm 136:1-9, 23-26", "Genesis 1:1-2:4a", "Romans 6:3-11"], M: ["Psalm 118:1-2, 14-24", "Joshua 10:16-27", "1 Corinthians 5:6b-8"], Tu: ["Psalm 118:1-2, 14-24", "Judges 4:17-23; 5:24-31a", "Revelation 12:1-12"], W: ["Psalm 118:1-2, 14-24", "2 Samuel 6:1-15", "Luke 24:1-12"]},
+    lent_6: {Th: ["Psalm 31:9-16", "Isaiah 53:10-12", "Hebrews 2:1-9"], F: ["Psalm 31:9-16", "Isaiah 54:9-10", "Hebrews 2:10-18"], Sa: ["Psalm 31:9-16", "Leviticus 23:1-8", "Luke 22:1-13"], M: ["Isaiah 42:1-9", "Psalm 36:5-11", "Hebrews 9:11-15", "John 12:1-11"], Tu: ["Isaiah 49:1-7", "Psalm 71:1-14", "1 Corinthians 1:18-31", "John 12:20-36"], W: ["Isaiah 50:4-9", "Psalm 70", "Hebrews 12:1-3", "John 13:21-32"]},
+    three_days: {Th: ["Exodus 12:1-4 [5-10] 11-14", "Psalm 116:1-2, 12-19", "1 Corinthians 11:23-26", "John 13:1-17, 31-35"], F: ["Isaiah 52:13-53:12", "Psalm 22", "Hebrews 10:16-25", "John 18:1-19:42"], Sa: ["Psalm 136:1-9, 23-26", "Genesis 1:1-2:4", "Romans 6:3-11"], M: ["Psalm 118:1-2, 14-24", "Joshua 10:16-27", "1 Corinthians 5:6-8"], Tu: ["Psalm 118:1-2, 14-24", "Judges 4:17-23; 5:24-31", "Revelation 12:1-12"], W: ["Psalm 118:1-2, 14-24", "2 Samuel 6:1-15", "Luke 24:1-12"]},
     easter_2: {Th: ["Psalm 150", "1 Samuel 17:1-23", "Acts 5:12-16"], F: ["Psalm 150", "1 Samuel 17:19-32", "Acts 5:17-26"], Sa: ["Psalm 150", "1 Samuel 17:32-51", "Luke 24:36-40"], M: ["Psalm 122", "Esther 7:1-10", "Revelation 1:9-20"], Tu: ["Psalm 122", "Esther 8:1-17", "Revelation 2:8-11"], W: ["Psalm 122", "Esther 9:1-5, 18-23", "Luke 12:4-12"]},
-    easter_3: {Th: ["Psalm 30", "Isaiah 5:11-17", "Revelation 3:14-22"], F: ["Psalm 30", "Isaiah 6:1-4", "Revelation 4:1-11"], Sa: ["Psalm 30", "Genesis 18:1-8", "Luke 14:12-14"], M: ["Psalm 121", "Ezekiel 1:1-25", "Acts 9:19b-31"], Tu: ["Psalm 121", "Ezekiel 1:26-2:1", "Acts 26:1-18"], W: ["Psalm 121", "Isaiah 6:1-8", "Luke 5:1-11"]},
+    easter_3: {Th: ["Psalm 30", "Isaiah 5:11-17", "Revelation 3:14-22"], F: ["Psalm 30", "Isaiah 6:1-4", "Revelation 4:1-11"], Sa: ["Psalm 30", "Genesis 18:1-8", "Luke 14:12-14"], M: ["Psalm 121", "Ezekiel 1:1-25", "Acts 9:19-31"], Tu: ["Psalm 121", "Ezekiel 1:26-2:1", "Acts 26:1-18"], W: ["Psalm 121", "Isaiah 6:1-8", "Luke 5:1-11"]},
     easter_4: {Th: ["Psalm 23", "Ezekiel 11:1-25", "Revelation 5:1-10"], F: ["Psalm 23", "Ezekiel 20:39-44", "Revelation 6:1-7:4"], Sa: ["Psalm 23", "Ezekiel 28:25-26", "Luke 12:29-32"], M: ["Psalm 100", "Ezekiel 37:15-28", "Revelation 15:1-4"], Tu: ["Psalm 100", "Ezekiel 45:1-9", "Acts 9:32-35"], W: ["Psalm 100", "Jeremiah 50:17-20", "John 10:31-42"]},
     easter_5: {Th: ["Psalm 148", "Ezekiel 2:8-3:11", "Revelation 10:1-11"], F: ["Psalm 148", "Daniel 7:13-14", "Revelation 11:15"], Sa: ["Psalm 148", "Daniel 7:27", "Revelation 11:16-19"], M: ["Psalm 133", "1 Samuel 20:1-23, 35-42", "Acts 11:19-26"], Tu: ["Psalm 133", "2 Samuel 1:4-27", "Acts 11:27-30"], W: ["Psalm 133", "Leviticus 19:9-18", "Luke 10:25-28"]},
     easter_6: {Th: ["Psalm 67", "Proverbs 2:1-5", "Acts 15:36-41"], F: ["Psalm 67", "Proverbs 2:6-8", "Acts 16:1-8"], Sa: ["Psalm 67", "Proverbs 2:9-15", "Luke 19:1-10"], M: ["Psalm 93", "1 Chronicles 12:16-22", "Revelation 21:5-14"], Tu: ["Psalm 93", "2 Chronicles 15:1-15", "Revelation 21:15-22"], W: ["Psalm 93", "2 Chronicles 34:20-33", "Luke 2:25-38"]},
     easter_7: {Th: ["Acts 1:1-11", "Psalm 47", "Ephesians 1:15-23", "Luke 24:44-53"], F: ["Psalm 97", "Exodus 33:12-17", "Revelation 22:6-9"], Sa: ["Psalm 97", "Exodus 33:18-23", "John 1:14-18"], M: ["Psalm 29", "Exodus 40:16-38", "Acts 16:35-40"], Tu: ["Psalm 29", "2 Chronicles 5:2-14", "Acts 26:19-29"], W: ["Psalm 29", "Ezekiel 3:12-21", "Luke 9:18-27"]},
-    pentecost: {Th: ["Psalm 104:24-34, 35b", "Isaiah 32:11-17", "Galatians 5:16-25"], F: ["Psalm 104:24-34, 35b", "Isaiah 44:1-4", "Galatians 6:7-10"], Sa: ["Psalm 104:24-34, 35b", "2 Kings 2:1-15a", "Luke 1:5-17"], M: ["Psalm 48", "Joel 2:18-29", "1 Corinthians 2:1-11"], Tu: ["Psalm 48", "Ezekiel 11:14-25", "1 Corinthians 2:12-16"], W: ["Psalm 48", "Numbers 24:1-14", "Luke 1:26-38"]},
-    holy_trinity: {Th: ["Psalm 8", "Proverbs 3:13-18", "Ephesians 1:17-19"], F: ["Psalm 8", "Proverbs 3:19-26", "Ephesians 4:1-6"], Sa: ["Psalm 8", "Proverbs 4:1-9", "Luke 2:41-52"], M: ["Psalm 124", "Proverbs 7:1-4", "Ephesians 4:7-16"], Tu: ["Psalm 124", "Proverbs 8:4-21", "Ephesians 5:15-20"], W: ["Psalm 124", "Daniel 1:1-21", "Luke 1:46b-55"]},
-    may_24: {Th: ["Psalm 92:1-4, 12-15", "Proverbs 13:1-12", "Romans 5:12-6:2"], F: ["Psalm 92:1-4, 12-15", "Proverbs 15:1-9", "1 Thessalonians 4:13-18"], Sa: ["Psalm 92:1-4, 12-15", "Isaiah 30:8-17", "John 16:1-4a"], M: ["Psalm 1", "Jeremiah 24:1-10", "1 Corinthians 16:1-12"], Tu: ["Psalm 1", "Jeremiah 29:10-19", "1 Corinthians 16:13-24"], W: ["Psalm 1", "Proverbs 5:1-23", "Luke 14:34-35"]},
+    pentecost: {Th: ["Psalm 104:24-34, 35", "Isaiah 32:11-17", "Galatians 5:16-25"], F: ["Psalm 104:24-34, 35", "Isaiah 44:1-4", "Galatians 6:7-10"], Sa: ["Psalm 104:24-34, 35", "2 Kings 2:1-15", "Luke 1:5-17"], M: ["Psalm 48", "Joel 2:18-29", "1 Corinthians 2:1-11"], Tu: ["Psalm 48", "Ezekiel 11:14-25", "1 Corinthians 2:12-16"], W: ["Psalm 48", "Numbers 24:1-14", "Luke 1:26-38"]},
+    holy_trinity: {Th: ["Psalm 8", "Proverbs 3:13-18", "Ephesians 1:17-19"], F: ["Psalm 8", "Proverbs 3:19-26", "Ephesians 4:1-6"], Sa: ["Psalm 8", "Proverbs 4:1-9", "Luke 2:41-52"], M: ["Psalm 124", "Proverbs 7:1-4", "Ephesians 4:7-16"], Tu: ["Psalm 124", "Proverbs 8:4-21", "Ephesians 5:15-20"], W: ["Psalm 124", "Daniel 1:1-21", "Luke 1:46-55"]},
+    may_24: {Th: ["Psalm 92:1-4, 12-15", "Proverbs 13:1-12", "Romans 5:12-6:2"], F: ["Psalm 92:1-4, 12-15", "Proverbs 15:1-9", "1 Thessalonians 4:13-18"], Sa: ["Psalm 92:1-4, 12-15", "Isaiah 30:8-17", "John 16:1-4"], M: ["Psalm 1", "Jeremiah 24:1-10", "1 Corinthians 16:1-12"], Tu: ["Psalm 1", "Jeremiah 29:10-19", "1 Corinthians 16:13-24"], W: ["Psalm 1", "Proverbs 5:1-23", "Luke 14:34-35"]},
     may_29: {Th: ["Psalm 96:1-9", "1 Kings 6:23-38", "2 Corinthians 5:11-17"], F: ["Psalm 96:1-9", "1 Kings 8:14-21", "2 Corinthians 11:1-6"], Sa: ["Psalm 96:1-9", "1 Kings 8:31-40", "Luke 4:31-37"], M: ["Psalm 5", "Jonah 4:1-11", "Acts 8:26-40"], Tu: ["Psalm 5", "Nehemiah 1:1-11", "Acts 3:1-10"], W: ["Psalm 5", "Isaiah 56:1-8", "Mark 7:24-30"]},
     jun_5: {Th: ["Psalm 30", "2 Samuel 14:1-11", "Acts 22:6-21"], F: ["Psalm 30", "2 Samuel 14:12-24", "Acts 26:1-11"], Sa: ["Psalm 30", "2 Samuel 14:25-33", "Matthew 9:2-8"], M: ["Psalm 68:1-10, 19-20", "Genesis 22:1-14", "Galatians 2:1-10"], Tu: ["Psalm 68:1-10, 19-20", "Judges 11:29-40", "Galatians 2:11-14"], W: ["Psalm 68:1-10, 19-20", "Jeremiah 8:14-22", "Luke 8:40-56"]},
     jun_12: {Th: ["Psalm 32", "2 Samuel 13:23-39", "James 4:1-7"], F: ["Psalm 32", "2 Samuel 15:1-12", "Romans 11:1-10"], Sa: ["Psalm 32", "2 Samuel 18:28-19:8", "Luke 5:17-26"], M: ["Psalm 130", "2 Chronicles 29:1-19", "Galatians 3:1-9"], Tu: ["Psalm 130", "2 Chronicles 30:1-12", "Galatians 3:10-14"], W: ["Psalm 130", "2 Chronicles 30:13-27", "Mark 2:1-12"]},
-    jun_19: {Th: ["Psalm 22:19-28", "Isaiah 56:9-12", "Romans 2:17-29"], F: ["Psalm 22:19-28", "Isaiah 57:1-13", "Galatians 3:15-22"], Sa: ["Psalm 22:19-28", "Isaiah 59:1-8", "Matthew 9:27-34"], M: ["Psalm 64", "Job 18:1-21", "1 Corinthians 1:18-31"], Tu: ["Psalm 64", "Job 19:1-22", "Ephesians 2:11-22"], W: ["Psalm 64", "Ezekiel 32:1-10", "Luke 9:37-43a"]},
+    jun_19: {Th: ["Psalm 22:19-28", "Isaiah 56:9-12", "Romans 2:17-29"], F: ["Psalm 22:19-28", "Isaiah 57:1-13", "Galatians 3:15-22"], Sa: ["Psalm 22:19-28", "Isaiah 59:1-8", "Matthew 9:27-34"], M: ["Psalm 64", "Job 18:1-21", "1 Corinthians 1:18-31"], Tu: ["Psalm 64", "Job 19:1-22", "Ephesians 2:11-22"], W: ["Psalm 64", "Ezekiel 32:1-10", "Luke 9:37-43"]},
     jun_26: {Th: ["Psalm 16", "Leviticus 9:22-10:11", "2 Corinthians 13:5-10"], F: ["Psalm 16", "2 Kings 1:1-16", "Galatians 4:8-20"], Sa: ["Psalm 16", "Deuteronomy 32:15-27, 39-43", "Luke 9:21-27"], M: ["Psalm 140", "Genesis 24:34-41, 50-67", "1 John 2:7-11"], Tu: ["Psalm 140", "Jeremiah 3:15-18", "Ephesians 5:6-20"], W: ["Psalm 140", "Jeremiah 23:16-22", "Matthew 10:16-25"]},
     jul_3: {Th: ["Psalm 66:1-9", "2 Kings 21:1-15", "Romans 7:14-25"], F: ["Psalm 66:1-9", "Jeremiah 51:47-58", "2 Corinthians 8:1-7"], Sa: ["Psalm 66:1-9", "Zechariah 14:10-21", "Luke 9:1-6"], M: ["Psalm 119:73-80", "Jeremiah 6:10-19", "Acts 19:21-27"], Tu: ["Psalm 119:73-80", "Jeremiah 8:4-13", "Acts 19:28-41"], W: ["Psalm 119:73-80", "Joshua 23:1-16", "Luke 10:13-16"]},
     jul_10: {Th: ["Psalm 25:1-10", "Genesis 41:14-36", "James 2:14-26"], F: ["Psalm 25:1-10", "Genesis 41:37-49", "Acts 7:9-16"], Sa: ["Psalm 25:1-10", "Leviticus 19:1-4, 32-37", "John 3:16-21"], M: ["Psalm 25:11-20", "Job 24:1-8", "James 2:1-7"], Tu: ["Psalm 25:11-20", "Proverbs 19:1-17", "1 John 3:11-17"], W: ["Psalm 25:11-20", "Ecclesiastes 9:13-18", "Matthew 25:31-46"]},
@@ -2399,11 +2399,11 @@ const DAILY_LECTIONARY = {
     aug_21: {Th: ["Psalm 103:1-8", "Numbers 15:32-41", "Hebrews 12:3-17"], F: ["Psalm 103:1-8", "2 Chronicles 8:12-15", "Acts 17:1-9"], Sa: ["Psalm 103:1-8", "Nehemiah 13:15-22", "Luke 6:1-5"], M: ["Psalm 109:21-31", "Ezekiel 20:1-17", "Hebrews 3:7-4:11"], Tu: ["Psalm 109:21-31", "Ezekiel 20:18-32", "Revelation 3:7-13"], W: ["Psalm 109:21-31", "Ezekiel 20:33-44", "Luke 6:6-11"]},
     aug_28: {Th: ["Psalm 112", "Proverbs 15:13-17", "1 Peter 3:8-12"], F: ["Psalm 112", "Proverbs 18:6-12", "1 Peter 4:7-11"], Sa: ["Psalm 112", "Proverbs 21:1-4, 24-26", "Matthew 20:20-28"], M: ["Psalm 119:65-72", "2 Chronicles 12:1-12", "Hebrews 13:7-21"], Tu: ["Psalm 119:65-72", "Isaiah 2:12-17", "Titus 1:1-9"], W: ["Psalm 119:65-72", "Isaiah 57:14-21", "Luke 14:15-24"]},
     sep_4: {Th: ["Psalm 1", "Genesis 39:1-23", "Philippians 2:25-30"], F: ["Psalm 1", "Deuteronomy 7:12-26", "Colossians 4:7-17"], Sa: ["Psalm 1", "Deuteronomy 29:2-20", "Matthew 10:34-42"], M: ["Psalm 101", "2 Kings 17:24-41", "1 Timothy 3:14-4:5"], Tu: ["Psalm 101", "2 Kings 18:9-18", "1 Timothy 4:6-16"], W: ["Psalm 101", "2 Kings 18:19-25; 19:1-7", "Luke 18:18-30"]},
-    sep_11: {Th: ["Psalm 51:1-10", "Genesis 6:1-6", "1 Timothy 1:1-11"], F: ["Psalm 51:1-10", "Genesis 7:6-10; 8:1-5", "2 Peter 2:1-10a"], Sa: ["Psalm 51:1-10", "Genesis 8:20-9:7", "John 10:11-21"], M: ["Psalm 73", "Amos 7:1-6", "1 Timothy 1:18-20"], Tu: ["Psalm 73", "Jonah 3:1-10", "2 Peter 3:8-13"], W: ["Psalm 73", "Job 40:6-14; 42:1-6", "Luke 22:31-33, 54-62"]},
+    sep_11: {Th: ["Psalm 51:1-10", "Genesis 6:1-6", "1 Timothy 1:1-11"], F: ["Psalm 51:1-10", "Genesis 7:6-10; 8:1-5", "2 Peter 2:1-10"], Sa: ["Psalm 51:1-10", "Genesis 8:20-9:7", "John 10:11-21"], M: ["Psalm 73", "Amos 7:1-6", "1 Timothy 1:18-20"], Tu: ["Psalm 73", "Jonah 3:1-10", "2 Peter 3:8-13"], W: ["Psalm 73", "Job 40:6-14; 42:1-6", "Luke 22:31-33, 54-62"]},
     sep_18: {Th: ["Psalm 113", "Exodus 23:1-9", "Romans 3:1-8"], F: ["Psalm 113", "Ezekiel 22:17-31", "Romans 8:31-39"], Sa: ["Psalm 113", "Isaiah 5:8-23", "Mark 12:41-44"], M: ["Psalm 12", "Proverbs 14:12-31", "Acts 4:1-12"], Tu: ["Psalm 12", "Proverbs 17:1-5", "1 Corinthians 9:19-23"], W: ["Psalm 12", "Proverbs 21:10-16", "Luke 20:45-21:4"]},
-    sep_25: {Th: ["Psalm 146", "Proverbs 22:2-16", "2 Corinthians 8:8-15"], F: ["Psalm 146", "Proverbs 28:3-10", "Ephesians 2:1-10"], Sa: ["Psalm 146", "Proverbs 28:11-28", "Luke 9:43b-48"], M: ["Psalm 62", "Amos 6:8-14", "Revelation 3:14-22"], Tu: ["Psalm 62", "Hosea 10:9-15", "James 5:1-6"], W: ["Psalm 62", "Hosea 12:2-14", "Matthew 19:16-22"]},
+    sep_25: {Th: ["Psalm 146", "Proverbs 22:2-16", "2 Corinthians 8:8-15"], F: ["Psalm 146", "Proverbs 28:3-10", "Ephesians 2:1-10"], Sa: ["Psalm 146", "Proverbs 28:11-28", "Luke 9:43-48"], M: ["Psalm 62", "Amos 6:8-14", "Revelation 3:14-22"], Tu: ["Psalm 62", "Hosea 10:9-15", "James 5:1-6"], W: ["Psalm 62", "Hosea 12:2-14", "Matthew 19:16-22"]},
     oct_2: {Th: ["Psalm 37:1-9", "2 Kings 18:1-8, 28-36", "Revelation 2:8-11"], F: ["Psalm 37:1-9", "2 Kings 19:8-20, 35-37", "Revelation 2:12-29"], Sa: ["Psalm 37:1-9", "Isaiah 7:1-9", "Matthew 20:29-34"], M: ["Psalm 3", "Habakkuk 1:5-17", "James 1:2-11"], Tu: ["Psalm 3", "Habakkuk 2:5-11", "1 John 5:1-5, 13-21"], W: ["Psalm 3", "Habakkuk 2:12-20", "Mark 11:12-14, 20-24"]},
-    oct_9: {Th: ["Psalm 111", "Leviticus 14:33-53", "2 Timothy 1:13-18"], F: ["Psalm 111", "Numbers 4:34-5:4", "2 Timothy 2:1-7"], Sa: ["Psalm 111", "Numbers 12:1-15", "Luke 5:12-16"], M: ["Psalm 61", "2 Kings 5:15-19a", "Acts 26:24-29"], Tu: ["Psalm 61", "2 Kings 5:19b-27", "Ephesians 6:10-20"], W: ["Psalm 61", "2 Kings 15:1-7", "Matthew 10:5-15"]},
+    oct_9: {Th: ["Psalm 111", "Leviticus 14:33-53", "2 Timothy 1:13-18"], F: ["Psalm 111", "Numbers 4:34-5:4", "2 Timothy 2:1-7"], Sa: ["Psalm 111", "Numbers 12:1-15", "Luke 5:12-16"], M: ["Psalm 61", "2 Kings 5:15-19", "Acts 26:24-29"], Tu: ["Psalm 61", "2 Kings 5:19-27", "Ephesians 6:10-20"], W: ["Psalm 61", "2 Kings 15:1-7", "Matthew 10:5-15"]},
     oct_16: {Th: ["Psalm 121", "Isaiah 54:11-17", "Acts 17:22-34"], F: ["Psalm 121", "Genesis 31:43-32:2", "2 Timothy 2:14-26"], Sa: ["Psalm 121", "Genesis 32:3-21", "Mark 10:46-52"], M: ["Psalm 57", "1 Samuel 25:2-22", "1 Corinthians 6:1-11"], Tu: ["Psalm 57", "1 Samuel 25:23-35", "James 5:7-12"], W: ["Psalm 57", "1 Samuel 25:36-42", "Luke 22:39-46"]},
     oct_23: {Th: ["Psalm 84:1-7", "Jeremiah 9:1-16", "2 Timothy 3:1-9"], F: ["Psalm 84:1-7", "Jeremiah 9:17-26", "2 Timothy 3:10-15"], Sa: ["Psalm 84:1-7", "Jeremiah 14:1-6", "Luke 1:46-55"], M: ["Psalm 84:8-12", "1 Samuel 2:1-10", "1 Peter 4:12-19"], Tu: ["Psalm 84:8-12", "Daniel 5:1-12", "1 Peter 5:1-11"], W: ["Psalm 84:8-12", "Daniel 5:13-31", "Matthew 21:28-32"]},
     oct_30: {Th: ["Psalm 32:1-7", "Proverbs 15:8-11, 24-33", "2 Corinthians 1:1-11"], F: ["Psalm 32:1-7", "Job 22:21-23:17", "2 Peter 1:1-11"], Sa: ["Psalm 32:1-7", "Isaiah 1:1-9", "John 8:39-47"], M: ["Psalm 50", "Nehemiah 13:1-3, 23-31", "1 Corinthians 5:9-13"], Tu: ["Psalm 50", "Zechariah 7:1-14", "Jude 5-21"], W: ["Psalm 50", "Amos 5:12-24", "Luke 19:11-27"]},
@@ -2564,7 +2564,7 @@ const RCL = {
   },
   "Advent 2": {
     A: { first: "Isaiah 11:1-10", psalm: "Psalm 72:1-7, 18-19", second: "Romans 15:4-13", gospel: "Matthew 3:1-12" },
-    B: { first: "Isaiah 40:1-11", psalm: "Psalm 85:1-2, 8-13", second: "2 Peter 3:8-15a", gospel: "Mark 1:1-8" },
+    B: { first: "Isaiah 40:1-11", psalm: "Psalm 85:1-2, 8-13", second: "2 Peter 3:8-15", gospel: "Mark 1:1-8" },
     C: { first: "Malachi 3:1-4", psalm: "Luke 1:68-79", second: "Philippians 1:3-11", gospel: "Luke 3:1-6" }
   },
   "Advent 3": {
@@ -2574,8 +2574,8 @@ const RCL = {
   },
   "Advent 4": {
     A: { first: "Isaiah 7:10-16", psalm: "Psalm 80:1-7, 17-19", second: "Romans 1:1-7", gospel: "Matthew 1:18-25" },
-    B: { first: "2 Samuel 7:1-11, 16", psalm: "Luke 1:46b-55", second: "Romans 16:25-27", gospel: "Luke 1:26-38" },
-    C: { first: "Micah 5:2-5a", psalm: "Luke 1:46b-55", second: "Hebrews 10:5-10", gospel: "Luke 1:39-45" }
+    B: { first: "2 Samuel 7:1-11, 16", psalm: "Luke 1:46-55", second: "Romans 16:25-27", gospel: "Luke 1:26-38" },
+    C: { first: "Micah 5:2-5", psalm: "Luke 1:46-55", second: "Hebrews 10:5-10", gospel: "Luke 1:39-45" }
   },
   "Christmas": {
     A: { first: "Isaiah 9:2-7", psalm: "Psalm 96", second: "Titus 2:11-14", gospel: "Luke 2:1-14" },
@@ -2605,7 +2605,7 @@ const RCL = {
   "Epiphany 3": {
     A: { first: "Isaiah 9:1-4", psalm: "Psalm 27:1, 4-9", second: "1 Corinthians 1:10-18", gospel: "Matthew 4:12-23" },
     B: { first: "Jonah 3:1-5, 10", psalm: "Psalm 62:5-12", second: "1 Corinthians 7:29-31", gospel: "Mark 1:14-20" },
-    C: { first: "Nehemiah 8:1-3, 5-6, 8-10", psalm: "Psalm 19", second: "1 Corinthians 12:12-31a", gospel: "Luke 4:14-21" }
+    C: { first: "Nehemiah 8:1-3, 5-6, 8-10", psalm: "Psalm 19", second: "1 Corinthians 12:12-31", gospel: "Luke 4:14-21" }
   },
   "Epiphany 4": {
     A: { first: "Micah 6:1-8", psalm: "Psalm 15", second: "1 Corinthians 1:18-31", gospel: "Matthew 5:1-12" },
@@ -2614,7 +2614,7 @@ const RCL = {
   },
   "Epiphany 5": {
     A: { first: "Isaiah 58:1-12", psalm: "Psalm 112:1-10", second: "1 Corinthians 2:1-16", gospel: "Matthew 5:13-20" },
-    B: { first: "Isaiah 40:21-31", psalm: "Psalm 147:1-11, 20c", second: "1 Corinthians 9:16-23", gospel: "Mark 1:29-39" },
+    B: { first: "Isaiah 40:21-31", psalm: "Psalm 147:1-11, 20", second: "1 Corinthians 9:16-23", gospel: "Mark 1:29-39" },
     C: { first: "Isaiah 6:1-13", psalm: "Psalm 138", second: "1 Corinthians 15:1-11", gospel: "Luke 5:1-11" }
   },
   "Epiphany 6": {
@@ -2628,27 +2628,27 @@ const RCL = {
     C: { first: "Genesis 45:3-11, 15", psalm: "Psalm 37:1-11, 39-40", second: "1 Corinthians 15:35-38, 42-50", gospel: "Luke 6:27-38" }
   },
   "Epiphany 8": {
-    A: { first: "Isaiah 49:8-16a", psalm: "Psalm 131", second: "1 Corinthians 4:1-5", gospel: "Matthew 6:24-34" },
+    A: { first: "Isaiah 49:8-16", psalm: "Psalm 131", second: "1 Corinthians 4:1-5", gospel: "Matthew 6:24-34" },
     B: { first: "Hosea 2:14-20", psalm: "Psalm 103:1-13, 22", second: "2 Corinthians 3:1-6", gospel: "Mark 2:13-22" },
     C: { first: "Isaiah 55:10-13", psalm: "Psalm 92:1-4, 12-15", second: "1 Corinthians 15:51-58", gospel: "Luke 6:39-49" }
   },
   "Transfiguration": {
     A: { first: "Exodus 24:12-18", psalm: "Psalm 2", second: "2 Peter 1:16-21", gospel: "Matthew 17:1-9" },
     B: { first: "2 Kings 2:1-12", psalm: "Psalm 50:1-6", second: "2 Corinthians 4:3-6", gospel: "Mark 9:2-9" },
-    C: { first: "Exodus 34:29-35", psalm: "Psalm 99", second: "2 Corinthians 3:12-4:2", gospel: "Luke 9:28-43a" }
+    C: { first: "Exodus 34:29-35", psalm: "Psalm 99", second: "2 Corinthians 3:12-4:2", gospel: "Luke 9:28-43" }
   },
   "Ash Wednesday": {
-    A: { first: "Joel 2:1-2, 12-17", psalm: "Psalm 51:1-17", second: "2 Corinthians 5:20b-6:10", gospel: "Matthew 6:1-6, 16-21" },
-    B: { first: "Joel 2:1-2, 12-17", psalm: "Psalm 51:1-17", second: "2 Corinthians 5:20b-6:10", gospel: "Matthew 6:1-6, 16-21" },
-    C: { first: "Joel 2:1-2, 12-17", psalm: "Psalm 51:1-17", second: "2 Corinthians 5:20b-6:10", gospel: "Matthew 6:1-6, 16-21" }
+    A: { first: "Joel 2:1-2, 12-17", psalm: "Psalm 51:1-17", second: "2 Corinthians 5:20-6:10", gospel: "Matthew 6:1-6, 16-21" },
+    B: { first: "Joel 2:1-2, 12-17", psalm: "Psalm 51:1-17", second: "2 Corinthians 5:20-6:10", gospel: "Matthew 6:1-6, 16-21" },
+    C: { first: "Joel 2:1-2, 12-17", psalm: "Psalm 51:1-17", second: "2 Corinthians 5:20-6:10", gospel: "Matthew 6:1-6, 16-21" }
   },
   "Lent 1": {
     A: { first: "Genesis 2:15-17; 3:1-7", psalm: "Psalm 32", second: "Romans 5:12-19", gospel: "Matthew 4:1-11" },
     B: { first: "Genesis 9:8-17", psalm: "Psalm 25:1-10", second: "1 Peter 3:18-22", gospel: "Mark 1:9-15" },
-    C: { first: "Deuteronomy 26:1-11", psalm: "Psalm 91:1-2, 9-16", second: "Romans 10:8b-13", gospel: "Luke 4:1-13" }
+    C: { first: "Deuteronomy 26:1-11", psalm: "Psalm 91:1-2, 9-16", second: "Romans 10:8-13", gospel: "Luke 4:1-13" }
   },
   "Lent 2": {
-    A: { first: "Genesis 12:1-4a", psalm: "Psalm 121", second: "Romans 4:1-5, 13-17", gospel: "John 3:1-17" },
+    A: { first: "Genesis 12:1-4", psalm: "Psalm 121", second: "Romans 4:1-5, 13-17", gospel: "John 3:1-17" },
     B: { first: "Genesis 17:1-7, 15-16", psalm: "Psalm 22:23-31", second: "Romans 4:13-25", gospel: "Mark 8:31-38" },
     C: { first: "Genesis 15:1-12, 17-18", psalm: "Psalm 27", second: "Philippians 3:17-4:1", gospel: "Luke 13:31-35" }
   },
@@ -2660,27 +2660,27 @@ const RCL = {
   "Lent 4": {
     A: { first: "1 Samuel 16:1-13", psalm: "Psalm 23", second: "Ephesians 5:8-14", gospel: "John 9:1-41" },
     B: { first: "Numbers 21:4-9", psalm: "Psalm 107:1-3, 17-22", second: "Ephesians 2:1-10", gospel: "John 3:14-21" },
-    C: { first: "Joshua 5:9-12", psalm: "Psalm 32", second: "2 Corinthians 5:16-21", gospel: "Luke 15:1-3, 11b-32" }
+    C: { first: "Joshua 5:9-12", psalm: "Psalm 32", second: "2 Corinthians 5:16-21", gospel: "Luke 15:1-3, 11-32" }
   },
   "Lent 5": {
     A: { first: "Ezekiel 37:1-14", psalm: "Psalm 130", second: "Romans 8:6-11", gospel: "John 11:1-45" },
     B: { first: "Jeremiah 31:31-34", psalm: "Psalm 51:1-12", second: "Hebrews 5:5-10", gospel: "John 12:20-33" },
-    C: { first: "Isaiah 43:16-21", psalm: "Psalm 126", second: "Philippians 3:4b-14", gospel: "John 12:1-8" }
+    C: { first: "Isaiah 43:16-21", psalm: "Psalm 126", second: "Philippians 3:4-14", gospel: "John 12:1-8" }
   },
   "Lent 6": {
-    A: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Matthew 26:14-27:66" },
-    B: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Mark 14:1-15:47" },
-    C: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Luke 22:14-23:56" }
+    A: { first: "Isaiah 50:4-9", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Matthew 26:14-27:66" },
+    B: { first: "Isaiah 50:4-9", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Mark 14:1-15:47" },
+    C: { first: "Isaiah 50:4-9", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Luke 22:14-23:56" }
   },
   "Palm Sunday": {
-    A: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Matthew 26:14-27:66" },
-    B: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Mark 14:1-15:47" },
-    C: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Luke 22:14-23:56" }
+    A: { first: "Isaiah 50:4-9", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Matthew 26:14-27:66" },
+    B: { first: "Isaiah 50:4-9", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Mark 14:1-15:47" },
+    C: { first: "Isaiah 50:4-9", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Luke 22:14-23:56" }
   },
   "Holy Week": {
-    A: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Matthew 26:14-27:66" },
-    B: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Mark 14:1-15:47" },
-    C: { first: "Isaiah 50:4-9a", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Luke 22:14-23:56" }
+    A: { first: "Isaiah 50:4-9", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Matthew 26:14-27:66" },
+    B: { first: "Isaiah 50:4-9", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Mark 14:1-15:47" },
+    C: { first: "Isaiah 50:4-9", psalm: "Psalm 31:9-16", second: "Philippians 2:5-11", gospel: "Luke 22:14-23:56" }
   },
   "Three Days": {
     A: { first: "Acts 10:34-43", psalm: "Psalm 118:1-2, 14-24", second: "Colossians 3:1-4", gospel: "John 20:1-18" },
@@ -2688,9 +2688,9 @@ const RCL = {
     C: { first: "Acts 10:34-43", psalm: "Psalm 118:1-2, 14-24", second: "1 Corinthians 15:19-26", gospel: "Luke 24:1-12" }
   },
   "Maundy Thursday": {
-    A: { first: "Exodus 12:1-14", psalm: "Psalm 116:1-2, 12-19", second: "1 Corinthians 11:23-26", gospel: "John 13:1-17, 31b-35" },
-    B: { first: "Exodus 12:1-14", psalm: "Psalm 116:1-2, 12-19", second: "1 Corinthians 11:23-26", gospel: "John 13:1-17, 31b-35" },
-    C: { first: "Exodus 12:1-14", psalm: "Psalm 116:1-2, 12-19", second: "1 Corinthians 11:23-26", gospel: "John 13:1-17, 31b-35" }
+    A: { first: "Exodus 12:1-14", psalm: "Psalm 116:1-2, 12-19", second: "1 Corinthians 11:23-26", gospel: "John 13:1-17, 31-35" },
+    B: { first: "Exodus 12:1-14", psalm: "Psalm 116:1-2, 12-19", second: "1 Corinthians 11:23-26", gospel: "John 13:1-17, 31-35" },
+    C: { first: "Exodus 12:1-14", psalm: "Psalm 116:1-2, 12-19", second: "1 Corinthians 11:23-26", gospel: "John 13:1-17, 31-35" }
   },
   "Good Friday": {
     A: { first: "Isaiah 52:13-53:12", psalm: "Psalm 22", second: "Hebrews 10:16-25", gospel: "John 18:1-19:42" },
@@ -2708,13 +2708,13 @@ const RCL = {
     C: { first: "Acts 10:34-43", psalm: "Psalm 118:1-2, 14-24", second: "1 Corinthians 15:19-26", gospel: "Luke 24:1-12" }
   },
   "Easter 2": {
-    A: { first: "Acts 2:14a, 22-32", psalm: "Psalm 16", second: "1 Peter 1:3-9", gospel: "John 20:19-31" },
+    A: { first: "Acts 2:14, 22-32", psalm: "Psalm 16", second: "1 Peter 1:3-9", gospel: "John 20:19-31" },
     B: { first: "Acts 4:32-35", psalm: "Psalm 133", second: "1 John 1:1-2:2", gospel: "John 20:19-31" },
     C: { first: "Acts 5:27-32", psalm: "Psalm 150", second: "Revelation 1:4-8", gospel: "John 20:19-31" }
   },
   "Easter 3": {
-    A: { first: "Acts 2:14a, 36-41", psalm: "Psalm 116:1-4, 12-19", second: "1 Peter 1:17-23", gospel: "Luke 24:13-35" },
-    B: { first: "Acts 3:12-19", psalm: "Psalm 4", second: "1 John 3:1-7", gospel: "Luke 24:36b-48" },
+    A: { first: "Acts 2:14, 36-41", psalm: "Psalm 116:1-4, 12-19", second: "1 Peter 1:17-23", gospel: "Luke 24:13-35" },
+    B: { first: "Acts 3:12-19", psalm: "Psalm 4", second: "1 John 3:1-7", gospel: "Luke 24:36-48" },
     C: { first: "Acts 9:1-20", psalm: "Psalm 30", second: "Revelation 5:11-14", gospel: "John 21:1-19" }
   },
   "Easter 4": {
@@ -2743,22 +2743,22 @@ const RCL = {
     C: { first: "Acts 1:1-11", psalm: "Psalm 47", second: "Ephesians 1:15-23", gospel: "Luke 24:44-53" }
   },
   "Pentecost": {
-    A: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35b", second: "1 Corinthians 12:3b-13", gospel: "John 20:19-23" },
-    B: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35b", second: "Romans 8:22-27", gospel: "John 15:26-27; 16:4b-15" },
-    C: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35b", second: "Romans 8:14-17", gospel: "John 14:8-17" }
+    A: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35", second: "1 Corinthians 12:3-13", gospel: "John 20:19-23" },
+    B: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35", second: "Romans 8:22-27", gospel: "John 15:26-27; 16:4-15" },
+    C: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35", second: "Romans 8:14-17", gospel: "John 14:8-17" }
   },
   "Day of Pentecost": {
-    A: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35b", second: "1 Corinthians 12:3b-13", gospel: "John 20:19-23" },
-    B: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35b", second: "Romans 8:22-27", gospel: "John 15:26-27; 16:4b-15" },
-    C: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35b", second: "Romans 8:14-17", gospel: "John 14:8-17" }
+    A: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35", second: "1 Corinthians 12:3-13", gospel: "John 20:19-23" },
+    B: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35", second: "Romans 8:22-27", gospel: "John 15:26-27; 16:4-15" },
+    C: { first: "Acts 2:1-21", psalm: "Psalm 104:24-34, 35", second: "Romans 8:14-17", gospel: "John 14:8-17" }
   },
   "Holy Trinity": {
-    A: { first: "Genesis 1:1-2:4a", psalm: "Psalm 8", second: "2 Corinthians 13:11-13", gospel: "Matthew 28:16-20" },
+    A: { first: "Genesis 1:1-2:4", psalm: "Psalm 8", second: "2 Corinthians 13:11-13", gospel: "Matthew 28:16-20" },
     B: { first: "Isaiah 6:1-8", psalm: "Psalm 29", second: "Romans 8:12-17", gospel: "John 3:1-17" },
     C: { first: "Proverbs 8:1-4, 22-31", psalm: "Psalm 8", second: "Romans 5:1-5", gospel: "John 16:12-15" }
   },
   "May 24": {
-    A: { first: "Genesis 6:9-22; 7:24; 8:14-19", psalm: "Psalm 46", second: "Romans 1:16-17; 3:22b-28", gospel: "Matthew 7:21-29" },
+    A: { first: "Genesis 6:9-22; 7:24; 8:14-19", psalm: "Psalm 46", second: "Romans 1:16-17; 3:22-28", gospel: "Matthew 7:21-29" },
     B: { first: "1 Samuel 3:1-20", psalm: "Psalm 139:1-6, 13-18", second: "2 Corinthians 4:5-12", gospel: "Mark 2:23-3:6" },
     C: { first: "1 Kings 8:22-23, 41-43", psalm: "Psalm 96:1-9", second: "Galatians 1:1-12", gospel: "Luke 7:1-10" }
   },
@@ -2770,11 +2770,11 @@ const RCL = {
   "Jun 5": {
     A: { first: "Genesis 18:1-15; 21:1-7", psalm: "Psalm 116:1-2, 12-19", second: "Romans 5:1-8", gospel: "Matthew 9:35-10:8" },
     B: { first: "1 Samuel 15:34-16:13", psalm: "Psalm 20", second: "2 Corinthians 5:6-17", gospel: "Mark 4:26-34" },
-    C: { first: "1 Kings 21:1-21a", psalm: "Psalm 5:1-8", second: "Galatians 2:15-21", gospel: "Luke 7:36-8:3" }
+    C: { first: "1 Kings 21:1-21", psalm: "Psalm 5:1-8", second: "Galatians 2:15-21", gospel: "Luke 7:36-8:3" }
   },
   "Jun 12": {
-    A: { first: "Genesis 21:8-21", psalm: "Psalm 86:1-10, 16-17", second: "Romans 6:1b-11", gospel: "Matthew 10:24-39" },
-    B: { first: "1 Samuel 17:1a, 4-11, 19-23, 32-49", psalm: "Psalm 9:9-20", second: "2 Corinthians 6:1-13", gospel: "Mark 4:35-41" },
+    A: { first: "Genesis 21:8-21", psalm: "Psalm 86:1-10, 16-17", second: "Romans 6:1-11", gospel: "Matthew 10:24-39" },
+    B: { first: "1 Samuel 17:1, 4-11, 19-23, 32-49", psalm: "Psalm 9:9-20", second: "2 Corinthians 6:1-13", gospel: "Mark 4:35-41" },
     C: { first: "2 Kings 2:1-2, 6-14", psalm: "Psalm 77:1-2, 11-20", second: "Galatians 5:1, 13-25", gospel: "Luke 9:51-62" }
   },
   "Jun 19": {
@@ -2783,37 +2783,37 @@ const RCL = {
     C: { first: "2 Kings 5:1-14", psalm: "Psalm 30", second: "Galatians 6:1-16", gospel: "Luke 10:1-11, 16-20" }
   },
   "Jun 26": {
-    A: { first: "Genesis 24:34-38, 42-49, 58-67", psalm: "Psalm 45:10-17", second: "Romans 7:15-25a", gospel: "Matthew 11:16-19, 25-30" },
+    A: { first: "Genesis 24:34-38, 42-49, 58-67", psalm: "Psalm 45:10-17", second: "Romans 7:15-25", gospel: "Matthew 11:16-19, 25-30" },
     B: { first: "2 Samuel 5:1-5, 9-10", psalm: "Psalm 48", second: "2 Corinthians 12:2-10", gospel: "Mark 6:1-13" },
     C: { first: "2 Kings 5:1-14", psalm: "Psalm 30", second: "Galatians 6:1-16", gospel: "Luke 10:25-37" }
   },
   "Jul 3": {
     A: { first: "Genesis 25:19-34", psalm: "Psalm 119:105-112", second: "Romans 8:1-11", gospel: "Matthew 13:1-9, 18-23" },
-    B: { first: "2 Samuel 6:1-5, 12b-19", psalm: "Psalm 24", second: "Ephesians 1:3-14", gospel: "Mark 6:14-29" },
+    B: { first: "2 Samuel 6:1-5, 12-19", psalm: "Psalm 24", second: "Ephesians 1:3-14", gospel: "Mark 6:14-29" },
     C: { first: "Amos 7:7-17", psalm: "Psalm 82", second: "Colossians 1:1-14", gospel: "Luke 10:25-37" }
   },
   "Jul 10": {
-    A: { first: "Genesis 28:10-19a", psalm: "Psalm 139:1-12, 23-24", second: "Romans 8:12-25", gospel: "Matthew 13:24-30, 36-43" },
-    B: { first: "2 Samuel 7:1-14a", psalm: "Psalm 89:20-37", second: "Ephesians 2:11-22", gospel: "Mark 6:30-34, 53-56" },
+    A: { first: "Genesis 28:10-19", psalm: "Psalm 139:1-12, 23-24", second: "Romans 8:12-25", gospel: "Matthew 13:24-30, 36-43" },
+    B: { first: "2 Samuel 7:1-14", psalm: "Psalm 89:20-37", second: "Ephesians 2:11-22", gospel: "Mark 6:30-34, 53-56" },
     C: { first: "Amos 8:1-12", psalm: "Psalm 52", second: "Colossians 1:15-28", gospel: "Luke 10:38-42" }
   },
   "Jul 17": {
-    A: { first: "Genesis 29:15-28", psalm: "Psalm 105:1-11, 45b", second: "Romans 8:26-39", gospel: "Matthew 13:31-33, 44-52" },
+    A: { first: "Genesis 29:15-28", psalm: "Psalm 105:1-11, 45", second: "Romans 8:26-39", gospel: "Matthew 13:31-33, 44-52" },
     B: { first: "2 Samuel 11:1-15", psalm: "Psalm 14", second: "Ephesians 3:14-21", gospel: "John 6:1-21" },
     C: { first: "Hosea 1:2-10", psalm: "Psalm 85", second: "Colossians 2:6-19", gospel: "Luke 11:1-13" }
   },
   "Jul 24": {
     A: { first: "Genesis 32:22-31", psalm: "Psalm 17:1-7, 15", second: "Romans 9:1-5", gospel: "Matthew 14:13-21" },
-    B: { first: "2 Samuel 11:26-12:13a", psalm: "Psalm 51:1-12", second: "Ephesians 4:1-16", gospel: "John 6:24-35" },
+    B: { first: "2 Samuel 11:26-12:13", psalm: "Psalm 51:1-12", second: "Ephesians 4:1-16", gospel: "John 6:24-35" },
     C: { first: "Hosea 11:1-11", psalm: "Psalm 107:1-9, 43", second: "Colossians 3:1-11", gospel: "Luke 12:13-21" }
   },
   "Jul 31": {
-    A: { first: "Genesis 37:1-4, 12-28", psalm: "Psalm 105:1-6, 16-22, 45b", second: "Romans 10:5-15", gospel: "Matthew 14:22-33" },
+    A: { first: "Genesis 37:1-4, 12-28", psalm: "Psalm 105:1-6, 16-22, 45", second: "Romans 10:5-15", gospel: "Matthew 14:22-33" },
     B: { first: "2 Samuel 18:5-9, 15, 31-33", psalm: "Psalm 130", second: "Ephesians 4:25-5:2", gospel: "John 6:35, 41-51" },
     C: { first: "Isaiah 1:1, 10-20", psalm: "Psalm 50:1-8, 22-23", second: "Hebrews 11:1-3, 8-16", gospel: "Luke 12:32-40" }
   },
   "Aug 7": {
-    A: { first: "Genesis 45:1-15", psalm: "Psalm 133", second: "Romans 11:1-2a, 29-32", gospel: "Matthew 15:10-28" },
+    A: { first: "Genesis 45:1-15", psalm: "Psalm 133", second: "Romans 11:1-2, 29-32", gospel: "Matthew 15:10-28" },
     B: { first: "1 Kings 2:10-12; 3:3-14", psalm: "Psalm 111", second: "Ephesians 5:15-20", gospel: "John 6:51-58" },
     C: { first: "Isaiah 5:1-7", psalm: "Psalm 80:1-2, 8-19", second: "Hebrews 11:29-12:2", gospel: "Luke 12:49-56" }
   },
@@ -2823,7 +2823,7 @@ const RCL = {
     C: { first: "Jeremiah 1:4-10", psalm: "Psalm 71:1-6", second: "Hebrews 12:18-29", gospel: "Luke 13:10-17" }
   },
   "Aug 21": {
-    A: { first: "Exodus 3:1-15", psalm: "Psalm 105:1-6, 23-26, 45c", second: "Romans 12:9-21", gospel: "Matthew 16:21-28" },
+    A: { first: "Exodus 3:1-15", psalm: "Psalm 105:1-6, 23-26, 45", second: "Romans 12:9-21", gospel: "Matthew 16:21-28" },
     B: { first: "Song of Solomon 2:8-13", psalm: "Psalm 45:1-2, 6-9", second: "James 1:17-27", gospel: "Mark 7:1-8, 14-15, 21-23" },
     C: { first: "Jeremiah 2:4-13", psalm: "Psalm 81:1, 10-16", second: "Hebrews 13:1-8, 15-16", gospel: "Luke 14:1, 7-14" }
   },
@@ -2839,16 +2839,16 @@ const RCL = {
   },
   "Sep 11": {
     A: { first: "Exodus 16:2-15", psalm: "Psalm 105:1-6, 37-45", second: "Philippians 1:21-30", gospel: "Matthew 20:1-16" },
-    B: { first: "Proverbs 31:10-31", psalm: "Psalm 1", second: "James 3:13-4:3, 7-8a", gospel: "Mark 9:30-37" },
+    B: { first: "Proverbs 31:10-31", psalm: "Psalm 1", second: "James 3:13-4:3, 7-8", gospel: "Mark 9:30-37" },
     C: { first: "Jeremiah 8:18-9:1", psalm: "Psalm 79:1-9", second: "1 Timothy 2:1-7", gospel: "Luke 16:1-13" }
   },
   "Sep 18": {
     A: { first: "Exodus 17:1-7", psalm: "Psalm 78:1-4, 12-16", second: "Philippians 2:1-13", gospel: "Matthew 21:23-32" },
     B: { first: "Esther 7:1-6, 9-10; 9:20-22", psalm: "Psalm 124", second: "James 5:13-20", gospel: "Mark 9:38-50" },
-    C: { first: "Jeremiah 32:1-3a, 6-15", psalm: "Psalm 91:1-6, 14-16", second: "1 Timothy 6:6-19", gospel: "Luke 16:19-31" }
+    C: { first: "Jeremiah 32:1-3, 6-15", psalm: "Psalm 91:1-6, 14-16", second: "1 Timothy 6:6-19", gospel: "Luke 16:19-31" }
   },
   "Sep 25": {
-    A: { first: "Exodus 20:1-4, 7-9, 12-20", psalm: "Psalm 19", second: "Philippians 3:4b-14", gospel: "Matthew 21:33-46" },
+    A: { first: "Exodus 20:1-4, 7-9, 12-20", psalm: "Psalm 19", second: "Philippians 3:4-14", gospel: "Matthew 21:33-46" },
     B: { first: "Job 1:1; 2:1-10", psalm: "Psalm 26", second: "Hebrews 1:1-4; 2:5-12", gospel: "Mark 10:2-16" },
     C: { first: "Lamentations 1:1-6", psalm: "Psalm 137", second: "2 Timothy 1:1-14", gospel: "Luke 17:5-10" }
   },
@@ -2859,7 +2859,7 @@ const RCL = {
   },
   "Oct 9": {
     A: { first: "Exodus 33:12-23", psalm: "Psalm 99", second: "1 Thessalonians 1:1-10", gospel: "Matthew 22:15-22" },
-    B: { first: "Job 38:1-7, 34-41", psalm: "Psalm 104:1-9, 24, 35c", second: "Hebrews 5:1-10", gospel: "Mark 10:35-45" },
+    B: { first: "Job 38:1-7, 34-41", psalm: "Psalm 104:1-9, 24, 35", second: "Hebrews 5:1-10", gospel: "Mark 10:35-45" },
     C: { first: "Joel 2:23-32", psalm: "Psalm 65", second: "2 Timothy 3:14-4:5", gospel: "Luke 18:1-8" }
   },
   "Oct 16": {
@@ -2873,23 +2873,23 @@ const RCL = {
     C: { first: "Isaiah 1:10-18", psalm: "Psalm 32:1-7", second: "2 Thessalonians 1:1-4, 11-12", gospel: "Luke 19:1-10" }
   },
   "Oct 30": {
-    A: { first: "Joshua 24:1-3a, 14-25", psalm: "Psalm 78:1-7", second: "1 Thessalonians 4:13-18", gospel: "Matthew 25:1-13" },
+    A: { first: "Joshua 24:1-3, 14-25", psalm: "Psalm 78:1-7", second: "1 Thessalonians 4:13-18", gospel: "Matthew 25:1-13" },
     B: { first: "Ruth 3:1-5; 4:13-17", psalm: "Psalm 127", second: "Hebrews 9:24-28", gospel: "Mark 12:38-44" },
     C: { first: "Isaiah 65:17-25", psalm: "Isaiah 12", second: "2 Thessalonians 3:6-13", gospel: "Luke 21:5-19" }
   },
   "Nov 6": {
     A: { first: "Judges 4:1-7", psalm: "Psalm 123", second: "1 Thessalonians 5:1-11", gospel: "Matthew 25:14-30" },
     B: { first: "1 Samuel 1:4-20", psalm: "1 Samuel 2:1-10", second: "Hebrews 10:11-25", gospel: "Mark 13:1-8" },
-    C: { first: "Haggai 1:15b-2:9", psalm: "Psalm 145:1-5, 17-21", second: "2 Thessalonians 2:1-5, 13-17", gospel: "Luke 20:27-38" }
+    C: { first: "Haggai 1:15-2:9", psalm: "Psalm 145:1-5, 17-21", second: "2 Thessalonians 2:1-5, 13-17", gospel: "Luke 20:27-38" }
   },
   "Nov 13": {
     A: { first: "Ezekiel 34:11-16, 20-24", psalm: "Psalm 100", second: "Ephesians 1:15-23", gospel: "Matthew 25:31-46" },
-    B: { first: "Daniel 7:9-10, 13-14", psalm: "Psalm 93", second: "Revelation 1:4b-8", gospel: "John 18:33-37" },
+    B: { first: "Daniel 7:9-10, 13-14", psalm: "Psalm 93", second: "Revelation 1:4-8", gospel: "John 18:33-37" },
     C: { first: "Jeremiah 23:1-6", psalm: "Psalm 46", second: "Colossians 1:11-20", gospel: "Luke 23:33-43" }
   },
   "Christ King": {
-    A: { first: "Ezekiel 34:11-16, 20-24", psalm: "Psalm 95:1-7a", second: "Ephesians 1:15-23", gospel: "Matthew 25:31-46" },
-    B: { first: "Daniel 7:9-10, 13-14", psalm: "Psalm 93", second: "Revelation 1:4b-8", gospel: "John 18:33-37" },
+    A: { first: "Ezekiel 34:11-16, 20-24", psalm: "Psalm 95:1-7", second: "Ephesians 1:15-23", gospel: "Matthew 25:31-46" },
+    B: { first: "Daniel 7:9-10, 13-14", psalm: "Psalm 93", second: "Revelation 1:4-8", gospel: "John 18:33-37" },
     C: { first: "Jeremiah 23:1-6", psalm: "Psalm 46", second: "Colossians 1:11-20", gospel: "Luke 23:33-43" }
   }
 };
