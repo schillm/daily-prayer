@@ -3117,8 +3117,11 @@ async function toggleReading(header, refEncoded) {
 
 async function fetchBibleText(ref, container) {
   try {
-    // Clean up reference: remove bracketed annotations
-    let cleanRef = ref.replace(/\[.*?\]/g, '').trim();
+    // Clean up reference: include bracketed (optional) verses by removing bracket characters,
+    // then join space-separated verse segments with commas for the API
+    // e.g. "Exodus 12:1-4 [5-10] 11-14" -> "Exodus 12:1-4 5-10 11-14" -> "Exodus 12:1-4,5-10,11-14"
+    let cleanRef = ref.replace(/[\[\]]/g, '').trim()
+      .replace(/(\d)\s+(\d)/g, '$1,$2');
 
     // Split on semicolons to handle multi-part references (e.g. "Ezekiel 1:1-3; 2:3-3:3")
     // Each part after the first may omit the book name, so we carry it forward
