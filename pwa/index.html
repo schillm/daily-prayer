@@ -3006,10 +3006,24 @@ function loadReadings() {
     var psalms = dailyReadings.filter(function(r) { return r.toLowerCase().startsWith('psalm'); });
     var others = dailyReadings.filter(function(r) { return !r.toLowerCase().startsWith('psalm'); });
 
+    // Detect canticle: if no psalm, the first reading serves as the canticle
+    var canticle = null;
+    var mainOthers = others;
+    if (psalms.length === 0 && others.length >= 3) {
+      canticle = others[0];
+      mainOthers = others.slice(1);
+    }
+
     var displayReadings = [];
     if (psalms.length > 0) displayReadings.push({ label: 'Psalm', ref: psalms[0] });
-    if (others.length > 0) displayReadings.push({ label: 'Reading 1', ref: others[0] });
-    if (others.length > 1) displayReadings.push({ label: 'Reading 2', ref: others[1] });
+    if (canticle) displayReadings.push({ label: 'Canticle', ref: canticle });
+    if (mainOthers.length > 0) displayReadings.push({ label: 'Reading 1', ref: mainOthers[0] });
+    if (mainOthers.length > 1) displayReadings.push({ label: 'Reading 2', ref: mainOthers[1] });
+    if (mainOthers.length > 2) {
+      mainOthers.slice(2).forEach(function(ref) {
+        displayReadings.push({ label: 'Gospel', ref: ref });
+      });
+    }
 
     displayReadings.forEach(function(r, i) {
       html += '<div class="reading-card">' +
@@ -3019,12 +3033,6 @@ function loadReadings() {
         '<div class="reading-body" id="reading-' + i + '">' +
         '<div class="loading">Tap to load ' + r.ref + '</div></div></div>';
     });
-
-    if (others.length > 2) {
-      html += '<div class="content-card" style="margin-top:8px">' +
-        '<p style="font-size:0.85rem;color:var(--text-secondary)"><strong>Additional readings:</strong> ' +
-        others.slice(2).join('; ') + '</p></div>';
-    }
   } else if (today.getDay() === 0) {
     // Sunday: try specific week key first (e.g., "Advent 3", "Lent 4"), then generic season
     var seasonKey = info.season;
